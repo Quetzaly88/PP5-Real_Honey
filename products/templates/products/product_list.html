@@ -1,3 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
 
+<!-- link to product.css only for this page -->
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+<!--Bootstrap 4 Card container -->
+{% block content %}
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row">
+            
+         <div class="col-sm-4">
+   <div class="card">
+      <div class="media media-2x1 gd-primary"><a class="media-content" style="background-image:url()" data-abc="true"><strong class="text-fade">BB Bootstrap</strong></a></div>
+      <div class="card-body">
+         <h5 class="card-title">Canola honey</h5>
+         <p class="card-text">In the months of aprit to may...</p>
+      </div>
+      
+      <div class="card-body"><a href="#" class="card-link" data-abc="true">Shop</a> <a href="#" class="card-link" data-abc="true">like</a></div>
+   </div>
+</div>
+{% endblock %}
