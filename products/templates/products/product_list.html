@@ -9,10 +9,11 @@
 <div class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row">
-            
+         {% for product in products %}
          <div class="col-sm-4">
-   <div class="card">
-      <div class="media media-2x1 gd-primary"><a class="media-content" style="background-image:url()" data-abc="true"><strong class="text-fade">BB Bootstrap</strong></a></div>
+            <div class="card h-100">
+               <div class="media media-2x1 gd-primary">
+                  <a class="media-content" style="background-image:url('{{ product.image.url }}')" data-abc="true"><strong class="text-fade">BB Bootstrap</strong></a></div>
       <div class="card-body">
          <h5 class="card-title">Canola honey</h5>
          <p class="card-text">In the months of aprit to may...</p>
