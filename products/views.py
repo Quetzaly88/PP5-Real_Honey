@@ -7,7 +7,7 @@ def product_list(request):
     sort_by = request.GET.get('sort_by', 'name')
     products = Product.objects.all().order_by(sort_by)  
     
-    paginator = Paginator(products, 6) # Show 6 products per page
+    paginator = Paginator(products, 4) # Show 4 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
