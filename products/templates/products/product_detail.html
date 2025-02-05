@@ -3,8 +3,9 @@
 
 {% block content %}
 <div class="container my-5">
-   <div class="row">
-      <div class="col-md-6">
+   <div class="row align-items-center">
+      <!-- product image -->
+      <div class="col-md-6 text-center">
          {% if product.image %}
          <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
          {% else %}
@@ -12,14 +13,30 @@
          {% endif %}
       </div>
 
+      <!-- product details -->
       <div class="col-md-6">
-        <h2>{{ product.name }}</h2>
+         <h2 class="mb-3">{{ product.name }}</h2>
          <p class="lead">{{ product.description }}</p>
-         <h4 class="text-success">{{ product.price }}</h4>
+         <h4 class="text-success font-weight-bold">{{ product.price }}</h4>
 
-         <button class="btn btn-primary mt-3">Add to cart</button>
-         <a href="{% url 'product_list' %}" class="btn btn-outline-secondary mt-3">Back to products</a>
-        </div>
-    </div>
+         <!-- add to cart and wish list buttons -->
+         <div class="mt-4 d-flex gap-2">
+
+            <form method="POST" action="{% url 'add_to_cart' product.id %}">
+               {% csrf_token %}
+               <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </form>
+
+            <form method="POST" action="{% url 'add_to_wishlist' product.id %}">
+               {% csrf_token %}
+               <button type="submit" class="btn btn-outline-danger">Like</button>
+            </form>
+
+            <!-- Back to products -->
+            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">Back to Products</a>
+         </div>
+      </div>
+   </div>
 </div>
+
 {% endblock %}
