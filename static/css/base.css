@@ -1,27 +1,81 @@
 /* general styles */
 
-body {
+html, body {
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
     font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background-color: greenyellow;
+    color: #3f3d33; /* dark grey text */
+    background-color: #f9f3dd; /* light yellow background */
     margin: 0;
     padding: 0;
 }
 
-/* navbar styles */
-.narvbar_brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #333;
+/* main content */
+.main {
+    flex: 1;
 }
 
+/* navbar styles */
+.navbar {
+    background-color: #8E3614;
+}
+
+.navbar_brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+}  
+
+.navbar_nav .nav-link:hover {
+    color: #ffcc00; /* yellow */
+}
+
+/* hero section */
 .hero {
+    background-size: cover;
+    padding: 50px 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: #fff;
+}
+
+/* buttons */
+.btn-warning {
+    background-color: #ffcc00;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #8E3614;
+    opacity: 0.8;
+}
+
+.footer {
+    background-color: #D9C5A1;
+    color: #3f3d33;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.btn-social {
+    font-size: 1.5rem;
+}
+
+.btn-social:hover {
+    opacity: 0.8;
 }
