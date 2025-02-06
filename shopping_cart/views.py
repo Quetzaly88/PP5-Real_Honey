@@ -15,7 +15,7 @@ def add_to_cart(request, product_id):
         cart_item.save()
         messages.info(request, "This item quantity was updated.")
 
-    messages.success(request, f"{product.name}added to your cart.")
+    messages.success(request, f"{product.name} added to your cart.")
     return redirect('product_list')
 
 @login_required
@@ -23,3 +23,10 @@ def cart_view(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.get_total_price() for item in cart_items)
     return render(request, 'shopping_cart/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+@login_required
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    cart_item.delete()
+    messages.success(request, "Item removed from your cart.")
+    return redirect('cart')

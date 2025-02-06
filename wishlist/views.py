@@ -16,3 +16,10 @@ def add_to_wishlist(request, product_id):
 def wishlist_view(request):
     wishlist_items = WishlistItem.objects.filter(user=request.user)
     return render(request, 'wishlist/wishlist.html', {'wishlist_items': wishlist_items})
+
+@login_required
+def remove_from_wishlist(request, item_id):
+    wishlist_item = get_object_or_404(WishlistItem, id=item_id, user=request.user)   
+    wishlist_item.delete()
+    messages.success(request, "Item removed.")
+    return redirect('wishlist')
