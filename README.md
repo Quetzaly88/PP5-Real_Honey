@@ -12,3 +12,5 @@ This feature can be implemented in the future to allow administrators to upload 
 https://docs.djangoproject.com/en/5.1/howto/outputting-csv/
   
 color palette generator http://colormind.io/image/
+
+footer bootstrap snippet https://mdbootstrap.com/snippets/standard/mdbootstrap/2885115
