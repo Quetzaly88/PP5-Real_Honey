@@ -59,3 +59,8 @@ def remove_from_cart(request, item_id):
 
     messages.success(request, "Item removed from your cart.")
     return redirect('cart')
+
+# # Update cart quantity
+# def update_cart_quantity(request, item_id):
+#     if requeest.method == "POST":
+#         new_quantity = int(request.POST.get("quantity"))

@@ -11,14 +11,14 @@
 <div class="container my-4">
    <h2 class="text-center mb-4">The local honey</h2>
 
-   <!-- Sorting Dropdown -->
-   <form method="GET" class="form-inline justify-content-end">
-      <label class="mr-2" for="sort_by">Sort by:</label>
-      <select name="sort_by" id="sort_by" class="form-control" onchange="this.form.submit()">
-         <option value="name" {% if request.GET.sort_by == 'name' %}selected {% endif %}>Name</option>
-         <option value="price" {% if request.GET.sort_by == 'price' %}selected {% endif %}>Price</option>
-      </select>
-   </form>
+<!-- Sorting Dropdown -->
+<form method="GET" action="{% url 'product_list' %}" class="form-inline justify-content-end">
+   <label class="mr-2" for="sort_by">Sort by:</label>
+   <select name="sort_by" id="sort_by" class="form-control" onchange="this.form.submit()">
+       <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
+       <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price</option>
+   </select>
+</form>
 
    <!--Product Grid. Bootstrap 4 Card container -->
    <div class="row">

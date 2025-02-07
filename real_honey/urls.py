@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('accounts/', include('allauth.urls')),
     path('products/', include('products.urls')),
-    path('wishlist/', include('wishlist.urls')),    
+    path('wishlist/', include('wishlist.urls')),
     path('shopping_cart/', include('shopping_cart.urls')),
 ]
 
