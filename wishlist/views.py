@@ -23,3 +23,7 @@ def remove_from_wishlist(request, item_id):
     wishlist_item.delete()
     messages.success(request, "Item removed.")
     return redirect('wishlist')
+
+def login_redirect_view(request):
+    messages.info(request, "Please log in to save products to your wishlist.")
+    return redirect('account_login')

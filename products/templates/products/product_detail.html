@@ -29,7 +29,11 @@
 
             <form method="POST" action="{% url 'add_to_wishlist' product.id %}">
                {% csrf_token %}
+               {% if user.is_authenticated %}
                <button type="submit" class="btn btn-outline-danger">Like</button>
+               {% else %}
+                   <a href="{% url 'account_login' %}?next={{ request.path }}" class="btn btn-outline-danger">Like</a>
+               {% endif %}
             </form>
 
             <!-- Back to products -->

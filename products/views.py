@@ -13,6 +13,7 @@ def product_list(request):
     
     return render(request, 'products/product_list.html', {'products': page_obj, 'sort_by': sort_by})
 
-def product_detail(request, pk):
+def product_detail(request, pk): #Function parameter is called pk
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'products/product_detail.html', {'product': product})
+
