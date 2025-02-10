@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-4">
+    <h2>Wish list & Shopping Cart</h2>
+    <div class="row">
+        <!-- Wishlist section -->
+        <div class="col-md-6">
+            <h3>Your wish list</h3>
+            <ul class="list-group"</ul>
+                {% for item in wishlist_items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ item.product.name }}
+                    <div>
+                        <form method="POST" action="{% url 'add_to_cart' item.product.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-sm">Move to cart</button>
+                        </form>
+                        <form method="POST" action="{% url 'remove_from_wishlist' item.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </div>
+                </li>
+                {% empty %}
+                <p>No favourite items</p>
+                {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
