@@ -37,19 +37,33 @@ class Product(models.Model):
     image_2 = models.ImageField(
         upload_to='products/',
         blank=True,
-        null=True)
+        null=True
+    )
     category = models.CharField(
         max_length=100,
         choices=CATEGORY_CHOICES,
         blank=True,
         null=True,
     )
-    size = models.CharField(
-        max_length=100,
-        choices=SIZE_CHOICES,
+    sizes = models.ManyToManyField(
+        'ProductSize',
+        related_name='products',
         blank=True,
-        null=True,
     )
 
     def __str__(self):
         return self.name
+
+    def get_sizes(self):
+        return self.sizes.values_list('size', flat=True)
+
+
+class ProductSize(models.Model):
+    size = models.CharField(
+        max_length=100,
+        choices=SIZE_CHOICES,
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.size

@@ -25,12 +25,9 @@
          <h5 class="text-muted">Flavor Tones: {{ product.flavor_tones }}</h5>
          <h4 class="text-success font-weight-bold">Price: ${{ product.price }}</h4>
 
-         <!-- add to cart and wish list buttons
-         <div class="mt-4 d-flex gap-2"> -->
-
+         <!-- size selection -->
          <form method="POST" action="{% url 'add_to_cart' product.id %}" class="mt-4">
             {% csrf_token %}
-            <!-- size selection -->
             <div class="form-group">
                <label for="size">Select Size:</label>
                <select name="size" id="size" class="form-control" required>
