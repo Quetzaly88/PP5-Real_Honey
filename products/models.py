@@ -20,7 +20,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     season = models.CharField(
         max_length=100,
-        choices=CATEGORY_CHOICES,
         blank=True,
         null=True
     )
@@ -38,12 +37,6 @@ class Product(models.Model):
         upload_to='products/',
         blank=True,
         null=True
-    )
-    category = models.CharField(
-        max_length=100,
-        choices=CATEGORY_CHOICES,
-        blank=True,
-        null=True,
     )
     sizes = models.ManyToManyField(
         'ProductSize',

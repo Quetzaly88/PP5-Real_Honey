@@ -11,6 +11,22 @@
 <div class="container my-4">
    <h2 class="text-center mb-4">The local honey</h2>
 
+<!-- Search and filters -->
+<form method="GET" action="{% url 'product_list' %}" class="form-inline mb-3">
+   <input type="text" name="search" class="form-control mr-2" placeholder="Search products" value="{{ search_query }}">
+
+   <input type="number" name="price_min" class="form-control mr-2" placeholder="Min Price" value="{{ price_min }}">
+   <input type="number" name="price_max" class="form-control mr-2" placeholder="Max Price" value="{{ price_max }}">
+
+   <select name="size" class="form-control mr-2">
+      <option value="" {% if not size_filter %}selected{% endif %}>All Sizes</option>
+      <option value="450g" {% if '450' in size_filter %}selected{% endif %}>450g</option>
+      <option value="600g" {% if '600' in size_filter %}selected{% endif %}>600g</option>
+   </select>
+
+   <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <!-- Sorting Dropdown -->
 <form method="GET" action="{% url 'product_list' %}" class="form-inline justify-content-end">
    <label class="mr-2" for="sort_by">Sort by:</label>
