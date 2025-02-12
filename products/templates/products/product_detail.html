@@ -51,7 +51,7 @@
                <select name="size" id="size" class="form-control" required>
                   <option value="" disabled selected>Select Size</option>
                   {% for size in product.product_sizes.all %}
-                  <option value="{{ size.size }}">{{ size.size }} - ${{ size.size }}</option>
+                  <option value="{{ size.size }}">{{ size.size }} - ${{ size.price }}</option>
                   {% endfor %}
                </select>
             </div>

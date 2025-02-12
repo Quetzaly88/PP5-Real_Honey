@@ -21,7 +21,8 @@ def product_list(request):
         )
 
     if size_filter:
-        products = products.filter(product_sizes__size__in=size_filter).distinct()
+        products = products.filter(
+            product_sizes__size__in=size_filter).distinct()
 
     if price_min:
         products = products.filter(product_sizes__price__gte=price_min)
@@ -46,6 +47,8 @@ def product_list(request):
 
 
 def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+    product = get_object_or_404(
+        Product.objects.prefetch_related('product_sizes'), pk=pk)
     return render(request, 'products/product_detail.html', {
-        'product': product})
+        'product': product
+    })
