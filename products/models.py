@@ -1,12 +1,5 @@
 from django.db import models
 
-# Choices for category and size
-CATEGORY_CHOICES = [
-    ('spring', 'Spring'),
-    ('summer', 'Summer'),
-    ('autumn', 'Autumn'),
-    ('standard', 'Standard'),
-]
 
 SIZE_CHOICES = [
     ('450g', '450gr'),
@@ -17,7 +10,6 @@ SIZE_CHOICES = [
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
     season = models.CharField(
         max_length=100,
         blank=True,
@@ -38,25 +30,23 @@ class Product(models.Model):
         blank=True,
         null=True
     )
-    sizes = models.ManyToManyField(
-        'ProductSize',
-        related_name='products',
-        blank=True,
-    )
 
     def __str__(self):
         return self.name
 
-    def get_sizes(self):
-        return self.sizes.values_list('size', flat=True)
-
 
 class ProductSize(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="product_sizes",
+        default=1
+    )
     size = models.CharField(
         max_length=100,
         choices=SIZE_CHOICES,
-        unique=True,
     )
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return self.size
+        return f"{self.product.name} - {self.size} (${self.price})"

@@ -21,17 +21,17 @@ def product_list(request):
         )
 
     if size_filter:
-        products = products.filter(sizes__size__in=size_filter)
+        products = products.filter(product_sizes__size__in=size_filter).distinct()
 
     if price_min:
-        products = products.filter(price__gte=price_min)
+        products = products.filter(product_sizes__price__gte=price_min)
 
     if price_max:
-        products = products.filter(price__lte=price_max)
+        products = products.filter(product_sizes__price__lte=price_max)
 
     products = products.order_by(sort_by)
 
-    paginator = Paginator(products, 6)
+    paginator = Paginator(products, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
