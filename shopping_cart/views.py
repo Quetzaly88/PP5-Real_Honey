@@ -138,3 +138,37 @@ def validate_coupon(request):
             request.session['coupon_discount'] = 0
             messages.error(request, "Invalid coupon code.")
     return redirect('cart')
+
+
+# def save_for_later(request, item_id):
+#     if request.user.is_authenticated:
+#         cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+#         SavedCartItem.objects.create(
+#             user=request.user,
+#             product=cart_item.product,
+#             size=cart_item.size,
+#             quantity=cart_item.quantity,
+#         )
+#         cart_item.delete()
+#     else:
+#         pass
+
+#     messages.success(request, "Item saved for later.")
+#     return redirect('cart') 
+
+# def move_to_cart(request, item_id):
+#     if request.user.is_authenticated:
+#         saved_item = get_object_or_404(SavedCartItem, id=item_id, user=request.user)
+#         CartItem.objects.create(
+#             user=request.user,
+#             product=saved_item.product,
+#             size=saved_item.size,
+#             quantity=saved_item.quantity,
+#         )
+#         saved_item.delete()
+#     else:
+#         pass
+
+#     messages.success(request, "Item moved to cart.")
+#     return redirect('cart')
+        
