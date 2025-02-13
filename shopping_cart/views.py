@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import CartItem
 from products.models import ProductSize
+from django.conf import settings
 
 
 # Function to get cart(logged-in and guest)
@@ -54,11 +55,11 @@ def add_to_cart(request, product_id):
 def cart_view(request):
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
-        total_price = sum(item.get_total_price() for item in cart_items)
+        total_price = sum(Decimal(item.get_total_price()) for item in cart_items)  # Convert to decimals
     else:
         cart_items = request.session.get('cart', {})
         total_price = sum(
-            float(item['price']) * item['quantity']
+            Decimal(item['price']) * item['quantity']
             for item in cart_items.values()
         )
 
@@ -69,12 +70,12 @@ def cart_view(request):
         delivery_fee = 0
         free_delivery_delta = 0
     else:
-        delivery_fee = total_price * standard_delivery_percentage / 100
+        delivery_fee = total_price * standard_delivery_percentage / Decimal(100)
         free_delivery_delta = free_delivery_threshold - total_price
 
     # Apply coupon discount
-    coupon_discount = request.session.get('coupon_discount', 0)
-    grand_total = total_price + delivery_fee - coupon_discount
+    coupon_discount = Decimal(request.session.get('coupon_discount', 0))
+    grand_total = total_price + delivery_fee - coupon_discount  
 
     return render(request, 'shopping_cart/cart.html', {
         'cart_items': cart_items,
@@ -103,32 +104,52 @@ def remove_from_cart(request, item_id):
     return redirect('cart')
 
 
-# Update cart quantity
+# Update cart quantity/user story 4
 def update_cart_quantity(request, item_id):
     if request.method == "POST":
-        new_quantity = int(request.POST.get("quantity", 1))
-
+        new_quantity = request.POST.get('quantity', "1")
+        # Validate the quantity
+        try:
+            new_quantity = int(new_quantity)
+            if new_quantity < 1:
+                raise ValueError("Invalid quantity.")
+        except ValueError:
+            messages.error(request, "Invalid quantity.")
+            return redirect('cart')
+        
         if request.user.is_authenticated:
-            cart_item = get_object_or_404(
-                CartItem, id=item_id, user=request.user)
+            # for loged in users
+            cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
             cart_item.quantity = new_quantity
             cart_item.save()
         else:
+            # for guest users
             cart = request.session.get('cart', {})
             if str(item_id) in cart:
                 cart[str(item_id)]['quantity'] = new_quantity
+            else:
+                messages.error(request, "Item not found in your cart.")
+                return redirect('cart')
             request.session['cart'] = cart
 
         messages.success(request, "Cart updated.")
     return redirect('cart')
-
 
 # Coupon validation
 def validate_coupon(request):
     if request.method == "POST":
         coupon_code = request.POST.get('coupon_code', '').strip()
         try:
+            # Fetch coupon from the database and validate if it's active
             coupon = Coupon.objects.get(code=coupon_code, is_active=True)
+
+            # Check if the coupon has expired
+            if coupon.expiry_date and coupon.expiry_date < now():
+                messages.error(request, "Coupon has expired.")  # Add message
+                request.session['coupon_discount'] = 0
+                return redirect('cart')
+            
+            # Store the discount value in the session
             request.session['coupon_discount'] = (
                 coupon.value if coupon.discount_type == 'fixed'
                 else request.session.get('cart_total') * coupon.value / 100
@@ -138,6 +159,11 @@ def validate_coupon(request):
             request.session['coupon_discount'] = 0
             messages.error(request, "Invalid coupon code.")
     return redirect('cart')
+
+
+
+
+
 
 
 # def save_for_later(request, item_id):
