@@ -102,3 +102,21 @@ def update_cart_quantity(request, item_id):
 
         messages.success(request, "Cart updated.")
     return redirect('cart')
+
+
+# Coupon validation
+def validate_coupon(request):
+    if request.method == "POST":
+        coupon_code = request.POST.get('coupon_code', '').strip()
+        print(f"Validating coupon code: {coupon_code}")
+        try:
+            coupon = Coupon.objects.get(code=coupon_code, is_active=True)
+            request.session['coupon_discount'] = (
+                coupon.value if coupon.discount_type == 'fixed'
+                else request.session.get('cart_total') * coupon.value / 100
+            )
+            messages.success(request, "Coupon applied.")
+        except Coupon.DoesNotExist:
+            request.session['coupon_discount'] = 0
+            messages.error(request, "Invalid coupon code.")
+    return redirect('cart')

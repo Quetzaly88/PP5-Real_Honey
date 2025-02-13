@@ -8,12 +8,36 @@
             {% for item in cart_items %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     {{ item.product.name }} - {{ item.quantity }} x ${{ item.product.price }}
+                    
+                    <div>
+                        <form method="POST" action="{%url 'update_cart_quantity' item.id %}">
+                            {csrf_token %}
+                            <div>
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" />
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                    
                     <div>
                         <strong>${{ item.get_total_price }}</strong>
                         <form method="POST" action="{% url 'remove_from_cart' item.id %}" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger btn-sm">Remove from cart</button>
                         </form>
+                    </div>
+
+                    <div>
+                        <form method="POST" action="{% url 'validate_coupon' %}">
+                            {% csrf_token %}
+                            <div>
+                                <input type="text" name="coupon_code" placeholder="Enter coupon code" />
+                                <button type="submit" class="btn btn-success btn-sm">Apply coupon</button>
+                            </div>
+                        </form>
+                        {% if coupon_discount %}
+                            <p>Discount applied: {{ coupon_discount }}</p>
+                        {% endif %}
                     </div>
                 </li>
             {% empty %}
