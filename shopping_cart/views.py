@@ -59,11 +59,30 @@ def cart_view(request):
         cart_items = request.session.get('cart', {})
         total_price = sum(
             float(item['price']) * item['quantity']
-            for item in cart_items.values())
+            for item in cart_items.values()
+        )
+
+    # Delivery Fee logic
+    free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
+    standard_delivery_percentage = settings.STANDARD_DELIVERY_PERCENTAGE
+    if total_price >= free_delivery_threshold:
+        delivery_fee = 0
+        free_delivery_delta = 0
+    else:
+        delivery_fee = total_price * standard_delivery_percentage / 100
+        free_delivery_delta = free_delivery_threshold - total_price
+
+    # Apply coupon discount
+    coupon_discount = request.session.get('coupon_discount', 0)
+    grand_total = total_price + delivery_fee - coupon_discount
 
     return render(request, 'shopping_cart/cart.html', {
         'cart_items': cart_items,
         'total_price': total_price,
+        'delivery_fee': delivery_fee,
+        'free_delivery_delta': free_delivery_delta,
+        'coupon_discount': coupon_discount,
+        'grand_total': grand_total,
     })
 
 
@@ -108,7 +127,6 @@ def update_cart_quantity(request, item_id):
 def validate_coupon(request):
     if request.method == "POST":
         coupon_code = request.POST.get('coupon_code', '').strip()
-        print(f"Validating coupon code: {coupon_code}")
         try:
             coupon = Coupon.objects.get(code=coupon_code, is_active=True)
             request.session['coupon_discount'] = (
