@@ -47,6 +47,7 @@ class ProductSize(models.Model):
         choices=SIZE_CHOICES,
     )
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+    stock = models.PositiveIntegerField(default=0) # New field for stock avaiability
 
     def __str__(self):
         return f"{self.product.name} - {self.size} (${self.price})"

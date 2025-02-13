@@ -3,6 +3,9 @@ from django.contrib import messages
 from .models import CartItem
 from products.models import ProductSize
 from django.conf import settings
+from decimal import Decimal  # for decimal calculations
+from .models import Coupon
+from django.utils.timezone import now
 
 
 # Function to get cart(logged-in and guest)
@@ -55,7 +58,9 @@ def add_to_cart(request, product_id):
 def cart_view(request):
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
-        total_price = sum(Decimal(item.get_total_price()) for item in cart_items)  # Convert to decimals
+        total_price = sum(
+            Decimal(item.get_total_price()) for item in cart_items
+            )  # Convert to decimals
     else:
         cart_items = request.session.get('cart', {})
         total_price = sum(
@@ -64,18 +69,19 @@ def cart_view(request):
         )
 
     # Delivery Fee logic
-    free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
-    standard_delivery_percentage = settings.STANDARD_DELIVERY_PERCENTAGE
+    free_delivery_threshold = Decimal(settings.FREE_DELIVERY_THRESHOLD)
+    standard_delivery_percentage = Decimal(settings.STANDARD_DELIVERY_PERCENTAGE)
+
     if total_price >= free_delivery_threshold:
-        delivery_fee = 0
-        free_delivery_delta = 0
+        delivery_fee = Decimal('0')
+        free_delivery_delta = Decimal('0')
     else:
-        delivery_fee = total_price * standard_delivery_percentage / Decimal(100)
-        free_delivery_delta = free_delivery_threshold - total_price
+        delivery_fee = (total_price * standard_delivery_percentage / Decimal('100')).quantize(Decimal('0.01'))
+        free_delivery_delta = (free_delivery_threshold - total_price).quantize(Decimal('0.01'))
 
     # Apply coupon discount
     coupon_discount = Decimal(request.session.get('coupon_discount', 0))
-    grand_total = total_price + delivery_fee - coupon_discount  
+    grand_total = (total_price + delivery_fee - coupon_discount).quantize(Decimal('0.01'))
 
     return render(request, 'shopping_cart/cart.html', {
         'cart_items': cart_items,
@@ -165,7 +171,7 @@ def validate_coupon(request):
                 messages.error(request, "Coupon has expired.")  # Add message
                 request.session['coupon_discount'] = 0
                 return redirect('cart')
-            
+     
             # Store the discount value in the session
             request.session['coupon_discount'] = (
                 coupon.value if coupon.discount_type == 'fixed'
@@ -176,42 +182,3 @@ def validate_coupon(request):
             request.session['coupon_discount'] = 0
             messages.error(request, "Invalid coupon code.")
     return redirect('cart')
-
-
-
-
-
-
-
-# def save_for_later(request, item_id):
-#     if request.user.is_authenticated:
-#         cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
-#         SavedCartItem.objects.create(
-#             user=request.user,
-#             product=cart_item.product,
-#             size=cart_item.size,
-#             quantity=cart_item.quantity,
-#         )
-#         cart_item.delete()
-#     else:
-#         pass
-
-#     messages.success(request, "Item saved for later.")
-#     return redirect('cart') 
-
-# def move_to_cart(request, item_id):
-#     if request.user.is_authenticated:
-#         saved_item = get_object_or_404(SavedCartItem, id=item_id, user=request.user)
-#         CartItem.objects.create(
-#             user=request.user,
-#             product=saved_item.product,
-#             size=saved_item.size,
-#             quantity=saved_item.quantity,
-#         )
-#         saved_item.delete()
-#     else:
-#         pass
-
-#     messages.success(request, "Item moved to cart.")
-#     return redirect('cart')
-        
