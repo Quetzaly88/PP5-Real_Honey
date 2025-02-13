@@ -108,6 +108,7 @@ def remove_from_cart(request, item_id):
 def update_cart_quantity(request, item_id):
     if request.method == "POST":
         new_quantity = request.POST.get('quantity', "1")
+
         # Validate the quantity
         try:
             new_quantity = int(new_quantity)
@@ -116,24 +117,40 @@ def update_cart_quantity(request, item_id):
         except ValueError:
             messages.error(request, "Invalid quantity.")
             return redirect('cart')
-        
+
         if request.user.is_authenticated:
             # for loged in users
-            cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+            cart_item = get_object_or_404(
+                CartItem, id=item_id, user=request.user
+                )
+            # validate against product stock
+            if new_quantity > cart_item.product.product.stock:
+                messages.error(request, f"Only {cart_item.product.product.stock} available.")
+                return redirect('cart')
+
             cart_item.quantity = new_quantity
             cart_item.save()
         else:
             # for guest users
             cart = request.session.get('cart', {})
             if str(item_id) in cart:
+                product_size = get_object_or_404(
+                    ProductSize,
+                    id=item_id
+                )
+                if new_quantity > product_size.product.stock:
+                    messages.error(request, f"Only {product_size.product.stock} available.")
+                    return redirect('cart')
                 cart[str(item_id)]['quantity'] = new_quantity
             else:
                 messages.error(request, "Item not found in your cart.")
                 return redirect('cart')
+            
             request.session['cart'] = cart
 
         messages.success(request, "Cart updated.")
     return redirect('cart')
+
 
 # Coupon validation
 def validate_coupon(request):

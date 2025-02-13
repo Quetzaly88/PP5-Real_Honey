@@ -3,15 +3,22 @@
 <div class="container my-4">
     <h2>Your shopping cart</h2>
 
+    <!-- Feedback messages -->
+    {% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+        <div>{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     {% if user.is_authenticated %}
     <ul class="list-group">
         {% for item in cart_items %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            
             <div>
                 {{ item.product.product.name }} ({{ item.size }}- {{ item.quantity }} x ${{ item.product.price }}
             </div>
-
             <div>
                 <!-- Update quantity form -->
                 <form method="POST" action="{%url 'update_cart_quantity' item.id %}" style="display:inline;">
@@ -39,32 +46,7 @@
         <p>Your cart is empty</p>
         {% endfor %}
     </ul>
-
-    <!-- Saved for later section
-    <h3 class="mt-4">Saved for later</h3>
-    <ul class="list-group">
-        {% for saved_item in saved_items %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                {{ saved_item.product.product.name }} ({{ saved_item.size }}) - ${{ saved_item.product.price }}
-            </div>
-            <div>
-                <form method="POST" action="{% url 'move_to_cart' saved_item.id %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary btn-sm">Move to cart</button>
-                </form>
-
-                <form method="POST" action="{% url 'remove_from_saved_items' saved_item.id %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">Remove from saved items</button>
-                </form>
-            </div>
-        </li>
-        {% empty %}
-        <p>Your have no saved items</p>
-        {% endfor %}
-    </ul> -->
-
+    
     {% else %}
     <!-- Guest cart handling -->
      {% if cart_items %}
