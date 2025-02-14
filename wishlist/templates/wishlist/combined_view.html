@@ -13,10 +13,12 @@
                     {{ item.product.name }}
 
                     <div>
-                        <form method="POST" action="{% url 'add_to_cart' item.product.id %}" style="display: inline;">
+                        <!-- Add to cart button -->
+                        <form method="POST" action="{% url 'add_to_cart_from_wishlist' item.id %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-success btn-sm">Move to cart</button>
                         </form>
+                        <!-- Remove from wishlist -->
                         <form method="POST" action="{% url 'remove_from_wishlist' item.id %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-danger">Remove</button>

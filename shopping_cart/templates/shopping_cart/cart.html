@@ -27,11 +27,11 @@
                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                 </form>
 
-                    <!-- Move to wishlist Button -->
+                    <!-- Move to wishlist Button
                 <form method="POST" action="{% url 'add_to_wishlist' item.product.product.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary btn-sm">Move to Wishlist</button>
-                </form>
+                </form> -->
 
                     <!-- remove from cart button -->
                 <form method="POST" action="{% url 'remove_from_cart' item.id %}" style="display:inline;">
@@ -89,7 +89,7 @@
     <!-- Delivery Fee and Grand Total -->
     <p>Delivery fee: ${{ delivery_fee }}</p>
     <p>
-        {% if free_delivery_delta >0 %}
+        {% if free_delivery_delta > 0 %}
         Spend ${{ free_delivery_delta }} more to get free delivery
         {% else %}
         You qualify for free delivery

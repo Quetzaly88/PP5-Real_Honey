@@ -60,8 +60,23 @@
                   {% endif %}
                   {% endwith %}
                </p>
-               <a href="{% url 'product_detail' product.id %}" class="btn btn-primary mt-auto stretched-link">View
-                  Details</a>
+               <!-- Add to wishlist form -->
+               <form method="POST" action="{% url 'add_to_wishlist' product.id %}" class="mt-2">
+                  {% csrf_token %}
+                  <div class="form-group">
+                     <label for="size-{{ product.id }}">Select Size:</label>
+                     <select name="size" id="size-{{ product.id }}" class="form-control">
+                        <option value="" disabled selected>Select Size</option>
+                        {% for size in product.product_sizes.all %}
+                        <option value="{{ size.id }}">{{ size.size }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+               </form>
+
+               <!-- View details button -->
+               <a href="{% url 'product_detail' product.id %}" class="btn btn-secondary mt-2">View Details</a>
             </div>
          </div>
       </div>

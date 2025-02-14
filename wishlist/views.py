@@ -2,16 +2,31 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import WishlistItem
-from products.models import Product 
-from shopping_cart.models import CartItem 
+from products.models import Product
+from shopping_cart.models import CartItem
 
 
 # Create your views here.
 @login_required
 def add_to_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    WishlistItem.objects.get_or_create(product=product, user=request.user)
-    messages.success(request, f"{product.name} added to your wishlist!")
+    size = request.POST.get('size')
+
+    # Validate zize selection
+    if not size:
+        messages.error(request, "Please select a size before adding to the wishlist.")
+        return redirect('product_list')
+    
+    # Ensure the sizes exists for the product
+    product_size = get_object_or_404(ProductSize, product=product, size=size)
+
+    # Add the product to the wishlist
+    WishlistItem.objects.get_or_create(
+        product=product, 
+        user=request.user,
+        size=size
+    )
+    messages.success(request, f"{product.name} ({size}) added to your wishlist!")
     return redirect('product_list')
 
 
@@ -47,10 +62,42 @@ def combined_view(request):
     # Calculate the total price of shopping cart items
     total_price = sum(item.get_total_price() for item in cart_items)
 
-    return render(request,
+    return render(
+        request,
         'wishlist/combined.html',
-        {'wishlist_items': wishlist_items,
-         'cart_items': cart_items,
-         'total_price': total_price,
+        {
+            'wishlist_items': wishlist_items,
+            'cart_items': cart_items,
+            'total_price': total_price,
         }
-        )
+    )
+
+
+@login_required
+def add_to_cart_from_wishlist(request, item_id):
+    wishlist_item = get_object_or_404(
+        WishlistItem, id=item_id, user=request.user)
+    product = wishlist_item.product
+
+    # Get the ProductSize from the wishlist item
+    product_size = get_object_or_404(
+        ProductSize, 
+        product=wishlist_item.product,
+        size=wishlist_item.size
+    )
+
+    # Add the product to the shopping cart
+    cart_item, created = CartItem.objects.get_or_create(
+        user=request.user,
+        product=product_size,
+        size=product_size.size,
+    )
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    # Remove the product from the wishlist
+    wishlist_item.delete()
+
+    messages.success(request, f"{product.name} added to your shopping cart!")
+    return redirect('wishlist')

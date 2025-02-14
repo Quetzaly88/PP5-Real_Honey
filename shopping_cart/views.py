@@ -130,8 +130,8 @@ def update_cart_quantity(request, item_id):
                 CartItem, id=item_id, user=request.user
                 )
             # validate against product stock
-            if new_quantity > cart_item.product.product.stock:
-                messages.error(request, f"Only {cart_item.product.product.stock} available.")
+            if new_quantity > cart_item.product.stock:
+                messages.error(request, f"Only {cart_item.product.stock} available.")
                 return redirect('cart')
 
             cart_item.quantity = new_quantity
@@ -145,7 +145,7 @@ def update_cart_quantity(request, item_id):
                     id=item_id
                 )
                 if new_quantity > product_size.product.stock:
-                    messages.error(request, f"Only {product_size.product.stock} available.")
+                    messages.error(request, f"Only {product_size.stock} items available.")
                     return redirect('cart')
                 cart[str(item_id)]['quantity'] = new_quantity
             else:
