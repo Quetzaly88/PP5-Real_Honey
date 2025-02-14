@@ -83,6 +83,8 @@ def cart_view(request):
     coupon_discount = Decimal(request.session.get('coupon_discount', 0))
     grand_total = (total_price + delivery_fee - coupon_discount).quantize(Decimal('0.01'))
 
+    coupon_applied = request.session.get('coupon_applied', False) # Check if a coupon is applied
+
     return render(request, 'shopping_cart/cart.html', {
         'cart_items': cart_items,
         'total_price': total_price,
@@ -90,6 +92,7 @@ def cart_view(request):
         'free_delivery_delta': free_delivery_delta,
         'coupon_discount': coupon_discount,
         'grand_total': grand_total,
+        'coupon_applied': coupon_applied,
     })
 
 
@@ -131,7 +134,7 @@ def update_cart_quantity(request, item_id):
                 )
             # validate against product stock
             if new_quantity > cart_item.product.stock:
-                messages.error(request, f"Only {cart_item.product.stock} available.")
+                messages.error(request, f"Only {cart_item.product.stock} items available.")
                 return redirect('cart')
 
             cart_item.quantity = new_quantity
@@ -151,7 +154,7 @@ def update_cart_quantity(request, item_id):
             else:
                 messages.error(request, "Item not found in your cart.")
                 return redirect('cart')
-            
+
             request.session['cart'] = cart
 
         messages.success(request, "Cart updated.")
@@ -173,12 +176,15 @@ def validate_coupon(request):
                 return redirect('cart')
      
             # Store the discount value in the session
-            request.session['coupon_discount'] = (
+            discount_value = (
                 coupon.value if coupon.discount_type == 'fixed'
-                else request.session.get('cart_total') * coupon.value / 100
+                else request.session.get('cart_total', 0) * coupon.value / 100
             )
+            request.session['coupon_discount'] = discount_value
+            request.session['coupon_applied'] = True  # persists coupon applied state
             messages.success(request, "Coupon applied.")
         except Coupon.DoesNotExist:
             request.session['coupon_discount'] = 0
+            request.session['coupon_applied'] = False  # reset coupon state
             messages.error(request, "Invalid coupon code.")
     return redirect('cart')

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import WishlistItem
-from products.models import Product
+from products.models import Product, ProductSize
 from shopping_cart.models import CartItem
 
 
@@ -16,7 +16,7 @@ def add_to_wishlist(request, product_id):
     if not size:
         messages.error(request, "Please select a size before adding to the wishlist.")
         return redirect('product_list')
-    
+
     # Ensure the sizes exists for the product
     product_size = get_object_or_404(ProductSize, product=product, size=size)
 

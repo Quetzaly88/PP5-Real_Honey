@@ -27,13 +27,7 @@
                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                 </form>
 
-                    <!-- Move to wishlist Button
-                <form method="POST" action="{% url 'add_to_wishlist' item.product.product.id %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary btn-sm">Move to Wishlist</button>
-                </form> -->
-
-                    <!-- remove from cart button -->
+                <!-- remove from cart button -->
                 <form method="POST" action="{% url 'remove_from_cart' item.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm">Remove from cart</button>
@@ -82,6 +76,13 @@
         <button type="submit" class="btn btn-success btn-sm">Apply coupon</button>
     </div>
     </form>
+
+    {% if coupon_applied %}
+    <div class="alert alert-success">
+        Coupon applied successfully
+    </div>
+    {% endif %}
+
     {% if coupon_discount %}
     <p>Discount applied: {{ coupon_discount }}</p>
     {% endif %}
