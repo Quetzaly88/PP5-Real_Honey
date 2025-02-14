@@ -43,28 +43,27 @@
          <h5 class="text-muted">Flavor Tones: {{ product.flavor_tones }}</h5>
          <h4 class="text-success font-weight-bold">Price: ${{ product.price }}</h4>
 
-         <!-- size selection -->
+         <!-- shared sizes dropdown -->
+         <div class="form-group">
+            <select name="size" id="size" class="form-control" required>
+               <option value="" disabled selected>Select Size</option>
+               {% for size in product.product_sizes.all %}
+               <option value="{{ size.size }}">{{ size.size }} - ${{ size.price }}</option>
+               {% endfor %}
+            </select>
+         </div>
+
+         <!-- add to cart -->
          <form method="POST" action="{% url 'add_to_cart' product.id %}" class="mt-4">
             {% csrf_token %}
-            <div class="form-group">
-               <label for="size">Select Size:</label>
-               <select name="size" id="size" class="form-control" required>
-                  <option value="" disabled selected>Select Size</option>
-                  {% for size in product.product_sizes.all %}
-                  <option value="{{ size.size }}">{{ size.size }} - ${{ size.price }}</option>
-                  {% endfor %}
-               </select>
             </div>
             <button type="submit" class="btn btn-primary">Add to Cart</button>
          </form>
-         <!-- like button -->
+         
+         <!-- wishlist button -->
          <form method="POST" action="{% url 'add_to_wishlist' product.id %}">
             {% csrf_token %}
-            {% if user.is_authenticated %}
-            <button type="submit" class="btn btn-outline-danger">Like</button>
-            {% else %}
-            <a href="{% url 'account_login' %}?next={{ request.path }}" class="btn btn-outline-danger">Like</a>
-            {% endif %}
+            <button type="submit" class="btn btn-outline-danger mt-3">Add to wishlist</button>
          </form>
 
          <!-- Back to products -->

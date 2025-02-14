@@ -14,20 +14,25 @@ def add_to_wishlist(request, product_id):
 
     # Validate zize selection
     if not size:
-        messages.error(request, "Please select a size before adding to the wishlist.")
-        return redirect('product_list')
+        messages.error(request, "Please select size wishlist.")
+        return redirect('product_detail', pk=product_id)
 
     # Ensure the sizes exists for the product
-    product_size = get_object_or_404(ProductSize, product=product, size=size)
+    # product_size = get_object_or_404(ProductSize, product=product, size=size)
+    product_size_exists = Product.objects.filter(
+        id=product_id, product_sizes__size=size).exists()
+    if not product_size_exists:
+        messages.error(request, "Invalid size selection.")
+        return redirect('product_detail', pk=product_id)
 
     # Add the product to the wishlist
     WishlistItem.objects.get_or_create(
-        product=product, 
+        product=product,
         user=request.user,
         size=size
     )
     messages.success(request, f"{product.name} ({size}) added to your wishlist!")
-    return redirect('product_list')
+    return redirect('product_detail', pk=product_id)
 
 
 @login_required

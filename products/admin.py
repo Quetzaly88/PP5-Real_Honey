@@ -13,9 +13,3 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
     inlines = [ProductSizeInline]
     list_filter = ('season',)
-
-
-# @admin.register(ProductSize)
-# class ProductSizeAdmin(admin.ModelAdmin):
-#     list_display = ('size',)
-#     search_fields = ('size',)
