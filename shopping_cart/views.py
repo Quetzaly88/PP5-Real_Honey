@@ -16,9 +16,13 @@ def get_cart_items(request):
         return request.session.get('cart', {})
 
 
-# Function to add to cart
+# # Function to add to cart updated to handle sizes
 def add_to_cart(request, product_id):
     size = request.POST.get('size')
+    if not size:
+        messages.error(request, "Please select a size.")
+        return redirect('product_detail', pk=product_id)
+    
     product_size = get_object_or_404(
         ProductSize,
         product_id=product_id,
@@ -26,11 +30,9 @@ def add_to_cart(request, product_id):
     )
 
     if request.user.is_authenticated:
-        # logged in user saved to database.
         cart_item, created = CartItem.objects.get_or_create(
             user=request.user,
             product=product_size,
-            size=size,
         )
         if not created:
             cart_item.quantity += 1

@@ -54,15 +54,16 @@
          </div>
 
          <!-- add to cart -->
-         <form method="POST" action="{% url 'add_to_cart' product.id %}" class="mt-4">
+         <form method="POST" action="{% url 'add_to_cart' product.id %}" id="cartForm" class="mt-4">
             {% csrf_token %}
-            </div>
+            <input type="hidden" name="size" id="cartSizeInput">
             <button type="submit" class="btn btn-primary">Add to Cart</button>
          </form>
-         
+
          <!-- wishlist button -->
-         <form method="POST" action="{% url 'add_to_wishlist' product.id %}">
+         <form method="POST" action="{% url 'add_to_wishlist' product.id %}" id="wishlistForm">
             {% csrf_token %}
+            <input type="hidden" name="size" id="wishlistSizeInput">
             <button type="submit" class="btn btn-outline-danger mt-3">Add to wishlist</button>
          </form>
 
@@ -72,5 +73,50 @@
    </div>
 </div>
 </div>
+
+<!-- Javascript to sync dropdown value -->
+ <script>
+   document.addEventListener('DOMContentLoaded', function() {
+      const sizeDropdown = document.getElementById('size');
+      const cartSizeInput = document.getElementById('cartSizeInput');
+      const wishlistForm = document.getElementById('wishlistForm');
+
+      if (sizeDropdown) {
+         sizeDropdown.addEventListener('change', function() {
+            const selectedSize = sizeDropdown.value;
+            const cartSizeInput = document.getElementById('cartSizeInput');
+            if (cartSizeInput) {
+               cartSizeInput.value = selectedSize;
+            }
+
+            const wishlistSizeInput = document.getElementById('wishlistSizeInput');
+            if (wishlistSizeInput) {
+               wishlistSizeInput.value = selectedSize;
+            }
+         });
+      }
+
+      if (cartForm) {
+         cartForm.addEventListener('submit', function(event) {
+            const cartSizeInput = document.getElementById('cartSizeInput');
+            if (!cartSizeInput || !cartSizeInput.value) {
+               event.preventDefault();
+               alert('Please select a size');
+            }
+         });
+      }
+
+      if (wishlistForm) {
+         wishlistForm.addEventListener('submit', function(event) {
+            const wishlistSizeInput = document.getElementById('wishlistSizeInput');
+            if (!wishlistSizeInput || !wishlistSizeInput.value) {
+               event.preventDefault();
+               alert('Please select a size');
+            }     
+         });
+      }
+   });    
+   
+ </script>
 
 {% endblock %}
