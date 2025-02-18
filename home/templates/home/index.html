@@ -43,4 +43,27 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+
+<!-- Featured Products Section -->
+<div class="container my-5">
+  <h2 class="text-center mb-4">Best seller products</h2>
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <img src="{{ product.image.url }}" alt="{{ product.name}}" class="card-img-top">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-success font-weight-bold">${{ product.price }}</p>
+          <a href="{% url 'product_detail' product.id %}" class="btn btn-secondary">View details</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-center">No featured products</p>
+  {% endfor %}
+</div>
+
+
+
   {% endblock %}
