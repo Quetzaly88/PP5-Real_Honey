@@ -24,7 +24,7 @@
                 <form method="POST" action="{%url 'update_cart_quantity' item.id %}" style="display:inline;">
                     {% csrf_token %}
                     <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" />
-                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    <button type="submit" class="btn btn-action">Update</button>
                 </form>
 
                 <!-- remove from cart button -->
@@ -73,7 +73,7 @@
     {% csrf_token %}
     <div>
         <input type="text" name="coupon_code" placeholder="Enter coupon code" />
-        <button type="submit" class="btn btn-action">Apply coupon</button>
+        <button type="submit" class="btn btn-warning btn-sm">Apply coupon</button>
     </div>
     </form>
 

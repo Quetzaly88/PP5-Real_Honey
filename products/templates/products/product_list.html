@@ -9,10 +9,11 @@
 <!-- title -->
 {% block content %}
 <div class="container my-4">
-   <h2 class="text-center mb-4">The local honey</h2>
+   <h1 class="text-center mb-4 font-weight-bold">Honey from Bjäre Peninsula</h1>
 
    <!-- Search and filters -->
    <form method="GET" action="{% url 'product_list' %}" class="form-inline mb-3">
+      
       <input type="text" name="search" class="form-control mr-2" placeholder="Search products"
          value="{{ search_query }}">
 
@@ -25,8 +26,8 @@
          <option value="600g" {% if '600' in size_filter %}selected{% endif %}>600g</option>
       </select>
 
-      <button type="submit" class="btn btn-action">Search</button>
-      <a href="{% url 'product_list' %}" class="btn btn-secondary">Reset Filters</a>
+      <button type="submit" class="btn btn-secondary">Search</button>
+      <a href="{% url 'product_list' %}" class="btn btn-danger">Reset Filters</a>
    </form>
 
 
@@ -42,7 +43,7 @@
             {% endif %}
 
             <div class="card-body d-flex flex-column">
-               <h5 class="card-title">{{ product.name }}</h5>
+               <h2 class="card-title font-weight-bold">{{ product.name }}</h2>
                <p class="card-text">{{ product.description|truncatewords:15 }}</p>
                <p class="card-text font-weight-bold text-success">
                   {% with product.product_sizes.all as sizes %}
@@ -60,35 +61,6 @@
                   {% endif %}
                   {% endwith %}
                </p>
-
-               <!-- add to cart
-               <form method="POST" action="{% url 'add_to_cart' product.id %}" class="mt-2">
-                  {% csrf_token %}
-                  <div class="form-group">
-                     <label for="size">Select Size:</label>
-                     <select name="size" id="size" class="form-control" required>
-                        <option value="" disabled selected>Select Size</option>
-                        {% for size in product.product_sizes.all %}
-                        <option value="{{ size.size }}">{{ size.size }} - ${{ size.price }}</option>
-                        {% endfor %}
-                     </select>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Add to Cart</button>
-               </form>
-               <!-- Add to wishlist form
-               <form method="POST" action="{% url 'add_to_wishlist' product.id %}" class="mt-2">
-                  {% csrf_token %}
-                  <div class="form-group">
-                     <label for="size-{{ product.id }}">Select Size:</label>
-                     <select name="size" id="size-{{ product.id }}" class="form-control">
-                        <option value="" disabled selected>Select Size</option>
-                        {% for size in product.product_sizes.all %}
-                        <option value="{{ size.id }}">{{ size.size }}</option>
-                        {% endfor %}
-                     </select>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Add to Wishlist</button>
-               </form> -->
 
                <!-- View details button -->
                <a href="{% url 'product_detail' product.id %}" class="btn btn-secondary mt-2">View Details</a>

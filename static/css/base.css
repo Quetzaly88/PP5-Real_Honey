@@ -1,20 +1,21 @@
 /* general styles */
 
 :root {
-    --primary-color: #A0522D;
-    --secondary-color: #FFA500;
-    --accent-color: #FFD700;
+    --primary-color: #8e4200;
+    --secondary-color: #db6f02;
+    --accent-color: #ff9624;
     --dark-grey: #4f4f4f;
     --light-grey: #FAF3E0;
     --white-color: #FFFFFF;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    /* --font-primary: 'Belanosima', sans-serif; */
-    --font-secondary: 'Macondo', cursive;
-    /* --font-secondary: 'Belanosima', sans-serif; */
+    --action-color: #ffb825;
+    --logo-background: #443727;
+    --font-primary: 'Macondo', sans-serif;
+    --font-secondary: 'Noto Sans', sans-serif;
 }
 
 html, body {
-    font-family: var(--font-primary);
+    font-family: var(--font-secondary);
     font-size: 16px;
     color: var(--dark-grey);
     background-color: var(--light-grey);
@@ -22,14 +23,14 @@ html, body {
     padding: 0;
 }
 
-a {
+/* a {
     text-decoration: none;
     color: var(--primary-color);
 }
 
 a:hover {
     color: var(--secondary-color)
-}
+} */
 
 /* Layout */
 .container {
@@ -41,52 +42,80 @@ a:hover {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-secondary);
+    font-family: var(--font-primary);
     margin: 0;
 }
 
 p{
     margin: 0 0 15px;
     line-height: 1.6;
-}
-
-button {
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: none;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-}
-
-.navbar {
-    background-color: var(--dark-grey);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 15px 20px; 
-    font-size: 18px;
-}
-
-.navbar .navbar_brand {
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--secondary-color);
     font-family: var(--font-secondary);
+}
+
+/* NAVBAR */
+.navbar {
+    height: auto;
+    display: flex;
+    background-color: var(--logo-background) !important;
+    padding: 0; 
+}
+
+/* navbar icons */
+.navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
 }
 
 .navbar .nav-link {
     color: var(--white-color);
     font-weight: 600;
-    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
     padding: 10px;
     border-radius: 5px;
-    /* list-style: none; */
-    text-decoration: none;
 }  
 
 .navbar .nav-link:hover {
+    color: var(--accent-color);
+}
+
+/* navbar dropdown */
+.navbar .dropdown-menu {
+    background-color: var(--light-grey);
+    border: none;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.navbar .dropdown-item {
     color: var(--dark-grey);
 }
+
+.navbar .dropdown-item:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+}
+
+/* icons  */
+.navbar-icons .nav-link i {
+    font-size: 1.4rem;
+}
+
+.navbar-icons i {
+    list-style: none;
+}
+/* logo */
+.navbar-brand img {
+    height: auto;
+    width: auto;
+}
+
+.navbar.navbar-dark {
+    background-color: var(--logo-background) !important;
+    color: var(--white-color);
+}
+
 
 /* hero section */
 .hero {
@@ -111,18 +140,26 @@ button {
     line-height: 1.8;
 }
 
+/* General Button styles */
 .btn {
-    margin: 5px;
-}
-
-.btn-primary {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    font-weight: 600;
+    font-size: 1rem;
     padding: 10px 16px;
     border-radius: 6px;
     border: none;
+    font-weight: 600;
     transition: all 0.3s ease-in-out;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.btn + .btn {
+    margin-left: 10px;
+}
+
+/* Primary Action Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
 }
 
 .btn-primary:hover {
@@ -133,11 +170,6 @@ button {
 .btn-secondary {
     background-color: var(--dark-grey);
     color: var(--white-color);
-    font-weight: 600;
-    padding: 10px 16px;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease-in-out;
 }
 
 .btn-secondary:hover {
@@ -145,13 +177,36 @@ button {
     color: var(--dark-grey);
 }
 
+/* Remove item */
+.btn-danger {
+    background-color: #dc3545;
+    color: var(var(--white-color));
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Apply coupon */
 .btn-warning {
-    background-color: var(--accent-color);
+    background-color: var(--action-color);
     color: var(--dark-grey);
 }
 
 .btn-warning:hover {
-    background-color: var(--primary-color);
+    background-color: green;
+    color: var(--white-color);
+}
+
+/* Action Buttons, wishlist */
+.btn-action {
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
+    border: 0.5px solid var(--dark-grey);
+}
+
+.btn-action:hover {
+    background-color: var(--action-color);
     color: var(--white-color);
 }
 
@@ -176,45 +231,25 @@ button {
 }
 
 .btn-cart {
-    background-color: var(--secondary-color);
+    background-color: green;
     color: var(--dark-grey);
-    font-weight: bold;
-    padding: 12px 18px;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease-in-out;
 }
 
 .btn-cart:hover {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-}
-
-.btn-action {
-    background-color: var(--secondary-color);
+    background-color: var(--accent-color);
     color: var(--dark-grey);
-    font-weight: bold;
-    padding: 10px 16px;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease-in-out;
 }
+  
 
-.btn-action:hover {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-}
 
 /* Footer */
 .footer {
-    background-color: var(--dark-grey) !important;
-    color: var(--light-grey);
+    background-color: var(--logo-background) !important;
+    color: var(--white-color);
     padding: 20px 0;
     text-align: center;
     width: 100%;
-    margin-top: auto;
-     /* position: relative; */
-}
+    margin-top: auto;}
 
 .footer .btn-social:hover {
     background-color: var(--secondary-color);
@@ -223,8 +258,13 @@ button {
 }
 
 .footer .copyright {
-    font-size: 0.8rem;
-    color: var(--light-grey);
+    font-size: 1.1rem;
+    color: var(--action-color) !important;
+}
+
+.footer.bg-light {
+    background-color: var(--logo-background) !important;
+    color: var(--white-color);
 }
 
 /* Utility Classes */
