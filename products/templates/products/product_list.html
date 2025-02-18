@@ -13,21 +13,22 @@
 
    <!-- Search and filters -->
    <form method="GET" action="{% url 'product_list' %}" class="form-inline mb-3">
-      
-      <input type="text" name="search" class="form-control mr-2" placeholder="Search products"
+      <div class="search-container">
+      <input type="text" name="search" class="form-control" placeholder="Search products..."
          value="{{ search_query }}">
 
-      <input type="number" name="price_min" class="form-control mr-2" placeholder="Min Price" value="{{ price_min }}">
-      <input type="number" name="price_max" class="form-control mr-2" placeholder="Max Price" value="{{ price_max }}">
+      <input type="number" name="price_min" class="form-control" placeholder="Min Price" value="{{ price_min }}">
+      <input type="number" name="price_max" class="form-control" placeholder="Max Price" value="{{ price_max }}">
 
-      <select name="size" class="form-control mr-2">
+      <select name="size" class="form-control">
          <option value="" {% if not size_filter %}selected{% endif %}>All Sizes</option>
          <option value="450g" {% if '450' in size_filter %}selected{% endif %}>450g</option>
          <option value="600g" {% if '600' in size_filter %}selected{% endif %}>600g</option>
       </select>
 
       <button type="submit" class="btn btn-secondary">Search</button>
-      <a href="{% url 'product_list' %}" class="btn btn-danger">Reset Filters</a>
+      <a href="{% url 'product_list' %}" class="btn btn-danger">Reset</a>
+   </div>
    </form>
 
 
