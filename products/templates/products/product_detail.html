@@ -3,24 +3,24 @@
 
 {% block content %}
 <div class="container my-5">
-   <div class="row align-items-center">
+   <div class="row align-items-start">
       <!-- product images -->
-      <div class="col-md-6 text-center">
+      <div class="col-lg-6 col-md-12 text-center mb-4">
          <div id="productCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                {% if product.image %}
                <div class="carousel-item active">
-                  <img src="{{ product.image.url }}" class="d-block w-100" alt="{{ product.name }}">
+                  <img src="{{ product.image.url }}" class="d-block rounded" alt="{{ product.name }}">
                </div>
                {% endif %}
                {% if product.image_2 %}
                <div class="carousel-item {% if not product.image %}active{% endif %}">
-                  <img src="{{ product.image_2.url }}" class="d-block w-100" alt="{{ product.name }}">
+                  <img src="{{ product.image_2.url }}" class="d-block w-100 rounded" alt="{{ product.name }}">
                </div>
                {% endif %}
                {% if not product.image and not product.image_2 %}
                <div class="carousel-item active">
-                  <img src="{% static 'images/default.jpg' %}" class="d-block w-100" alt="Default Image">
+                  <img src="{% static 'images/default.jpg' %}" class="d-block w-100 rounded" alt="Default Image">
                </div>
                {% endif %}
             </div>
@@ -35,17 +35,9 @@
          </div>
       </div>
 
-      <!-- Product name and badges -->
-       <h2 class="mb-3 font-weight-bold">
-         {{ product.name }}
-         {% if product.is_featured %}
-         <span class="badge badge-warning">Featured</span>
-         {% endif %}
-         {% if product.is_best_seller %}
-         <span class="badge badge-success">Best Seller</span>
-         {% endif %}
-       </h2>
-      
+      <!-- product details -->
+      <div class="col-lg-6 col-md-12">
+         <h2 class="mb-3 font-weight-bold">{{ product.name }}</h2> 
          <p class="lead">{{ product.description }}</p>
          <h5 class="text-muted font-weight-bold">Season: {{ product.season }}</h5>
          <h5 class="text-muted font-weight-bold">Flavor Tones: {{ product.flavor_tones }}</h5>
