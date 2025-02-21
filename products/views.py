@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.db.models import Q
 
 
@@ -36,6 +36,11 @@ def product_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    # try:
+    #     page_obj = paginator.page(page_number)
+    # except (EmptyPage, InvalidPage, TypeError):
+    #     page_obj = paginator.page(1)
+
     return render(request, 'products/product_list.html', {
         'products': page_obj,
         'sort_by': sort_by,
@@ -43,6 +48,7 @@ def product_list(request):
         'size_filter': size_filter,
         'price_min': price_min,
         'price_max': price_max,
+        'request': request
     })
 
 

@@ -46,24 +46,61 @@
 
 <!-- Featured Products Section -->
 <div class="container my-5">
-  <h2 class="text-center mb-4">Best seller products</h2>
+  <h2 class="text-center mb-4">Featured Products</h2>
   <div class="row">
-    {% for product in products %}
+    {% for product in featured_products %}
     <div class="col-md-4 mb-4">
       <div class="card h-100 shadow-sm">
+        <a href="{% url 'product_detail' product.id %}">
+          {% if product.image %}
         <img src="{{ product.image.url }}" alt="{{ product.name}}" class="card-img-top">
+        {% else %}
+        <img src="{%static 'images/default.jpg'}" alt="{{ product.name }}" class="card-img-top">
+        {% endif %}
+      </a>
+
         <div class="card-body text-center">
           <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text text-success font-weight-bold">${{ product.price }}</p>
-          <a href="{% url 'product_detail' product.id %}" class="btn btn-secondary">View details</a>
+          {% if product.is_featured %}
+          <span class="badge badge-warning">Featured</span>
+          {% endif %}
+          <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
+          </div>
       </div>
     </div>
-  </div>
   {% empty %}
   <p class="text-center">No featured products</p>
   {% endfor %}
 </div>
+</div>
 
-
+<!-- Best seller sections -->
+ <div class="container my-5">
+  <h2 class="text-center mb-4">Best Sellers</h2>
+  <div class="row">
+    {% for product in best_seller_products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <a href="{% url 'product_detail' product.id %}"
+          {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
+        {% else %}
+        <img src="{%static 'images/default.jpg'}" alt="{{ product.name }}" class="card-img-top">
+        {% endif %}
+      </a>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ product.name }}</h5>
+          {% if product.is_best_seller %}
+          <span class="badge badge-success">Best Seller</span>
+          {% endif %}
+          <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center">No best sellers avaiable</p>
+    {% endfor %}
+  </div>
+ </div>
 
   {% endblock %}

@@ -35,9 +35,17 @@
          </div>
       </div>
 
-      <!-- product details -->
-      <div class="col-md-6">
-         <h2 class="mb-3 font-weight-bold">{{ product.name }}</h2>
+      <!-- Product name and badges -->
+       <h2 class="mb-3 font-weight-bold">
+         {{ product.name }}
+         {% if product.is_featured %}
+         <span class="badge badge-warning">Featured</span>
+         {% endif %}
+         {% if product.is_best_seller %}
+         <span class="badge badge-success">Best Seller</span>
+         {% endif %}
+       </h2>
+      
          <p class="lead">{{ product.description }}</p>
          <h5 class="text-muted font-weight-bold">Season: {{ product.season }}</h5>
          <h5 class="text-muted font-weight-bold">Flavor Tones: {{ product.flavor_tones }}</h5>

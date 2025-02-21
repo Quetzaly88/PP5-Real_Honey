@@ -30,6 +30,9 @@ class Product(models.Model):
         blank=True,
         null=True
     )
+    # New field for featured products
+    is_featured = models.BooleanField(default=False)
+    is_best_seller = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -46,8 +49,9 @@ class ProductSize(models.Model):
         max_length=100,
         choices=SIZE_CHOICES,
     )
+
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    stock = models.PositiveIntegerField(default=0) # New field for stock avaiability
+    stock = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.product.name} - {self.size} (${self.price})"
