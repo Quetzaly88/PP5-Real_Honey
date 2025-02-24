@@ -9,7 +9,8 @@ class ProductSizeInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'season', 'is_featured', 'is_best_seller')
+    list_display = ('name', 'season', 'category', 'is_featured',
+                    'is_best_seller')
     search_fields = ('name', 'description')
     inlines = [ProductSizeInline]
-    list_filter = ('season', 'is_featured', 'is_best_seller')
+    list_filter = ('season', 'category', 'is_featured', 'is_best_seller')

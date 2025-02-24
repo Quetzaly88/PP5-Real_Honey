@@ -6,6 +6,11 @@ SIZE_CHOICES = [
     ('600g', '600gr'),
 ]
 
+CATEGORY_CHOICES = [
+    ('honey', 'Honey'),
+    ('bee_products', 'Bee Products'),
+]
+
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -30,9 +35,13 @@ class Product(models.Model):
         blank=True,
         null=True
     )
-    # New field for featured products
     is_featured = models.BooleanField(default=False)
     is_best_seller = models.BooleanField(default=False)
+    category = models.CharField(
+        max_length=100,
+        choices=CATEGORY_CHOICES,
+        default='honey'
+    )
 
     def __str__(self):
         return self.name
@@ -48,10 +57,13 @@ class ProductSize(models.Model):
     size = models.CharField(
         max_length=100,
         choices=SIZE_CHOICES,
+        blank=True,
+        null=True
     )
 
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     stock = models.PositiveIntegerField(default=0)
 
     def __str__(self):
+        size_display = self.size if self.size else 'No Size'
         return f"{self.product.name} - {self.size} (${self.price})"
