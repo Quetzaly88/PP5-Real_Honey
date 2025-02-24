@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import CartItem
-from products.models import ProductSize
+from products.models import Product, ProductSize
 from django.conf import settings
 from decimal import Decimal  # for decimal calculations
 from .models import Coupon
@@ -83,7 +83,7 @@ def cart_view(request):
     coupon_discount = Decimal(request.session.get('coupon_discount', 0))
     grand_total = (total_price + delivery_fee - coupon_discount).quantize(Decimal('0.01'))
 
-    coupon_applied = request.session.get('coupon_applied', False) # Check if a coupon is applied
+    coupon_applied = request.session.get('coupon_applied', False)
 
     return render(request, 'shopping_cart/cart.html', {
         'cart_items': cart_items,
@@ -173,7 +173,7 @@ def validate_coupon(request):
                 messages.error(request, "Coupon has expired.")  # Add message
                 request.session['coupon_discount'] = 0
                 return redirect('cart')
-
+     
             # Store the discount value in the session
             discount_value = (
                 coupon.value if coupon.discount_type == 'fixed'

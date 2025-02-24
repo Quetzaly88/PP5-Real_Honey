@@ -4,6 +4,7 @@ from django.db import models
 SIZE_CHOICES = [
     ('450g', '450gr'),
     ('600g', '600gr'),
+    ('Standard', 'Standard')
 ]
 
 CATEGORY_CHOICES = [

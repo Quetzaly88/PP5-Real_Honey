@@ -22,7 +22,7 @@ def add_to_wishlist(request, product_id):
         ProductSize, product=product, size=size) if size else None
 
     WishlistItem.objects.get_or_create(
-        product=product,
+        product=product_size.product,
         user=request.user,
         size=size if size else None
     )

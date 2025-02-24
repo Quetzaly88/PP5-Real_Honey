@@ -11,7 +11,6 @@ def product_list(request, category=None):
     price_min = request.GET.get('price_min', None)
     price_max = request.GET.get('price_max', None)
     sort_by = request.GET.get('sort_by', 'name')
-    # category = request.GET.get('category', '')
 
     products = Product.objects.all()
 
