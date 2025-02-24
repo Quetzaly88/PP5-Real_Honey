@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import CartItem
-from products.models import Product, ProductSize
+from products.models import ProductSize
 from django.conf import settings
 from decimal import Decimal  # for decimal calculations
 from .models import Coupon
@@ -16,45 +16,42 @@ def get_cart_items(request):
         return request.session.get('cart', {})
 
 
-# Function to add to cart updated to handle sizes
+# Function to add to cart
 def add_to_cart(request, product_id):
     size = request.POST.get('size')
-    product = get_object_or_404(Product, id=product_id)
+    product_size = get_object_or_404(
+        ProductSize,
+        product_id=product_id,
+        size=size
+    )
 
-    # Check if the product has sizes
-    if product.product_sizes.exists():
-        if not size:
-            messages.error(request, "Please select a size.")
-            return redirect('product_detail', pk=product_id)
-
-        try:
-            product_size = ProductSize.objects.get(
-                product_id=product_id,
-                size=size
-            )
-        except ProductSize.DoesNotExist:
-            messages.error(request, "Selected size is not available")
-            return redirect('product_detail', pk=product_id)
+    if request.user.is_authenticated:
+        # logged in user saved to database.
+        cart_item, created = CartItem.objects.get_or_create(
+            user=request.user,
+            product=product_size,
+            size=size,
+        )
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
     else:
-        # for products without sizes
-        product_size = None
+        cart = request.session.get('cart', {})
+        cart_key = f"{product_id}-{size}"
+        if cart_key in cart:
+            cart[cart_key]['quantity'] += 1
+        else:
+            cart[cart_key] = {
+                'name': product_size.product.name,
+                'size': size,
+                'price': str(product_size.price),
+                'quantity': 1,
+            }
+        request.session['cart'] = cart
 
-    # Add to cart logic
-    cart = request.session.get('cart', {})
-    cart_item_key = f"{product_id}_{size}" if size else str(product_id)
-    if cart_item_key in cart:
-        cart[cart_item_key]['quantity'] += 1
-    else:
-        cart[cart_item_key] = {
-            'product_id': product_id,
-            'size': size,
-            'quantity': 1,
-            'price': str(product.price)
-        }
-
-    request.session['cart'] = cart
-    messages.success(request, "Product added to cart successfully.")
-    return redirect('product_detail', pk=product_id)
+    messages.success(
+        request, f"{product_size.product.name} ({size}) added to your cart.")
+    return redirect('product_list')
 
 
 # View Cart
@@ -95,7 +92,6 @@ def cart_view(request):
         'free_delivery_delta': free_delivery_delta,
         'coupon_discount': coupon_discount,
         'grand_total': grand_total,
-        'coupon_applied': coupon_applied,
     })
 
 

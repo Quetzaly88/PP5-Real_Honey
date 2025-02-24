@@ -5,13 +5,13 @@ from django.db.models import Q
 
 
 # Handles displaying and filtering the product list based on filters
-def product_list(request):
+def product_list(request, category=None):
     search_query = request.GET.get('search', '')
     size_filter = request.GET.get('size', [])
     price_min = request.GET.get('price_min', None)
     price_max = request.GET.get('price_max', None)
     sort_by = request.GET.get('sort_by', 'name')
-    category = request.GET.get('category', '')
+    # category = request.GET.get('category', '')
 
     products = Product.objects.all()
 

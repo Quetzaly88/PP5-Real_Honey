@@ -92,10 +92,10 @@
                     aria-haspopup="true" aria-expanded="false">
                     Products
                   </a>
-                  <div class="dropdown-menu">
+                  <div class="dropdown-menu" aria-labelledby=""navbarDropdown">
                     <a class="dropdown-item" href="{% url 'product_list' %}">All products</a>
-                    <a class="dropdown-item" href="#">Honey</a>
-                    <a class="dropdown-item" href="#">Bee Products</a>
+                    <a class="dropdown-item" href="{% url 'product_category' 'honey' %}">Honey</a>
+                    <a class="dropdown-item" href="{% url 'product_category' 'bee_products' %}">Bee Products</a>
                   </div>
                 </li>
 
