@@ -362,6 +362,10 @@ p{
     .navbar .nav-item {
         padding: 5px 10px;
     }
+
+    .navbar-toggler {
+        display: block;
+    }
 }
 
 @media (max-width: 768px) {
