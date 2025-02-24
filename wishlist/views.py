@@ -6,22 +6,27 @@ from products.models import Product, ProductSize
 from shopping_cart.models import CartItem
 
 
-# Create your views here.
+# Wishlist views
 @login_required
 def add_to_wishlist(request, product_id):
     size = request.POST.get('size')
-    if not size:
-        messages.error(request, "Please select size wishlist.")
+    product = get_object_or_404(Product, id=product_id)
+
+    # check if product has sizes
+    if product.product_sizes.exists() and not size:
+        messages.error(request, "Please select size fot the wishlist.")
         return redirect('product_detail', pk=product_id)
 
-    product_size = get_object_or_404(ProductSize, product_id=product_id, size=size)
+    # get the specific ProductSize if size is selected
+    product_size = get_object_or_404(
+        ProductSize, product=product, size=size) if size else None
 
     WishlistItem.objects.get_or_create(
-        product=product_size.product,
+        product=product,
         user=request.user,
-        size=size
+        size=size if size else None
     )
-    messages.success(request, f"{product_size.product.name} ({size}) added to wishlist!")
+    messages.success(request, f"{product.name} added to wishlist!")
     return redirect('product_detail', pk=product_id)
 
 

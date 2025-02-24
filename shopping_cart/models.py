@@ -29,8 +29,8 @@ class Coupon(models.Model):
         max_length=10,
         choices=DISCOUNT_TYPE_CHOICES)
     is_active = models.BooleanField(default=True)  # coupon status
-    created_at = models.DateTimeField(auto_now_add=True)  # coupon creation date
-    expires_at = models.DateTimeField(blank=True, null=True)  # Optional expiration date
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.code
