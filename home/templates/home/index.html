@@ -46,11 +46,10 @@
 
   <!-- Featured Products Section -->
   <div class="container my-5">
-    <h2 class="text-center mb-4">Featured Products</h2>
-    <div class="row">
+    <h1 class="text-center mb-4">Featured Products</h1>
+    <div class="d-flex overflow-auto pb-3">
       {% for product in featured_products %}
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
+      <div class="card mx-2" style="min-width: 250px;">
           <a href="{% url 'product_detail' product.id %}">
             {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name}}" class="card-img-top">
@@ -65,7 +64,6 @@
             {% endif %}
             <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
           </div>
-        </div>
       </div>
       {% empty %}
       <p class="text-center">No featured products</p>
@@ -75,11 +73,10 @@
 
   <!-- Best seller sections -->
   <div class="container my-5">
-    <h2 class="text-center mb-4">Best Sellers</h2>
-    <div class="row">
+    <h1 class="text-center mb-4">Best Sellers</h1>
+    <div class="d-flex overflow-auto pb-3">
       {% for product in best_seller_products %}
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
+      <div class="card mx-2" style="min-width: 250px;">
           <a href="{% url 'product_detail' product.id %}">
             {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
@@ -94,12 +91,25 @@
             {% endif %}
             <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
           </div>
-        </div>
       </div>
-      {% empty %}
-      <p class="text-center">No best sellers avaiable</p>
-      {% endfor %}
+    {% empty %}
+    <p class="text-center">No best sellers avaiable</p>
+    {% endfor %}
     </div>
   </div>
 
   {% endblock %}
+<!-- 
+  {% block extra_css %}
+  <stylee>
+    /*Hide scrollbar for webkit browsers */
+    .overflow-auto::-webkit-scrollbar {
+      display: none;
+    }
+    /*Hide scrollbar for IE, Edge and Firefox */
+    .overflow-auto {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  {% endblock %} -->
