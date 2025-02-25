@@ -7,7 +7,7 @@ from django.db.models import Q
 # Handles displaying and filtering the product list based on filters
 def product_list(request, category=None):
     search_query = request.GET.get('search', '')
-    size_filter = request.GET.get('size', [])
+    size_filter = request.GET.get('size')
     price_min = request.GET.get('price_min', None)
     price_max = request.GET.get('price_max', None)
     sort_by = request.GET.get('sort_by', 'name')
@@ -24,14 +24,30 @@ def product_list(request, category=None):
         )
 
     if size_filter:
-        products = products.filter(
-            product_sizes__size__in=size_filter).distinct()
+        size_query = Q()
+        for size in size_filter:
+            if size == 'Standard':
+                size_query |= Q(product_sizes__size__in=['', None, 'Standard'])
+            else:
+                size_query |= Q(product_sizes__size=size)
+        products = products.filter(size_query)
 
     if price_min:
-        products = products.filter(product_sizes__price__gte=price_min)
+        try:
+            price_min_value = float(price_min)
+            products = products.filter(product_sizes__price__gte=price_min_value)
+        except (ValueError, TypeError):
+            pass
 
     if price_max:
-        products = products.filter(product_sizes__price__lte=price_max)
+        try:
+            price_max_value = float(price_max)
+            products = products.filter(product_sizes__price__lte=price_max_value)
+        except (ValueError, TypeError):
+            pass
+        
+    # removing duplicates
+    products = products.distinct()
 
     products = products.order_by(sort_by)
 

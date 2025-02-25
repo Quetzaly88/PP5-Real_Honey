@@ -44,26 +44,42 @@
     </a>
   </div>
 
+  <!-- About us text -->
+  <div class="container my-5">
+    <div class="about-section p4 rounded shadow-sm bg-light">
+      <h1 class="text-center mb-4">Supporting Beekeepers from Bjäre Peninsula in Sweden</h1>
+      <p class="text-center">
+          We deeply value the essential role that bees play in our ecosystem — 
+          as they gather nectar from flowers, they not only produce 
+          honey but also contribute to the pollination of countless plants;
+          resulting in thriving gardens, abundant fruits, and vibrant flowers. 
+          Our mission extends beyond offering premium honey; we actively support 
+          bee conservation efforts, advocate for eco-friendly practices, and work alongside 
+          local beekeepers who share our commitment to sustainability. 
+      </p>
+    </div>
+  </div>
+
   <!-- Featured Products Section -->
   <div class="container my-5">
     <h1 class="text-center mb-4">Featured Products</h1>
     <div class="d-flex overflow-auto pb-3">
       {% for product in featured_products %}
       <div class="card mx-2" style="min-width: 250px;">
-          <a href="{% url 'product_detail' product.id %}">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name}}" class="card-img-top">
-            {% else %}
-            <img src="{% static 'images/default.jpg' %}" alt="{{ product.name }}" class="card-img-top">
-            {% endif %}
-          </a>
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ product.name }}</h5>
-            {% if product.is_featured %}
-            <span class="badge badge-warning">Featured</span>
-            {% endif %}
-            <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
-          </div>
+        <a href="{% url 'product_detail' product.id %}">
+          {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name}}" class="card-img-top">
+          {% else %}
+          <img src="{% static 'images/default.jpg' %}" alt="{{ product.name }}" class="card-img-top">
+          {% endif %}
+        </a>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ product.name }}</h5>
+          {% if product.is_featured %}
+          <span class="badge badge-warning">Featured</span>
+          {% endif %}
+          <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
+        </div>
       </div>
       {% empty %}
       <p class="text-center">No featured products</p>
@@ -77,29 +93,29 @@
     <div class="d-flex overflow-auto pb-3">
       {% for product in best_seller_products %}
       <div class="card mx-2" style="min-width: 250px;">
-          <a href="{% url 'product_detail' product.id %}">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
-            {% else %}
-            <img src="{% static 'images/default.jpg' %}" alt="{{ product.name }}" class="card-img-top">
-            {% endif %}
-          </a>
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ product.name }}</h5>
-            {% if product.is_best_seller %}
-            <span class="badge badge-success">Best Seller</span>
-            {% endif %}
-            <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
-          </div>
+        <a href="{% url 'product_detail' product.id %}">
+          {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
+          {% else %}
+          <img src="{% static 'images/default.jpg' %}" alt="{{ product.name }}" class="card-img-top">
+          {% endif %}
+        </a>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ product.name }}</h5>
+          {% if product.is_best_seller %}
+          <span class="badge badge-success">Best Seller</span>
+          {% endif %}
+          <p class="card-text text-success font-weight-bold">${{ product.product_sizes.first.price }}</p>
+        </div>
       </div>
-    {% empty %}
-    <p class="text-center">No best sellers avaiable</p>
-    {% endfor %}
+      {% empty %}
+      <p class="text-center">No best sellers avaiable</p>
+      {% endfor %}
     </div>
   </div>
 
   {% endblock %}
-<!-- 
+  <!-- 
   {% block extra_css %}
   <stylee>
     /*Hide scrollbar for webkit browsers */

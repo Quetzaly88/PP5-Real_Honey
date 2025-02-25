@@ -24,6 +24,7 @@
             <option value="" {% if not size_filter %}selected{% endif %}>All Sizes</option>
             <option value="450g" {% if '450' in size_filter %}selected{% endif %}>450g</option>
             <option value="600g" {% if '600' in size_filter %}selected{% endif %}>600g</option>
+            <option value="Standard" {% if 'Standard' in size_filter %}selected{% endif %}>Standard</option>
          </select>
 
          <button type="submit" class="btn btn-secondary">Search</button>
@@ -134,7 +135,7 @@
             <a class="page-link" href="#">Next</a>
          </li>
          {% endif %}
-         
+
       </ul>
    </nav>
 </div>
