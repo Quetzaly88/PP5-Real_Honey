@@ -10,13 +10,15 @@ class OrderLineItemInline(admin.TabularInline):
     readonly_fields = ('line_total',)
     extra = 1  # Allow adding items
 
-    def line_total(self, obj):
+    def calculated_line_total(self, obj):
         """
         Calculates total price per line item. 
         """
-        return obj.line_total
-    
-    line_total.short_description = 'Total Price'
+        if obj and obj.price is not None and obj.quantity is not None:
+            return obj.line_total
+        return 0
+
+    calculated_line_total.short_description = 'Total Price'
 
 
 @admin.register(Order)
@@ -65,3 +67,44 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': ('total_cost', 'discount_amount', 'delivery_fee', 'final_price', 'applied_coupon')
         }),
     )
+
+    def save_model(self, request, obj, form, change):
+        """
+        Ensure total cost is updated when saving
+        """
+        obj.total_cost = sum([item.line_total for item in obj.line_items.all()]) if obj.line_items.exists() else 0
+        obj.final_price = max(obj.total_cost - obj.discount_amount + obj.delivery_fee, 0)
+        super().save_model(request, obj, form, change)
+
+
+@admin.register(OrderLineItem)
+class OrderLineItemAdmin(admin.ModelAdmin):
+    """
+    Admin view for managing order line items.
+    """
+    list_display = (
+        'order',
+        'product',
+        'quantity',
+        'price',
+        'calculated_line_total',
+    )
+    search_fields = (
+        'order__order_number',
+        'product__product__name',
+    )
+    list_filter = (
+        'order__date_created',
+    )
+
+    readonly_fields = ('calculated_line_total',)
+
+    def calculated_line_total(self, obj):
+        """
+        Calculates total price per line item. 
+        """
+        if obj and obj.price is not None and obj.quantity is not None:
+            return obj.line_total
+        return 0
+    
+    calculated_line_total.short_description = 'Total Price'
