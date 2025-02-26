@@ -74,10 +74,10 @@ class OrderLineItem(models.Model):
             self.order.line_items.update()
 
 
-    @property
-    def line_total(self):
-        """Calculates the total price for this line item"""
-        return (self.price if self.price is not None else 0) * self.quantity
+@property
+def line_total(self):
+    """Calculates the total price for this line item"""
+    return (self.price if self.price is not None else 0) * self.quantity
 
     def __str__(self):
         return f"{self.product.product.name} - {self.quantity} x ${self.price}"
