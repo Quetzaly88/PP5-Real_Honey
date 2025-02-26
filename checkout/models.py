@@ -7,7 +7,7 @@ from shopping_cart.models import Coupon
 
 class Order(models.Model):
     order_number = models.CharField(
-        max_length=32, null=False, editable=False)
+        max_length=32, unique=True, null=False, editable=False)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -42,7 +42,10 @@ class Order(models.Model):
         if not self.order_number:
             self.order_number = self._generate_order_number()
 
-        # ensure finnal_price is calculated (total - discount + delivery)
+        # Recalculate total_cost
+        self.total_cost = sum([item.line_total for item in self.line_items.all()]) if self.line_items.exists() else 0
+
+        # ensure final_price is calculated (total - discount + delivery)
         self.final_price = max(self.total_cost - self.discount_amount + self.delivery_fee, 0)
 
         super().save(*args, **kwargs)
@@ -55,29 +58,26 @@ class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='line_items')
     product = models.ForeignKey(ProductSize, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=True, default=0.00)
 
     def save(self, *args, **kwargs):
-        """discount applies dinamically when a coupon is applied"""
-        if not self.order_number:
-            self.order_number = self._generate_order_number()
-
-        # ensure discount_amount is updated dynamically if a coupon is applied
-        if self.applied_coupon:
-            if self.applied_coupon.discount_type == 'fixed':
-                self.discount_amount = self.applied_coupon.value
-            elif self.applied_coupon.discount_type == 'percent':
-                self.discount_amount = (self.total_cost * self.applied_coupon.value) / 100
-
-        # final price calculation
-        self.final_price = max(self.total_cost - self.discount_amount + self.delivery_fee, 0)
+        """
+        Ensure price is set before saving
+        """
+        if self.price is None and self.product:
+            self.price = self.product.price  # Use product price if not manually set
 
         super().save(*args, **kwargs)
+
+        # Update order total cost
+        if self.order:
+            self.order.line_items.update()
+
 
     @property
     def line_total(self):
         """Calculates the total price for this line item"""
-        return self.price * self.quantity
+        return (self.price if self.price is not None else 0) * self.quantity
 
     def __str__(self):
         return f"{self.product.product.name} - {self.quantity} x ${self.price}"
