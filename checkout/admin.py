@@ -106,5 +106,5 @@ class OrderLineItemAdmin(admin.ModelAdmin):
         if obj and obj.price is not None and obj.quantity is not None:
             return obj.line_total
         return 0
-    
+
     calculated_line_total.short_description = 'Total Price'
