@@ -10,6 +10,7 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('wishlist/', include('wishlist.urls')),
     path('shopping_cart/', include('shopping_cart.urls')),
+    path('checkout/', include('checkout.urls')),
 ]
 
 # Serve media files during development.
