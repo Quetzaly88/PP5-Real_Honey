@@ -54,6 +54,10 @@ INSTALLED_APPS = [
     'wishlist',
     'shopping_cart',
     'checkout',
+
+    # other installed apps
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -194,3 +198,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',  # Bootstrap error message
 }
+
+# Crispy Forms Settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
