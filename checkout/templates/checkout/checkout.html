@@ -72,5 +72,13 @@
     {% endif %}
 </div>
 
+{% endblock %}
 
+{% block postloadjs %}
+    {{ block.super }}
+    <script>
+        var stripePublicKey = "{{ stripe_public_key}}";
+        var clientSecret = "{{ client_secret }}";
+    </script>
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}

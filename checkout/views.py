@@ -1,3 +1,4 @@
+import stripe
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -12,12 +13,14 @@ def checkout_view(request):
     """
     Handles checkout form and order creation.
     """
+    stripe.api_key = settings.STRIPE_SECRET_KEY # Initialize stripe
+
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
     else:
         cart_items = request.session.get('cart', {})
 
-    # REdirect to product_list if the cart is empty
+    # Redirect if cart is empty
     if not cart_items or (request.user.is_authenticated and not cart_items.exists()):
         messages.error(request, "Your cart is empty.")
         return redirect('product_list')
@@ -40,6 +43,13 @@ def checkout_view(request):
         free_delivery_delta = (free_delivery_threshold - total_price).quantize(Decimal('0.01'))
 
     final_price = (total_price + delivery_fee).quantize(Decimal('0.01'))
+
+    # Create Stripe PaymentIntent
+    payment_intent = stripe.PaymentIntent.create(
+        amount=int(final_price * 100),
+        currency='usd',
+        metadata={'integration_check': "accept_a_payment"},
+    )
 
     # Handle form submission
     if request.method == 'POST':
@@ -82,13 +92,15 @@ def checkout_view(request):
     else:
         form = OrderForm()
 
-    # REnder checkout page
+    # Render checkout page
     context = {
         'form': form,
         'cart_items': cart_items,
         'total_price': total_price,
         'delivery_fee': delivery_fee,
         'final_price': final_price,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'client_secret': payment_intent.client_secret,  # Pass client secret to frontend
     }
 
     return render(request, 'checkout/checkout.html', context)
