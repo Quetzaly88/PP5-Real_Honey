@@ -17,9 +17,12 @@ def checkout_view(request):
     else:
         cart_items = request.session.get('cart', {})
 
+    # Debugging
+    print("Cart Items: ", cart_items)
+
     # REdirect to product_list if the cart is empty
-    if not cart_items:
-        messages.error(request, 'Your cart is empty.')
+    if not cart_items or (request.user.is_authenticated and not cart_items.exists()):
+        messages.error(request, "Your cart is empty.")
         return redirect('product_list')
 
     # Calculate total price
