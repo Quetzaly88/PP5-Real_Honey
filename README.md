@@ -53,3 +53,24 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 https://docs.djangoproject.com/en/5.1/topics/http/sessions/#settings
 https://docs.djangoproject.com/en/5.1/ref/settings/#std:setting-MESSAGE_TAGS
 https://docs.djangoproject.com/en/5.1/ref/settings/
+
+
+**STRIPE PAYMENT INTEGRATION**
+Overview:
+   Stripe payment processing in the project. Stripe is used to securely handle online payments for customer orders. 
+1. Pip Install Stripe
+2. Open an account in Stripe to obtain API Keys. This keys are added in the main settings.py.
+3. Modify checkout/views.py
+   - Creating a Stripe PaymentIntent
+   - Passing the client secret to the frontend
+   - Handling order creation after successful payment. 
+4. Modify checkout.html
+   - Ensure that checkout.html passes the client_secret to Javascript
+5. Create stripe.js for Payment Processing.
+   - Path: checkout/static/js/stripe.js (https://chatgpt.com/)
+
+Conclusion: 
+   This integration allows secure payment processing using Stripe Elements. It ensures that: 
+   - No sensitive card details are stored on the server.
+   - Secure and efficient transactions.
+   - Real-time validation and error handling. 
