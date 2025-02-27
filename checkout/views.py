@@ -17,9 +17,6 @@ def checkout_view(request):
     else:
         cart_items = request.session.get('cart', {})
 
-    # Debugging
-    print("Cart Items: ", cart_items)
-
     # REdirect to product_list if the cart is empty
     if not cart_items or (request.user.is_authenticated and not cart_items.exists()):
         messages.error(request, "Your cart is empty.")
@@ -35,8 +32,12 @@ def checkout_view(request):
     free_delivery_threshold = Decimal(settings.FREE_DELIVERY_THRESHOLD)
     standard_delivery_percentage = Decimal(settings.STANDARD_DELIVERY_PERCENTAGE)
 
-    delivery_fee = Decimal('0') if total_price >= free_delivery_threshold else \
-        (total_price * standard_delivery_percentage / Decimal('100')).quantize(Decimal('0.1'))
+    if total_price >= free_delivery_threshold:
+        delivery_fee = Decimal('0')
+        free_delivery_delta = Decimal('0')
+    else:
+        delivery_fee = (total_price * standard_delivery_percentage / Decimal('100')).quantize(Decimal('0.01'))
+        free_delivery_delta = (free_delivery_threshold - total_price).quantize(Decimal('0.01'))
 
     final_price = (total_price + delivery_fee).quantize(Decimal('0.01'))
 

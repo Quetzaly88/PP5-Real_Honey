@@ -11,12 +11,12 @@
 
 {% block content %}
 <div class="container my-4">
-    <h2 class="mb-4 text-center">Checkout</h2>
+    <h2 class="mb-4 text-center">CHECKOUT</h2>
 
     <!-- Order Summary -->
     {% if cart_items %}
     <div class="card shadow-sm p-4 mb-4">
-        <h3 class="mb-3">Order Summary</h3>
+        <p class="mb-3"><strong> Summary: </strong></p>
         <ul class="list-group mb-3">
             {% for item in cart_items %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -30,57 +30,47 @@
             <li class="list-group-item text-center">Your cart is empty</li>
             {% endfor %}
         </ul>
-
-        <p><strong>Subtotal:</strong> ${{ total_price }}</p>
-        <p><strong>Delivery fee:</strong> ${{ delivery_fee }}</p>
+        <p>Subtotal: ${{ total_price }}</p>
+        <p>Delivery fee: ${{ delivery_fee }}</p>
         <p>
             {% if free_delivery_delta > 0 %}
-            Spend <strong>${{ free_delivery_delta }}</strong> more to get free delivery
-            {% else %}
             <span class="text-success">You qualify for free delivery!</span>
             {% endif %}
         </p>
-        <h4 class="mt-3">Grand total: ${{ final_price }}</h4>
-        <div>
-
-            <!-- Shipping details form -->
-            <div class="card shadow-sm p-4 mb-4">
-                <h4 class="mb-3">Shipping Details</h4>
-                <form method="POST">
-                    {% csrf_token %}
-
-                    <!-- Form fields with crispy forms -->
-                    <fieldset class="form-group">
-                        <legend>Personal Details</legend>
-                        {{ form.full_name|as_crispy_field }}
-                        {{ form.email|as_crispy_field }}
-                        {{ form.phone_number|as_crispy_field }}
-                    </fieldset>
-
-                    <fieldset class="form-group">
-                        <legend>Shipping Address</legend>
-                        {{ form.address|as_crispy_field }}
-                        {{ form.town_or_city|as_crispy_field }}
-                        {{ form.postcode|as_crispy_field }}
-                        {{ form.country|as_crispy_field }}
-                    </fieldset>
-
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
-                        Proceed to Payment
-                    </button>
-                </form>
-            </div>
-
-            {% else %}
-            <p class="text-center">Your cart is empty</p>
-            {% endif %}
-        </div>
-<!-- 
-        {% for item in cart_items %}
-        <p>Product: {{ item.product.product.name }} - Quantity: {{ item.quantity }}</p>
-        {% empty %}
-        <p>DEBUG: No cart items found</p>
-        {% endfor %} -->
-
+        <p class="mt-3"><strong>Grand total: </strong>${{ final_price }}</p>
     </div>
-    {% endblock %}
+
+    <!-- Shipping details form -->
+    <div class="card shadow-sm p-4 mb-4">
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Form fields with crispy forms -->
+            <fieldset class="form-group">
+                <legend>Personal Details</legend>
+                {{ form.full_name|as_crispy_field }}
+                {{ form.email|as_crispy_field }}
+                {{ form.phone_number|as_crispy_field }}
+            </fieldset>
+
+            <fieldset class="form-group">
+                <legend>Shipping Address</legend>
+                {{ form.address|as_crispy_field }}
+                {{ form.town_or_city|as_crispy_field }}
+                {{ form.postcode|as_crispy_field }}
+                {{ form.country|as_crispy_field }}
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                Proceed to Payment
+            </button>
+        </form>
+    </div>
+
+    {% else %}
+    <p class="text-center">Your cart is empty</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}
