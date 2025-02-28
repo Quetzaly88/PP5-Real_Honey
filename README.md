@@ -74,3 +74,45 @@ Conclusion:
    - No sensitive card details are stored on the server.
    - Secure and efficient transactions.
    - Real-time validation and error handling. 
+
+
+** About Secret Keys **
+Security improvements made to protect sensitive API keys and secret credentials. 
+
+* Installation of python-decouple:
+  The python-decouple helps manage environment variables securely by loading them from a .env file instead of hardcoding sensitive information in settings.py.
+  
+  Why using python-decouple? 
+  - Keep secret keys secure by storing them in .env and adding .env in .gitignore. This prevent accidental leaks when pushing code to Github. 
+
+  - Improves mantainability by separating configuration from the codebase. This makes it easier to switch environments (development, staging, production). 
+
+  - Prevent Security Risks. Python-decouple ensures secrets are not stored in version control (Git).
+
+  How we used python decouple? 
+  1. Install: pip install python-decouple
+  2. Create a .env file in project root and add it to .gitignore
+  3. Add secret keys to .env: 
+
+      SECRET_KEY='your-django-secret-key'
+      STRIPE_PUBLIC_KEY='your-public-key-here'
+      STRIPE_SECRET_KEY='your-secret-key-here'
+      STRIPE_WEBHOOK_SECRET='your-webhook-secret-here' # if needed
+      DEBUG=True  # Change to False in production
+
+4. Load the secrets in settings.py
+
+      import os
+      from decouple import config  # Import python-decouple
+
+      SECRET_KEY = config("SECRET_KEY")  # Securely fetch secret key
+
+      STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
+      STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+      STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET") # if needed
+      <!-- or debug=True???? -->
+      <!-- DEBUG = config("DEBUG", default=False, cast=bool)   -->
+
+      https://pypi.org/project/python-decouple/
+      https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
+      
