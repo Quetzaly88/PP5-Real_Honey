@@ -13,6 +13,7 @@ import os
 
 from pathlib import Path
 from django.contrib.messages import constants as messages  # Django messages framework enabled to display success/error messages:
+from decouple import config  # Import decouple to read .env
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3kzzx$a1$&-z(bvy0+o7vi^dsy5r3+ejvh@e7k25p3y6&a3&q0'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -205,6 +206,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 # Stripe API Keys
-STRIPE_PUBLIC_KEY = "pk_test_51Qx93CAh4OIFoBnjgMgF9fn3KZSAgfSMfZfzXoltpT6RSei58vMv6iQU1AccgsPU94foMsHX9XtD96xU3I4SPskb00NUqFK1vV"
-STRIPE_SECRET_KEY = "sk_test_51Qx93CAh4OIFoBnjygouGFFx7KsYNocRk7ZB91LjzpZtoVRGgpyFjvVEGIWEshusCAtQSJz8Y2NCcZGfKR1KzSwm00tApHXST5"
-STRIPE_WEBHOOK_SECRET = "your-webhook-secret-here"
+STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
