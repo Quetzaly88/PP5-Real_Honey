@@ -42,36 +42,57 @@
 
     <!-- Shipping details form -->
     <div class="card shadow-sm p-4 mb-4">
-        <form method="POST">
+        <form method="POST" id="payment-form">
             {% csrf_token %}
 
-            <!-- Form fields with crispy forms -->
             <fieldset class="form-group">
                 <legend>Personal Details</legend>
                 {{ form.full_name|as_crispy_field }}
                 {{ form.email|as_crispy_field }}
-                {{ form.phone_number|as_crispy_field }}
             </fieldset>
 
             <fieldset class="form-group">
                 <legend>Shipping Address</legend>
+                {{ form.phone_number|as_crispy_field }}
                 {{ form.address|as_crispy_field }}
                 {{ form.town_or_city|as_crispy_field }}
                 {{ form.postcode|as_crispy_field }}
                 {{ form.country|as_crispy_field }}
             </fieldset>
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block">
-                Proceed to Payment
-            </button>
+            {% if user.is_authenticated %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="id-save-info" name="save_info" checked>
+                <label class="form-check-label" for="id-save-info">
+                    Save this information for next time
+                </label>
+            </div>
+            {% endif %}
+
+            <fieldset class="form-group">
+                <legend>Payment</legend>
+                <label for="card-element">Credit or Debit Card</label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <div id="card-errors" class="text-danger" role="alert"</div>
+            </fieldset>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'cart' %}" class="btn btn-secondary">
+                    Back to Cart
+                </a>
+                <button id="submit-button" class="btn btn-primary">
+                    Pay Now <i class="fas fa-lock"></i>
+                </button>
+            </div>
+            <p class="small text-danger mt-2">Your card will be charged <strong>${{grand_total|floatformat:2 }}</strong></p>
         </form>
     </div>
-
     {% else %}
     <p class="text-center">Your cart is empty</p>
     {% endif %}
 </div>
-
 {% endblock %}
 
 {% block postloadjs %}

@@ -55,7 +55,7 @@ def checkout_view(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            # Create order instance
+            # Save order first
             order = form.save(commit=False)
             order.user = request.user if request.user.is_authenticated else None
             order.total_cost = total_price
@@ -71,7 +71,7 @@ def checkout_view(request):
                         product=item.product,
                         quantity=item.quantity,
                         price=item.product.price,
-                        )
+                    )
                 cart_items.delete()
 
             else:
@@ -87,10 +87,14 @@ def checkout_view(request):
 
             messages.success(request, 'Order successfully placed.')
             return redirect('order_confirmation', order_number=order.order_number)
+    
         else:
             messages.error(request, 'Error processing order. Please check your information.')
+    
+    
     else:
         form = OrderForm()
+
 
     # Render checkout page
     context = {

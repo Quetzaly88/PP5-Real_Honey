@@ -14,7 +14,7 @@ class OrderForm(forms.ModelForm):
         placeholders = {
             'full_name': 'Full Name',
             'email': 'Email Address',
-            'phone_number:': 'Phone Number',
+            'phone_number': 'Phone Number',
             'address': 'Street Address',
             'town_or_city': 'Town or City',
             'postcode': 'Postal Code',

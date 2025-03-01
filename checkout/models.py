@@ -42,13 +42,16 @@ class Order(models.Model):
         if not self.order_number:
             self.order_number = self._generate_order_number()
 
+        # save the order first
+        super().save(*args, **kwargs)
+
         # Recalculate total_cost
         self.total_cost = sum([item.line_total for item in self.line_items.all()]) if self.line_items.exists() else 0
 
         # ensure final_price is calculated (total - discount + delivery)
         self.final_price = max(self.total_cost - self.discount_amount + self.delivery_fee, 0)
 
-        super().save(*args, **kwargs)
+        super().save(update_fields=['total_cost', 'final_price'])
 
     def __str__(self):
         return f"Order {self.order_number} - {self.full_name}"
@@ -59,25 +62,22 @@ class OrderLineItem(models.Model):
     product = models.ForeignKey(ProductSize, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=True, default=0.00)
+    line_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0.00)
 
     def save(self, *args, **kwargs):
         """
-        Ensure price is set before saving
+        Ensure total_cost is calculated after order instance is saved
         """
+
         if self.price is None and self.product:
             self.price = self.product.price  # Use product price if not manually set
 
+        self.line_total = self.price * self.quantity
+
         super().save(*args, **kwargs)
 
-        # Update order total cost
         if self.order:
-            self.order.line_items.update()
-
-
-@property
-def line_total(self):
-    """Calculates the total price for this line item"""
-    return (self.price if self.price is not None else 0) * self.quantity
+            self.order.save()
 
     def __str__(self):
         return f"{self.product.product.name} - {self.quantity} x ${self.price}"
