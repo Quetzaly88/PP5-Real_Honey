@@ -7,7 +7,7 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ('full_name', 'email', 'phone_number',
                   'address', 'town_or_city', 'postcode', 'country')
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -24,11 +24,8 @@ class OrderForm(forms.ModelForm):
         self.fields['full_name'].widget.attrs['autofocus'] = True
 
         for field in self.fields:
-            placeholder = placeholders.get(field, '')
-
-            if self.fields[field].required:
-                placeholder += ' *'
-
+            placeholder = f"{placeholders[field]} *" if self.fields[
+                field].required else placeholders[field]
             self.fields[field].widget.attrs.update({
                 'class': 'stripe-style-input',
                 'placeholder': placeholder

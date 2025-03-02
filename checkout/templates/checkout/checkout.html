@@ -42,7 +42,7 @@
 
     <!-- Shipping details form -->
     <div class="card shadow-sm p-4 mb-4">
-        <form method="POST" id="payment-form">
+        <form method="POST" id="checkout-form">
             {% csrf_token %}
 
             <fieldset class="form-group">
@@ -75,7 +75,7 @@
                 <div id="card-element">
                     <!-- A Stripe Element will be inserted here. -->
                 </div>
-                <div id="card-errors" class="text-danger" role="alert"</div>
+                <div id="card-errors" class="text-danger" role="alert"></div>
             </fieldset>
 
             <div class="d-flex justify-content-between mt-4">

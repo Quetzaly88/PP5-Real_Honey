@@ -13,7 +13,7 @@ def checkout_view(request):
     """
     Handles checkout form and order creation.
     """
-    stripe.api_key = settings.STRIPE_SECRET_KEY # Initialize stripe
+    stripe.api_key = settings.STRIPE_SECRET_KEY  # Initialize stripe
 
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
@@ -50,7 +50,10 @@ def checkout_view(request):
         currency='usd',
         metadata={'integration_check': "accept_a_payment"},
     )
-
+    
+    # Store the PaymentIntent ID in the session (used for webhook validation)
+    request.session['payment_intent_id'] = payment_intent.id
+    
     # Handle form submission
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -62,6 +65,8 @@ def checkout_view(request):
             order.delivery_fee = delivery_fee
             order.final_price = final_price
             order.save()
+            
+            request.session['cart_backup'] = list(cart_items.values()) if not request.user.is_authenticated else None# Backup cart items for order confirmation
 
             # Create order line items
             if request.user.is_authenticated:
@@ -72,7 +77,6 @@ def checkout_view(request):
                         quantity=item.quantity,
                         price=item.product.price,
                     )
-                cart_items.delete()
 
             else:
                 for key, item in cart_items.items():
@@ -83,18 +87,16 @@ def checkout_view(request):
                         quantity=item['quantity'],
                         price=Decimal(item['price']),
                     )
-                request.session.pop('cart', None)
+                request.session['cart'] = cart_items
 
             messages.success(request, 'Order successfully placed.')
             return redirect('order_confirmation', order_number=order.order_number)
-    
+
         else:
             messages.error(request, 'Error processing order. Please check your information.')
-    
-    
+
     else:
         form = OrderForm()
-
 
     # Render checkout page
     context = {
