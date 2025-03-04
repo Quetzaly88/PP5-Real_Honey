@@ -1,9 +1,8 @@
 .StripeElement,
 .stripe-style-input {
   box-sizing: border-box;
-  height: 40px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
+  height: 50px;
+  padding: 12px 16px;
   border-radius: 0px;
   background-color: white;
   box-shadow: 0 1px 3px 0 #e6ebf1;
@@ -18,7 +17,7 @@
 }
 
 .StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
+  background-color: #fff !important;
 }
 
 .stripe-style-input::placeholder {
@@ -34,4 +33,5 @@
 #card-element {
     color: #000;
     border: 1px solid #000;
+    height: 40px;
 }

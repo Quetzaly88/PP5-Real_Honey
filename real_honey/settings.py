@@ -27,8 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = config("DEBUG", default=False, cast=bool)  # from python-decouple. What is correct???
+# DEBUG = True. Toggle from .env
+DEBUG = config("DEBUG", default=False, cast=bool)  # from python-decouple. What is correct???
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
@@ -208,5 +208,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 # Stripe API Keys
-STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
-STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY", default="")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")

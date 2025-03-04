@@ -50,10 +50,10 @@ def checkout_view(request):
         currency='usd',
         metadata={'integration_check': "accept_a_payment"},
     )
-    
+
     # Store the PaymentIntent ID in the session (used for webhook validation)
     request.session['payment_intent_id'] = payment_intent.id
-    
+
     # Handle form submission
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -65,7 +65,7 @@ def checkout_view(request):
             order.delivery_fee = delivery_fee
             order.final_price = final_price
             order.save()
-            
+
             request.session['cart_backup'] = list(cart_items.values()) if not request.user.is_authenticated else None# Backup cart items for order confirmation
 
             # Create order line items
@@ -105,8 +105,8 @@ def checkout_view(request):
         'total_price': total_price,
         'delivery_fee': delivery_fee,
         'final_price': final_price,
-        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
-        'client_secret': payment_intent.client_secret,  # Pass client secret to frontend
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY if settings.STRIPE_PUBLIC_KEY else '',
+        'client_secret': payment_intent.client_secret if payment_intent else '',   # Pass client secret to frontend
     }
 
     return render(request, 'checkout/checkout.html', context)

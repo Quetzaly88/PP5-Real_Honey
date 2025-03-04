@@ -42,7 +42,7 @@
 
     <!-- Shipping details form -->
     <div class="card shadow-sm p-4 mb-4">
-        <form method="POST" id="checkout-form">
+        <form method="POST" id="payment-form">
             {% csrf_token %}
 
             <fieldset class="form-group">
@@ -71,8 +71,8 @@
 
             <fieldset class="form-group">
                 <legend>Payment</legend>
-                <label for="card-element">Credit or Debit Card</label>
-                <div id="card-element">
+                <label>Credit or Debit Card</label>
+                <div id="card-element" class="StripeElement">
                     <!-- A Stripe Element will be inserted here. -->
                 </div>
                 <div id="card-errors" class="text-danger" role="alert"></div>
@@ -86,7 +86,7 @@
                     Pay Now <i class="fas fa-lock"></i>
                 </button>
             </div>
-            <p class="small text-danger mt-2">Your card will be charged <strong>${{grand_total|floatformat:2 }}</strong></p>
+            <p class="small text-danger mt-2">Your card will be charged <strong>${{ final_price|floatformat:2 }}</strong></p>
         </form>
     </div>
     {% else %}
@@ -97,9 +97,15 @@
 
 {% block postloadjs %}
     {{ block.super }}
+    <!-- Define Variables -->
     <script>
-        var stripePublicKey = "{{ stripe_public_key}}";
+        console.log("Checking Stripe variables...");
+        console.log("stripePublicKey:", "{{ stripe_public_key }}");
+        console.log("clientSecret:", "{{ client_secret }}");
+        
+        var stripePublicKey = "{{ stripe_public_key }}";
         var clientSecret = "{{ client_secret }}";
     </script>
+    <!-- Load Stripe JS after variables are set -->
     <script src="{% static 'checkout/js/stripe.js' %}"></script>
 {% endblock %}
