@@ -4,24 +4,26 @@
 
 Project Name: PP5_Real_Honey
    * 1.1 Description
-   Real Honey is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
+      Real Honey is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
 
-   *Key Goal 
-   To provide a seamless and enjoyable shopping experience while supporting local beekeepers.
+      * Key Goal
+      To provide a seamless and enjoyable shopping experience while supporting local beekeepers.
 
-   * Target Audience
-   - Nature and health-conscious individuals that love honey. 
-   - Online shoppers seeking convenience
-   - Supporters of local beekeepers
+      * Target Audience
+      - Nature and health-conscious individuals that love honey. 
+      - Online shoppers seeking convenience
+      - Supporters of local beekeepers
 
-   * Live Project:
-   URL: 
+      * Live Project:
+      URL: 
 
-   * Dummy Card for Testing: 
+      * Dummy Card for Testing: 
       - Card Number:  4242 4242 4242 4242
       - Expiry: 01/34
       - CVC: 123
-      - ZIP: 1234
+      - ZIP: 12345
+
+      * Test failing transactions *
 
       Developer: 
       Andrea Nilsson Coronado
@@ -57,9 +59,10 @@ Project Name: PP5_Real_Honey
 13. Resources for project development. 
 
 
+
 **3. User Experience (UX)**
 
-   * 3.1 The Strategy Plane
+   *3.1 The Strategy Plane*
       3.1.1 The Idea:
          To create an e-commerce platform that offers locally sourced honey and honey-related products with a focus on authenticity and sustainability. 
 
@@ -75,10 +78,11 @@ Project Name: PP5_Real_Honey
          - Ensure users can easily browse and purchase honey.
          - Offer transparency about honey origins and beekeepers
          - Implement strong SEO. 
+
       3.1.4 Epics and user stories: 
          [Link or resume of useer stories]
 
-   * 3.2 The Scope Plane
+   *3.2 The Scope Plane*
       3.2.1 Features to be implemented.
          - Product Listings & Categorization
          - Sorting and Filtering of products
@@ -87,14 +91,14 @@ Project Name: PP5_Real_Honey
          - SEO
          - Responsive Design
 
-   * 3.3 The Structure Plan
+   *3.3 The Structure Plan*
          - Site map
          - Database Schema
 
-   * 3.4 Wireframes
+   *3.4 Wireframes*
          [link or imgs]
 
-   * 3.5 The Surface Plan
+   *3.5 The Surface Plan*
          - Logo
          - Color Palette
          - Fonts
@@ -102,7 +106,7 @@ Project Name: PP5_Real_Honey
          - Images
 
 **4. Features**
-   * 4.1 Core Features:
+   *4.1 Core Features:*
          - Header with navigation and logo.
          - Footer with contact info, adress and social media engagement. 
          - Wishlist management
@@ -110,7 +114,7 @@ Project Name: PP5_Real_Honey
          - Search functionality
          - Notifications (on-screen and email)
 
-   * 4.2 Pages:
+   *4.2 Pages:*
          - Landing page. Home.
          - Product list page
          - Product Detail page.
@@ -143,7 +147,7 @@ Project Name: PP5_Real_Honey
                   messages.ERROR: 'alert-danger',  # Bootstrap error message
                }
 
-   * 4.3 Future Implementations:
+   *4.3 Future Implementations:*
       4.3.1 Bulk product import via CSV:
          This feature can be implemented in the future to allow administrators to upload product details through a CSV file, reducing the time and effort required for manual data entry. For this we will need to immport csv. This won't be done in this project now because this project is in a small scale, otherwise, it can be implemented in the future.
          https://docs.djangoproject.com/en/5.1/howto/outputting-csv/
@@ -160,46 +164,56 @@ Project Name: PP5_Real_Honey
          - AI based product recomendations 
 
 **5. Marketing**
-   * 5.1 Social Media Presence:
+   *5.1 Social Media Presence:*
          - Active engagement on platforms like Facebook, instagram and youtube.
          - Social media buttons integrated on all the website. 
          - Community engagement through newsletters. 
-   * 5.2 Search Engine Optimization (SEO)
+
+   *5.2 Search Engine Optimization (SEO)*
          - SEO- friendly URLs and meta tags
          - Structured content for better search engine indexing.
          - Email marketing campaigns for customer engagement. 
 
 **6. Validation, Testing & Bugs
-   * 6.1 Validation
+   *6.1 Validation*
       - HTML, CSS and JavaScript validation
       - Accessibility testing
       - SEO validation using Google Tools
 
-   * 6.2 Testing 
+   *6.2 Testing*
       - Manual and automated tests.
          - Performed bu using print(), console.log() and manual testing. 
       - User experience Testing
       - Payment gateway testing.
          - Usind dummy credit card information. 
 
-   * Bugs
-      - Issues with Stripe because postload.js was missing in base.html
-      - Reinstalation of Django
+   *6.3 Bugs*
+      - Issues with Stripe due to missing postload.js in base.html. 
       - Several changes on models for better performance. 
+      - Fixed checkout and Stripe integration: Ensured that cart items persisted untill payment confirmation.
+      - Add default favicon to avoid 404 error. 
+      - Fixed error in Order and OrderLineItem models to prevent AttributeError.
+      - Resolved pagination issue and wishlist items to transfer correctly to cart. 
+      - Resolved issue of best sellers and featured products not seen in home page. 
+      - Reinstallation of Django that was causing problems for lack of compatibility....
+
    
+
 **7. Deployment**
-   * 7.1 Deployment Steps
+   *7.1 Deployment Steps*
       - Transfer progress from IDE to GitHub
       - Deployment to cloud Heroku.
 
-   * 7.2 Deployment Prerequisites
+   *7.2 Deployment Prerequisites*
       - Email Configuration
       - Database Setup
       - Cloud Storage Configuration
       - Payment Gateway Integration
 
-**8. Technologies & Credits
-   8.1 Technologies:
+
+**8. Technologies & Credits**
+   *8.1 Technologies:*
+
       - Django (Backend Framework). 
 
       - Allauth:
@@ -260,9 +274,53 @@ Project Name: PP5_Real_Honey
                    - Secure and efficient transactions.
                    - Real-time validation and error handling. 
 
-   8.2 Credits:
+   *8.2 Credits:*
       [Code-Institute tutors]: 
       [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
+
+**9. Additional Resources**
+   *Useful links for Django, Bootstrap and Stripe documentation 
+
+
+**12. User Stories Summary**
+   This project implements key e-commerce functionalities, focusing on product browsing, user authentication, shopping cart management, wishlist features, cheeckout..............
+
+      *User Story 1: Product Listing: Shoppers can browse a list of products with sorting, pagination, and responsive design. 
+         - Displays product details (name, description, price, image).
+         -  Implements sorting and pagination.
+         -  Default placeholder for missing images.
+         -  Fully responsive on desktop and mobile.
+      
+      *User Story 2: Authentication & Wishlist: Users can log in to save products, manage their shopping cart, and wishlist. 
+         - Django Allauth for user authentication.
+         - Add/remove items from cart and wishlist.
+         - Cart and wishlist persists across sessions.
+         - "Add to wishlist" button, to save favourite products. 
+
+      *User Story 3: Product Detail and Search: View detailed product pages and search using filters. 
+         - Product page includes full description, season, flavor tones, and images.
+         - "Add to cart" and "add to wishlist" buttons.
+         - Search and filter by keyword, price, category and size.
+
+      *User Story 4: Advanced shopping cart:Enhances the shopping cart with discounts, delivery fees and wishlist integration. 
+         - Users can update item quantities.
+         - Apply coupon codes for discount.
+         - Dinamic delivery fee calculation.
+         - Move items from wishlist to cart. 
+
+      *User Story 5: Featured products & UX Improvements: Enhances UX/UI with best sellers, contact info and better navigation. 
+         - Feature products and best-seller badges.
+         - Footer with contact information.
+         - Improved product category filtering.
+         - Admin panel display key product details.
+         - Optimized UI for mobile and desktop. 
+
+      *User Story 6: Checkout and Payment Integration: Implements a seamless checkout process with Stripe payments. 
+         - Checkout page displays cart summary and shipping form.
+         - Delivery fees apply dynamically.
+         - Secure Stripe payment integration.
+         - Order confirmation page and email notifications.  
+         
 
 **13. Resources for Project Development**
 

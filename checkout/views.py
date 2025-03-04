@@ -110,3 +110,16 @@ def checkout_view(request):
     }
 
     return render(request, 'checkout/checkout.html', context)
+
+
+def order_confirmation_view(request, order_number):
+    """
+    Displays order confirmation page.
+    """
+    order = get_object_or_404(Order, order_number=order_number)
+
+    messages.success(request, f'Order successfully placed. Your order number is {order_number}.')
+    
+    context = {'order': order}
+
+    return render(request, 'checkout/order_confirmation.html', context)

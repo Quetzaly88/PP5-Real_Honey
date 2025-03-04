@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="text-center">Thank you for your order!</h2>
+    <br>
+        <p>Order number: <strong>{{ order.order_number }}</strong></p>
+        <ul>
+            {% for item in order.line_items.all %}
+            <li>{{ item.product.product.name }} ({{ item.product.size }}) x {{ item.quantity }} 
+                - <strong> ${{ item.line_total }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Shipping adress: </strong>{{ order.address }}, {{ order.town_or_city }}, {{ order.country }}</p>
+        <p><strong>Total Cost: </strong>${{ order.final_price }}</p>
+        <br>
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Continue Shopping</a>
+</div>
+
+{% endblock %}
