@@ -1,11 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Stripe JS loaded");
+
   if (typeof stripePublicKey === "undefined" || !stripePublicKey) {
     console.error("Stripe public key is missing.");
     return;
   }
 
-  //   var stripe = Stripe(stripePublicKey);
-  //   var elements = stripe.elements();
+  var stripe = Stripe(stripePublicKey);
+  var elements = stripe.elements();
+  console.log("Stripe with key:", stripePublicKey);
+
   var style = {
     base: {
       color: "#000",
