@@ -274,9 +274,104 @@ Project Name: PP5_Real_Honey
                    - Secure and efficient transactions.
                    - Real-time validation and error handling. 
 
-   *8.2 Credits:*
-      [Code-Institute tutors]: 
-      [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
+      [Stripe Webhooks Instalation.]
+         Part 1: Installing Stripe CLI
+            1. Open Your Mac Terminal
+               - Press `Command + Space` to open **Spotlight Search**.  
+               - Type **Terminal** and press **Enter**.  
+
+            2. Install Homebrew (If Not Already Installed)
+            Homebrew is a package manager for macOS that simplifies software installations.
+               -  Verify Homebrew Installation:
+               bash: brew --version
+
+            3. Install Stripe CLI
+            bash: brew install stripe/stripe-cli/stripe
+
+            4. Verify installation
+            bash: stripe version. 
+               If Stripe CLI is installed correctly, it will return a version number (e.g., 1.23.5 or higher).
+
+         Part 2: Logging into Stripe CLI
+            1. Authenticate with Stripe. To log in and authenticate your Stripe account, run:
+            bash: stripe login
+               This will open a browser window prompting you to log in to your Stripe account.
+               Follow the instructions to complete the authentication.
+
+               Once logged in, Stripe CLI will be linked to your account for testing webhooks and payments.
+
+         Part 3: Troubleshooting Permission Errors
+            If you encounter "permission denied" errors during login, follow these steps:
+
+            1. Check Permissions of ~/.config Directory
+            bash: ls -ld ~/.config
+               If the owner is root instead of your username, change it. Replace yourusername with your actual macOS username:
+            bash: sudo chown -R yourusername:staff ~/.config
+
+            2.  Verify Updated Permissions
+            bash: ls -ld ~/.config
+
+            3.  Retry Logging In
+            bash: stripe login
+
+            * Note: Stripe CLI login keys expire every 90 days. You will need to log in again using the same command.
+
+         Part 4: Testing Webhooks Using Stripe CLI
+            1. Preparing Your Code
+
+               - Modify checkout/webhooks.py to confirm the webhook is working:
+
+                  print('Success!')
+                  return HttpResponse(status=200)
+
+                  This will print "Success!" and return a 200 OK response when the webhook is triggered.
+
+               - Modify settings.py to include localhost in ALLOWED_HOSTS:
+
+                   ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+            
+            2.  Open Three Terminals
+
+               * Python server	Runs Django (python manage.py runserver)
+               * Stripe portal	Generates a webhook listener (stripe listen --forward-to localhost:8000/webhook/)
+               * Testing terminal	Sends Stripe webhook triggers (e.g., stripe trigger payment_intent.succeeded)
+
+         Part 5. Steps to Test Webhooks
+            1. Start Django Server
+               bash: python manage.py runserver
+            2. Start Stripe Webhook Listener
+               bash: stripe listen --forward-to localhost:8000/webhook/
+            3. Store the Signing Secret in env.py
+               - os.environ.setdefault('STRIPE_WH_SECRET', 'your signing secret here')
+            4. Restart Django Server
+            5.  Trigger a Test Webhook in the Third Terminal
+               bash:
+                  stripe trigger payment_intent.created
+                  stripe trigger payment_intent.succeeded
+                  stripe trigger payment_intent.payment_failed
+                  stripe trigger charge.succeeded
+                  stripe trigger charge.failed
+               * You should see "Trigger succeeded" in the terminal.
+
+         Part 6: Confirm Webhook Events in Stripe Dashboard.
+            - Log into Stripe Dashboard
+            - Click Developers > Events
+            - Select the latest event and scroll down to Webhook CLI responses
+            - Expand the response and confirm it shows 200 OK and correct webhook messages
+
+         Part 7: Verify Webhooks in Django
+            1. Check the Python Server Terminal
+            
+                  * Webhook received: payment_intent.succeeded 
+                  Success!
+
+                  * This confirms that the webhook was received successfully.
+
+
+
+               *8.2 Credits:*
+                  [Code-Institute tutors]: 
+                  [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
 
 **9. Additional Resources**
    *Useful links for Django, Bootstrap and Stripe documentation 
