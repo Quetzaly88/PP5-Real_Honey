@@ -210,3 +210,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # Stripe API Keys
 STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
