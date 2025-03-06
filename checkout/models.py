@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from products.models import ProductSize
 from shopping_cart.models import Coupon
+from profiles.models import UserProfile
 
 
 class Order(models.Model):
@@ -32,6 +33,11 @@ class Order(models.Model):
     #  Coupon reference
     applied_coupon = models.ForeignKey(
         Coupon, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders'
+    )
+
+    # User profile
+    user_profile = models.ForeignKey(
+        UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders'
     )
 
     def _generate_order_number(self):
@@ -81,3 +87,5 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f"{self.product.product.name} - {self.quantity} x ${self.price}"
+
+
