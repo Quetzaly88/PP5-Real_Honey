@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     # other installed apps
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_countries',
+    'profiles',
 ]
 
 MIDDLEWARE = [
@@ -211,3 +213,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
 STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
+
+
+# Country display
+COUNTRIES_FIRST = ['US', 'GB', 'CA', 'SE']
+COUNTRIES_FIRST_SORT = False  # Show common countries first, but keep order
+COUNTRIES_FLAG_URL = 'https://flagcdn.com/w40/{code}.png'  # Optional: Show flags in dropdown
