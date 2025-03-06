@@ -9,8 +9,9 @@ from profiles.models import UserProfile
 class Order(models.Model):
     order_number = models.CharField(
         max_length=32, unique=True, null=False, editable=False)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    user_profile = models.ForeignKey(
+        UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders'
+    )
 
     # shipping info
     full_name = models.CharField(max_length=50, null=False, blank=False)
