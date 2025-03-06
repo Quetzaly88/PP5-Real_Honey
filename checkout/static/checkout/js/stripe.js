@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var stripe = Stripe(stripePublicKey);
   var elements = stripe.elements();
+
   console.log("Stripe with key:", stripePublicKey);
 
   var style = {
@@ -51,9 +52,29 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    var fullName = document.querySelector("#id_full_name").value;
+    var email = document.querySelector("#id_email").value;
+    var phoneNumber = document.querySelector("#id_phone_number").value;
+    var address = document.querySelector("#id_address").value;
+    var city = document.querySelector("#id_town_or_city").value;
+    var country = document.querySelector("#id_country").value;  //Stripe requires a 2-character country code ISO
+
     stripe
       .confirmCardPayment(clientSecret, {
-        payment_method: { card: card },
+        payment_method: { 
+          card: card,
+          billing_details: {
+            name: fullName,
+            email: email,
+            phone: phoneNumber,
+            address: {
+              line1: address,
+              city: city,
+              country: country,
+            },
+          },
+        },
+        receipt_email: email,
       })
       .then(function (result) {
         if (result.error) {
@@ -62,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
           submitButton.disabled = false;
           submitButton.innerHTML = "Pay Now <i class='fas fa-lock'></i>";
         } else {
-          form.submit();
+            form.submit();
         }
       });
   });
