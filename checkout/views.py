@@ -44,6 +44,14 @@ def checkout_view(request):
 
     final_price = (total_price + delivery_fee).quantize(Decimal('0.01'))
 
+    #  Create payment with metadata
+    metadata = {
+        'integration_check': 'accept_a_payment',
+        'user_id': request.user.id if request.user.is_authenticated else "Guest",
+        'cart_backup': str(cart_items), # Store cart for later
+        'email': request.user.email if request.user.is_authenticated else "",
+    }
+
     # Create Stripe PaymentIntent
     payment_intent = stripe.PaymentIntent.create(
         amount=int(final_price * 100),

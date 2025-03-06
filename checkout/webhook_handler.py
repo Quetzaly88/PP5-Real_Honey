@@ -1,3 +1,4 @@
+import stripe
 from django.http import HttpResponse
 from .models import Order
 
@@ -30,29 +31,48 @@ class StripeWH_Handler:
         Handle the payment_intent.succeeded webhook from Stripe
         """
         intent = event['data']['object']
-        order_number = intent.get("metadata", {}).get("order_number")
+        pid = intent.id
+        metadata = intent.metadata
 
-        if not order_number:
-            return HttpResponse(
-                content="No order number in metadata",
-                status=400,
-            )
+        # Get the charge object
+        stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
 
+        #  Extract billing and shipping details
+        billing_details = stripe_charge.billing_details
+        shipping_details = intent.shipping
+        grand_total = round(stripe_charge.amount / 100, 2)
+
+        # Ensure order exists
+        order_number = metadata.get("order_number")
         order = Order.objects.filter(order_number=order_number).first()
 
         if order:
             order.payment_status = "Paid"
             order.save()
             return HttpResponse(
-                content=f"Webhook received: {event['type']}",
+                content=f"Webhook received: {event['type']} | Order already exists",
                 status=200,
             )
         else:
-            # if order doesn't exist, handle accordingly
-            return HttpResponse(
-                content="Order not found in database.",
-                status=400,
+            #  Create the order if it doesn't exist
+            order = Order.objects.create(
+                full_name=shipping_details.get("name", ""),
+                email=metadata.get("email", ""),
+                phone_number=billing_details.get("phone", ""),
+                address=shipping_details.get("address", {}).get("line1", ""),
+                town_or_city=shipping_details.get("adress", {}).get("city", ""),
+                country=shipping_details.get("adress", {}).get("country", ""),
+                total_cost=grand_total,
+                final_price=grand_total,
+                order_number=order_number,
             )
+
+            order.save()
+
+        return HttpResponse(
+            content=f"Webhook received: {event['type']} | Order Created",
+            status=200,
+        )
 
     def handle_payment_intent_failed(self, event):
         """
@@ -60,7 +80,6 @@ class StripeWH_Handler:
         """
         intent = event['data']['object']
         error_message = intent.get("last_payment_error", {}).get("message", "Unknown error")  # It’s good practice to log the error or return useful feedback.
-
 
         return HttpResponse(
             content=f"Webhook received: {event['type']}",
