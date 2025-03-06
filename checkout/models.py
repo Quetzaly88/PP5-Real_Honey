@@ -88,5 +88,3 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f"{self.product.product.name} - {self.quantity} x ${self.price}"
-
-

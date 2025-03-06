@@ -2,6 +2,7 @@ import stripe
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
+from profiles.models import UserProfile
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from shopping_cart.models import CartItem
@@ -48,7 +49,7 @@ def checkout_view(request):
     metadata = {
         'integration_check': 'accept_a_payment',
         'user_id': request.user.id if request.user.is_authenticated else "Guest",
-        'cart_backup': str(cart_items), # Store cart for later
+        'cart_backup': str(cart_items),  # Store cart for later
         'email': request.user.email if request.user.is_authenticated else "",
     }
 
@@ -68,13 +69,28 @@ def checkout_view(request):
         if form.is_valid():
             # Save order first
             order = form.save(commit=False)
-            order.user = request.user if request.user.is_authenticated else None
+
+            # Attach user profile if authenticated
+            if request.user.is_authenticated:
+                user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+                order.user_profile = user_profile
+
             order.total_cost = total_price
             order.delivery_fee = delivery_fee
             order.final_price = final_price
             order.save()
 
-            request.session['cart_backup'] = list(cart_items.values()) if not request.user.is_authenticated else None# Backup cart items for order confirmation
+            # Save shipping info if user checked "save info"
+            if request.user.is_authenticated and 'save_info' in request.POST:
+                user_profile.full_name = form.cleaned_data['full_name']
+                user_profile.email = form.cleaned_data['email']
+                user_profile.phone_number = form.cleaned_data['phone_number']
+                user_profile.address = form.cleaned_data['address']
+                user_profile.town_or_city = form.cleaned_data['town_or_city']
+                user_profile.postcode = form.cleaned_data['postcode']
+                user_profile.county = form.cleaned_data['county']
+                user_profile.country = form.cleaned_data['country']
+                user_profile.save()
 
             # Create order line items
             if request.user.is_authenticated:
@@ -85,6 +101,7 @@ def checkout_view(request):
                         quantity=item.quantity,
                         price=item.product.price,
                     )
+                cart_items.delete()
 
             else:
                 for key, item in cart_items.items():
@@ -95,7 +112,7 @@ def checkout_view(request):
                         quantity=item['quantity'],
                         price=Decimal(item['price']),
                     )
-                request.session['cart'] = cart_items
+                request.session['cart'] = {}
 
             messages.success(request, 'Order successfully placed.')
             return redirect('order_confirmation', order_number=order.order_number)

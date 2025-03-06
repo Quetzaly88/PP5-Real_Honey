@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile
@@ -48,3 +48,15 @@ def profile_view(request):
         'password_form': password_form,
     }
     return render(request, 'profiles/profile.html', context)
+
+
+def order_detail_view(request, order_number):
+    """
+    Display the details of a specific order
+    """
+    order = get_object_or_404(Order, order_number=order_number, user_profile=request.user.userprofile)
+
+    context = {
+        'order': order,
+    }
+    return render(request, 'profiles/order_detail.html', context)

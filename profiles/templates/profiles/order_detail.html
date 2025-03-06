@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Order Details - {{ order.order_number }}</h2>
+    <p><strong>Date:</strong>{{ order.date_created|date:"M d, Y" }}</p>
+    <p><strong>Total cost:</strong> ${{ order.final_price }}</p>
+
+    <h4>Items Ordered:</h4>
+    <ul>
+        {% for item in order.line_items.all %}
+        <li>{{ item.product.product.name }} ({{ item.product.size }}) x {{ item.quantity }} - ${{ item.line_total }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'profile' %}" class="btn btn-secondary">Back to Profile</a>
+</div>
+{% endblock %}
