@@ -1,8 +1,14 @@
 from django import forms
 from .models import Order
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
 
 
 class OrderForm(forms.ModelForm):
+    country = CountryField(blank_label='(Select Country)').formfield(
+        widget=CountrySelectWidget(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Order
         fields = ('full_name', 'email', 'phone_number',
@@ -18,6 +24,7 @@ class OrderForm(forms.ModelForm):
             'address': 'Street Address',
             'town_or_city': 'Town or City',
             'postcode': 'Postal Code',
+            'county': 'County (optional)',
             'country': 'Country',
         }
 

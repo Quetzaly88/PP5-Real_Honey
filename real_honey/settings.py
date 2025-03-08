@@ -23,12 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True. Toggle from .env
-DEBUG = config("DEBUG", default=False, cast=bool)  # from python-decouple. What is correct???
+DEBUG = config("DEBUG", default=False, cast=bool)
+print("DEBUG: ", DEBUG)
+
+# Stripe API Keys
+STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY", default="")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
@@ -38,9 +43,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 #     'http://127.0.0.1:8000',
 # ]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -207,13 +210,6 @@ MESSAGE_TAGS = {
 # Crispy Forms Settings
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
-
-
-# Stripe API Keys
-STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY", default="")
-STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
-STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
-
 
 # Country display
 COUNTRIES_FIRST = ['US', 'GB', 'CA', 'SE']

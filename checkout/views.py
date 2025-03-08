@@ -78,6 +78,7 @@ def checkout_view(request):
             order.total_cost = total_price
             order.delivery_fee = delivery_fee
             order.final_price = final_price
+            order.county = request.POST.get('county', '')
             order.save()
 
             # Save shipping info if user checked "save info"
