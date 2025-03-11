@@ -100,7 +100,6 @@ def checkout_view(request):
                 user_profile.address = form.cleaned_data['address']
                 user_profile.town_or_city = form.cleaned_data['town_or_city']
                 user_profile.postcode = form.cleaned_data['postcode']
-                # user_profile.county = form.cleaned_data['county']
                 user_profile.country = form.cleaned_data['country']
                 user_profile.save()
 

@@ -470,6 +470,8 @@ Implemented critical fixes to **Stripe integration** to ensure smooth payment pr
       - Used **Stripe CLI** (`stripe listen --forward-to localhost:8000/checkout/webhook/`) to validate webhook events.  
       - Successfully triggered `payment_intent.succeeded` to verify order processing.  
 
+   *We resolved a critical Stripe card element mounting issue that prevented payments from processing. Additional checks ensure the card element remains in the DOM before confirming payments. We also fixed a KeyError: 'county', ensuring all order fields are handled properly
+
    *Final Outcome:
       - Orders are **properly linked** to checkout data and webhook responses.  
       - Payments are **validated & confirmed** before redirecting users.  
