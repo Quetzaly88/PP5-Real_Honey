@@ -58,6 +58,8 @@ Project Name: PP5_Real_Honey
 
 13. Resources for project development. 
 
+14. Issues
+
 
 
 **3. User Experience (UX)**
@@ -446,6 +448,34 @@ Project Name: PP5_Real_Honey
 README:
 Thank you to "mittnamnkenny" for creating an spectacular README file, which I have used as a path and template  to create my README. https://github.com/mittnamnkenny/galleriet.git
 
+
+**14. Issues**
+   14.1 Stripe Integration Fixes-Summary:
+Implemented critical fixes to **Stripe integration** to ensure smooth payment processing and reliable webhook handling.  
+
+   *Client Secret & Public Key Handling
+      - Used `json_script` to safely pass `client_secret` and `stripe_public_key` to JavaScript, preventing encoding issues.  
+
+   *Checkout Data Caching   
+      - Implemented an AJAX request to **cache checkout data** before confirming payment, ensuring order details are available for Stripe webhooks.  
+   
+   *Improved Payment Submission Flow
+      - Disabled the submit button while processing payments to **prevent duplicate submissions**.  
+      - Restored the button if errors occurred to allow users to retry.  
+
+   *Conditional Stripe Script Loading
+      - Ensured Stripe JS only loads on the checkout page, preventing `clientSecret` and `stripePublicKey` errors elsewhere.  
+
+   *Webhook Testing & Validation
+      - Used **Stripe CLI** (`stripe listen --forward-to localhost:8000/checkout/webhook/`) to validate webhook events.  
+      - Successfully triggered `payment_intent.succeeded` to verify order processing.  
+
+   *Final Outcome:
+      - Orders are **properly linked** to checkout data and webhook responses.  
+      - Payments are **validated & confirmed** before redirecting users.  
+      - Stripe webhooks **reliably process** order completions.  
+
+   *Stripe payments are now fully functional. Because of my deadline I used AI to help me out fixing this issue. Javascript code was pasted to avoid more critical issues. 
 
 ---------------------
 Back to Top
