@@ -97,15 +97,24 @@
 
 {% block postloadjs %}
     {{ block.super }}
-    <!-- Define Variables -->
+
+    <!-- Securely Pass Stripe Variables -->
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+
     <script>
         console.log("Checking Stripe variables...");
-        console.log("stripePublicKey:", "{{ stripe_public_key }}");
-        console.log("clientSecret:", "{{ client_secret }}");
-        
-        var stripePublicKey = "{{ stripe_public_key }}";
-        var clientSecret = "{{ client_secret }}";
+        try {
+            var stripePublicKey = JSON.parse(document.getElementById("id_stripe_public_key").textContent);
+            var clientSecret = JSON.parse(document.getElementById("id_client_secret").textContent);
+            console.log("stripePublicKey:", stripePublicKey);
+            console.log("clientSecret:", clientSecret);
+        } catch (error) {
+            console.error("Error parsing Stripe variables:", error);
+        }
     </script>
-    <!-- Load Stripe JS after variables are set -->
-    <script src="{% static 'checkout/js/stripe.js' %}"></script>
+
+{% if stripe_public_key and client_secret %}
+<script src="{% static 'checkout/js/stripe.js' %}"></script>
+{% endif %}
 {% endblock %}
