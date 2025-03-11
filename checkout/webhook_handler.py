@@ -1,6 +1,11 @@
 import stripe
 from django.http import HttpResponse
-from .models import Order
+from django.conf import settings
+from profiles.models import UserProfile
+from .models import Order, OrderLineItem
+from products.models import ProductSize
+import json
+
 
 """
 This file will handle Stripe webhooks.
@@ -31,19 +36,23 @@ class StripeWH_Handler:
         Handle the payment_intent.succeeded webhook from Stripe
         """
         intent = event['data']['object']
-        pid = intent.id
+        payment_intent_id = intent.id
         metadata = intent.metadata
 
-        # Get the charge object
-        stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
+        # Extract order details from metadata
+        order_number = metadata.get("order_number")
+        save_info = metadata.get("save_info")
+        username = metadata.get("username")
 
-        #  Extract billing and shipping details
+        # Get the charge object to retrieve billing details
+        stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
         billing_details = stripe_charge.billing_details
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2)
+        address_data = shipping_details.get("address", {})
 
         # Ensure order exists
-        order_number = metadata.get("order_number")
+        # order_number = metadata.get("order_number")
         order = Order.objects.filter(order_number=order_number).first()
 
         if order:
@@ -55,7 +64,12 @@ class StripeWH_Handler:
             )
         else:
             #  Create the order if it doesn't exist
+            user_profile = None
+            if username != "AnonymousUser":
+                user_profile = UserProfile.objects.filter(user__username=username).first()
+
             order = Order.objects.create(
+                user_profile=user_profile,
                 full_name=shipping_details.get("name", ""),
                 email=metadata.get("email", ""),
                 phone_number=billing_details.get("phone", ""),
@@ -66,6 +80,16 @@ class StripeWH_Handler:
                 final_price=grand_total,
                 order_number=order_number,
             )
+
+            # Save shipping info to profile if user opted to save info
+            if save_info == "true" and user_profile:
+                user_profile.full_name = order.full_name
+                user_profile.email = order.email
+                user_profile.phone_number = order.phone_number
+                user_profile.address = order.address
+                user_profile.town_or_city = order.town_or_city
+                user_profile.country = order.country
+                user_profile.save()
 
             order.save()
 

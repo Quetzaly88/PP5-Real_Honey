@@ -1,4 +1,6 @@
 import stripe
+import json
+import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -10,7 +12,7 @@ from products.models import ProductSize
 from decimal import Decimal
 
 from django.http import JsonResponse
-from django.views.decorators.csfr import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 
 def checkout_view(request):
@@ -29,11 +31,13 @@ def checkout_view(request):
         messages.error(request, "Your cart is empty.")
         return redirect('product_list')
 
-    # Calculate total price
-    if request.user.is_authenticated:
-        total_price = sum(item.get_total_price() for item in cart_items)
-    else:
-        total_price = sum(Decimal(item['price']) * item['quantity'] for item in cart_items.values())
+    # Calculate total price. To handle guest checkouts because some users
+    # might not create an account before placing an order
+    total_price = (
+        sum(item.get_total_price() for item in cart_items)
+        if request.user.is_authenticated
+        else sum(Decimal(item['price']) * item['quantity'] for item in cart_items.values())
+    )
 
     # Delivery fee logic
     free_delivery_threshold = Decimal(settings.FREE_DELIVERY_THRESHOLD)
@@ -48,12 +52,15 @@ def checkout_view(request):
 
     final_price = (total_price + delivery_fee).quantize(Decimal('0.01'))
 
-    #  Create payment with metadata
+    # generate a unique order number
+    order_number = str(uuid.uuid4().hex[:10]).upper()
+
+    #  Store metadata in Payment Intent
     metadata = {
-        'integration_check': 'accept_a_payment',
-        'user_id': request.user.id if request.user.is_authenticated else "Guest",
-        'cart_backup': str(cart_items),  # Store cart for later
+        'username': request.user.username if request.user.is_authenticated else "Guest",
         'email': request.user.email if request.user.is_authenticated else "",
+        'order_number': order_number,
+        'save_info': 'true' if request.POST.get('save_info') else 'false',
     }
 
     # Create Stripe PaymentIntent
@@ -82,6 +89,7 @@ def checkout_view(request):
             order.delivery_fee = delivery_fee
             order.final_price = final_price
             order.county = request.POST.get('county', '')
+            order.order_number = order_number
             order.save()
 
             # Save shipping info if user checked "save info"
@@ -92,7 +100,7 @@ def checkout_view(request):
                 user_profile.address = form.cleaned_data['address']
                 user_profile.town_or_city = form.cleaned_data['town_or_city']
                 user_profile.postcode = form.cleaned_data['postcode']
-                user_profile.county = form.cleaned_data['county']
+                # user_profile.county = form.cleaned_data['county']
                 user_profile.country = form.cleaned_data['country']
                 user_profile.save()
 
@@ -150,7 +158,6 @@ def order_confirmation_view(request, order_number):
     messages.success(request, f'Order successfully placed. Your order number is {order_number}.')
 
     context = {'order': order}
-
     return render(request, 'checkout/order_confirmation.html', context)
 
 
@@ -160,7 +167,16 @@ def cache_checkout_data(request):
     Temporary store data before payment is confirmed.
     """
     try:
-        request.session['checkout_data'] = request.POST
+        # Extract only necessary fields and convert to a regular dictionary
+        checkout_data = {
+            "client_secret": request.POST.get("client_secret"),
+            "save_info": request.POST.get("save_info"),
+            "user_id": request.user.id if request.user.is_authenticated else "Guest",
+        }
+
+        request.session['checkout_data'] = checkout_data
+
         return JsonResponse({"message": "Checkout data successfully saved."}, status=200)
+
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
