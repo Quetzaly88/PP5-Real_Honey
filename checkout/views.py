@@ -1,5 +1,4 @@
 import stripe
-import json
 import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -10,29 +9,46 @@ from .models import Order, OrderLineItem
 from shopping_cart.models import CartItem
 from products.models import ProductSize
 from decimal import Decimal
-
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
+@login_required
 def checkout_view(request):
     """
     Handles checkout form and order creation.
     """
     stripe.api_key = settings.STRIPE_SECRET_KEY  # Initialize stripe
 
+    cart_items = []
+
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
     else:
-        cart_items = request.session.get('cart', {})
+        session_cart = request.session.get('cart', {})
 
-    # Redirect if cart is empty
+        for key, item in session_cart.items():
+            try:
+                product_id = int(key)  # Ensure it's an integer
+                product = get_object_or_404(ProductSize, id=product_id)
+
+                cart_items.append({
+                    'product': product,
+                    'quantity': item['quantity'],
+                    'price': Decimal(item['price']),
+                    'get_total_price': Decimal(item['price']) * item['quantity'],
+                })
+            except ValueError:
+                print(f"Invalid product ID found in cart: {key}")
+                continue  # Skip invalid items
+
+    # Redirect if cart is empty or user is not authenticated
     if not cart_items or (request.user.is_authenticated and not cart_items.exists()):
         messages.error(request, "Your cart is empty.")
         return redirect('product_list')
 
-    # Calculate total price. To handle guest checkouts because some users
-    # might not create an account before placing an order
     total_price = (
         sum(item.get_total_price() for item in cart_items)
         if request.user.is_authenticated
