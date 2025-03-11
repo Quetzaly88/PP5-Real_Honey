@@ -127,13 +127,17 @@
           <!-- user account -->
           {% if user.is_authenticated %}
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">
+              <i class="fas fa-user"></i> My Profile</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout' %}">
               <i class="fas fa-sign-out-alt"></i> Logout</a>
           </li>
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_login' %}">
-              <i class="fas fa-user"></i>Login</a>
+              <i class="fas fa-user"></i> Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_signup' %}">

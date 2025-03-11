@@ -36,11 +36,6 @@ class Order(models.Model):
         Coupon, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders'
     )
 
-    # User profile
-    user_profile = models.ForeignKey(
-        UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders'
-    )
-
     def _generate_order_number(self):
         """Generates unique order number, 10 digits"""
         return str(uuid.uuid4().hex[:10]).upper()
