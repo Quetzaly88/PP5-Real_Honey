@@ -9,6 +9,9 @@ from shopping_cart.models import CartItem
 from products.models import ProductSize
 from decimal import Decimal
 
+from django.http import JsonResponse
+from django.views.decorators.csfr import csrf_exempt
+
 
 def checkout_view(request):
     """
@@ -149,3 +152,15 @@ def order_confirmation_view(request, order_number):
     context = {'order': order}
 
     return render(request, 'checkout/order_confirmation.html', context)
+
+
+@csrf_exempt
+def cache_checkout_data(request):
+    """
+    Temporary store data before payment is confirmed.
+    """
+    try:
+        request.session['checkout_data'] = request.POST
+        return JsonResponse({"message": "Checkout data successfully saved."}, status=200)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
