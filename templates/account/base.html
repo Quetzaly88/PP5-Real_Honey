@@ -1,40 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block head_title %}{% endblock %}</title>
-    {% block extra_head %}
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}
+{% extends "base.html" %}
+{% load static %}
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        {% if messages %}
+        <div class="container">
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissiblee fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
         {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+      </div>
+      {% endif %}
+      
+      <h2 class="text-center">{% block title %}Account{% endblock %}</h2>
+      <hr>
+      {% block allauth_content %}
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
+      {% endblock %}
     </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
-  </body>
-</html>
+  </div>
+</div>
+</div>
+{% endblock %}
