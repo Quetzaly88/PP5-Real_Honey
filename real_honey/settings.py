@@ -213,3 +213,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 COUNTRIES_FIRST = ['US', 'GB', 'CA', 'SE']
 COUNTRIES_FIRST_SORT = False  # Show common countries first, but keep order
 COUNTRIES_FLAG_URL = 'https://flagcdn.com/w40/{code}.png'  # Optional: Show flags in dropdown
+
+# Email Configuration
+DEFAULT_FROM_EMAIL = 'realhoney@example.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

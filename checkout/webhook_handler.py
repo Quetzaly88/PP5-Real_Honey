@@ -1,26 +1,46 @@
 import stripe
+import json
+import logging
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.conf import settings
 from profiles.models import UserProfile
 from .models import Order, OrderLineItem
 from products.models import ProductSize
-import json
 
 
-"""
-This file will handle Stripe webhooks.
-Listens for webhooks events, handles successful payments as
-failed payments.
-"""
-
+# Set up logging
+logger = logging.getLogger(__name__)
 
 class StripeWH_Handler:
     """
-    Handle Stripe webhooks
+    Handle Stripe webhooks, including sending confirmation emails.
     """
 
     def __init__(self, request):
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        """
+        Send the user a confirmation email
+        """
+        cust_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order})
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+        
+        send_mail(
+            subject.strip(),
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email],
+            fail_silently=False,
+        )
+        logger.info(f"Confirmation email sent to {cust_email}")
 
     def handle_event(self, event):
         """
@@ -93,6 +113,8 @@ class StripeWH_Handler:
                 user_profile.save()
 
             order.save()
+            self._send_confirmation_email(order)
+            logger.info(f"Order {order_number} created successfully")
 
         return HttpResponse(
             content=f"Webhook received: {event['type']} | Order Created",
@@ -106,6 +128,7 @@ class StripeWH_Handler:
         intent = event['data']['object']
         error_message = intent.get("last_payment_error", {}).get("message", "Unknown error")  # It’s good practice to log the error or return useful feedback.
 
+        logger.error(f"Payment failed: {error_message}")
         return HttpResponse(
             content=f"Webhook received: {event['type']}",
             status=200
