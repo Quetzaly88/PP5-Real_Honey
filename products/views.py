@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from django.contrib import messages
+from .models import Product, ProductSize
 from django.core.paginator import Paginator
 from django.db.models import Q, F, Min, Max
+from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
 
 
 # Handles displaying and filtering the product list based on filters
@@ -79,4 +82,22 @@ def product_detail(request, pk):
         Product.objects.prefetch_related('product_sizes'), pk=pk)
     return render(request, 'products/product_detail.html', {
         'product': product
+    })
+
+
+@login_required
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, f"Product '{product.name}' added successfully!")
+            return redirect('product_detail', pk=product.pk)
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        form = ProductForm()
+
+    return render(request, 'products/add_product.html', {
+        'form': form
     })
