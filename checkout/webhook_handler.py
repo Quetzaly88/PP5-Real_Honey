@@ -36,7 +36,7 @@ class StripeWH_Handler:
         Handle the payment_intent.succeeded webhook from Stripe
         """
         intent = event['data']['object']
-        payment_intent_id = intent.id
+        # payment_intent_id = intent.id
         metadata = intent.metadata
 
         # Extract order details from metadata
@@ -49,7 +49,7 @@ class StripeWH_Handler:
         billing_details = stripe_charge.billing_details
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2)
-        address_data = shipping_details.get("address", {})
+        # address_data = shipping_details.get("address", {})
 
         # Ensure order exists
         # order_number = metadata.get("order_number")
@@ -63,11 +63,12 @@ class StripeWH_Handler:
                 status=200,
             )
         else:
-            #  Create the order if it doesn't exist
+            #  Try to find user profile
             user_profile = None
             if username and username != "Guest":
                 user_profile = UserProfile.objects.filter(user__username=username).first()
 
+            # Create new order
             order = Order.objects.create(
                 user_profile=user_profile,
                 full_name=shipping_details.get("name", ""),
@@ -76,8 +77,6 @@ class StripeWH_Handler:
                 address=shipping_details.get("address", {}).get("line1", ""),
                 town_or_city=shipping_details.get("address", {}).get("city", ""),
                 country=shipping_details.get("address", {}).get("country", ""),
-                # town_or_city=shipping_details.get("adress", {}).get("city", ""),
-                # country=shipping_details.get("adress", {}).get("country", ""),
                 total_cost=grand_total,
                 final_price=grand_total,
                 order_number=order_number,
