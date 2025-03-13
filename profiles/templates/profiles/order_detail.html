@@ -2,16 +2,61 @@
 
 {% block content %}
 <div class="container my-5">
-    <h2>Order Details - {{ order.order_number }}</h2>
-    <p><strong>Date:</strong>{{ order.date_created|date:"M d, Y" }}</p>
-    <p><strong>Total cost:</strong> ${{ order.final_price }}</p>
+    <h2 class="text-center">Order Details</h2>
+    <hr>
 
-    <h4>Items Ordered:</h4>
-    <ul>
-        {% for item in order.line_items.all %}
-        <li>{{ item.product.product.name }} ({{ item.product.size }}) x {{ item.quantity }} - ${{ item.line_total }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'profile' %}" class="btn btn-secondary">Back to Profile</a>
+    <div class="card shadow-sm p-4">
+        <h4 class="text-primary">Order #{{ order.order_number }}</h4>
+        <p><strong>Date:</strong>{{ order.date_created|date:"M d, Y" }}</p>
+        <hr>
+
+        <h4>Order Summary:</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Line Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.line_items.all %}
+                <tr>
+                    <td>{{ item.product.product.name }}</td>
+                    <td>{{ item.product.size }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ item.line_total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h4 class="mt-4">Payment & Pricing</h4>
+        <p><strong>Subtotal:</strong> ${{ order.total_cost }}</p>
+        {% if order.discount_amount > 0 %}
+        <p class="text-success"><strong>Discount:</strong> -${{ order.discount_amount }}</p>
+        {% endif %}
+        <p><strong>Delivery Fee:</strong> ${{ order.delivery_fee }}</p>
+        <h5 class="text-primary"><strong>Grand Total:</strong> ${{ order.final_price }}</h5>
+
+        <hr>
+
+        <h4>Delivery Details:</h4>
+        <p><strong>Full Name:</strong> {{ order.full_name }}</p>
+        <p><strong>Email:</strong> {{ order.email }}</p>
+        <p><strong>Phone Number:</strong> {{ order.phone_number }}</p>
+        <p><strong>Address:</strong> {{ order.address }}</p>
+        <p><strong>City:</strong> {{ order.town_or_city }}</p>
+        <p><strong>Postcode:</strong> {{ order.postcode }}</p>
+
+        <hr>
+        <div class="text-center">
+            <a href="{% url 'profile' %}" class="btn btn-secondary">Back to Profile</a>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
