@@ -55,7 +55,7 @@ class OrderAdmin(admin.ModelAdmin):
     #  More organized than just fields.
     fieldsets = (
         ('Order Details', {
-            'fields': ('order_number', 'user', 'date_created')
+            'fields': ('order_number', 'user_profile', 'date_created')
         }),
         ('Customer Info', {
             'fields': ('full_name', 'email', 'phone_number', 'address', 'town_or_city', 'postcode', 'county', 'country')

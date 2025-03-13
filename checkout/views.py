@@ -28,12 +28,10 @@ def checkout_view(request):
         cart_items = CartItem.objects.filter(user=request.user)
     else:
         session_cart = request.session.get('cart', {})
-
         for key, item in session_cart.items():
             try:
                 product_id = int(key)  # Ensure it's an integer
                 product = get_object_or_404(ProductSize, id=product_id)
-
                 cart_items.append({
                     'product': product,
                     'quantity': item['quantity'],
@@ -98,9 +96,9 @@ def checkout_view(request):
 
             # Attach user profile if authenticated
             if request.user.is_authenticated:
-                user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+                user_profile = UserProfile.objects.get(user=request.user)
                 order.user_profile = user_profile
-
+          
             order.total_cost = total_price
             order.delivery_fee = delivery_fee
             order.final_price = final_price
@@ -129,7 +127,6 @@ def checkout_view(request):
                         price=item.product.price,
                     )
                 cart_items.delete()
-
             else:
                 for key, item in cart_items.items():
                     product_size = get_object_or_404(ProductSize, id=int(key))
@@ -143,12 +140,25 @@ def checkout_view(request):
 
             messages.success(request, 'Order successfully placed.')
             return redirect('order_confirmation', order_number=order.order_number)
-
         else:
             messages.error(request, 'Error processing order. Please check your information.')
 
     else:
-        form = OrderForm()
+        # Prefill the form with user profile details if logged in
+        if request.user.is_authenticated:
+            user_profile = request.user.userprofile
+            form = OrderForm(initial={
+                'full_name': user_profile.full_name,
+                'email': user_profile.email,
+                'phone_number': user_profile.phone_number,
+                'address': user_profile.address,
+                'town_or_city': user_profile.town_or_city,
+                'postcode': user_profile.postcode,
+                'country': user_profile.country,
+            })
+        else:
+            form = OrderForm()
+
 
     # Render checkout page
     context = {

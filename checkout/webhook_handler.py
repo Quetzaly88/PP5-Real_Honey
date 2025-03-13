@@ -65,7 +65,7 @@ class StripeWH_Handler:
         else:
             #  Create the order if it doesn't exist
             user_profile = None
-            if username != "AnonymousUser":
+            if username and username != "Guest":
                 user_profile = UserProfile.objects.filter(user__username=username).first()
 
             order = Order.objects.create(
@@ -74,8 +74,10 @@ class StripeWH_Handler:
                 email=metadata.get("email", ""),
                 phone_number=billing_details.get("phone", ""),
                 address=shipping_details.get("address", {}).get("line1", ""),
-                town_or_city=shipping_details.get("adress", {}).get("city", ""),
-                country=shipping_details.get("adress", {}).get("country", ""),
+                town_or_city=shipping_details.get("address", {}).get("city", ""),
+                country=shipping_details.get("address", {}).get("country", ""),
+                # town_or_city=shipping_details.get("adress", {}).get("city", ""),
+                # country=shipping_details.get("adress", {}).get("country", ""),
                 total_cost=grand_total,
                 final_price=grand_total,
                 order_number=order_number,
