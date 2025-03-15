@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q, F, Min, Max
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.urls import reverse
 
 
 # Handles displaying and filtering the product list based on filters
@@ -92,12 +94,50 @@ def add_product(request):
         if form.is_valid():
             product = form.save()
             messages.success(request, f"Product '{product.name}' added successfully!")
-            return redirect('product_detail', pk=product.pk)
+            return redirect('product_list')
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         form = ProductForm()
 
-    return render(request, 'products/add_product.html', {
-        'form': form
-    })
+    template = 'products/add_product.html'
+    context = {'form': form}
+    return render(request, template, context)
+
+
+@login_required
+def edit_product(request, product_id):
+    """
+    Edit an existing product
+    """
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product updated successfully!')
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.error(request, 'Failed to update product')
+    else:
+        form = ProductForm(instance=product)
+        messages.info(request, f'You are editing: {product.name}')
+
+    template = 'products/edit_product.html'
+    context = {
+        'form': form,
+        'product': product,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def delete_product(request, product_id):
+    """
+    Delete a product
+    """
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(request, f"Product '{product.name}' deleted successfully!")
+    return redirect('product_list')

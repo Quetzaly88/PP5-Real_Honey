@@ -481,3 +481,12 @@ Implemented critical fixes to **Stripe integration** to ensure smooth payment pr
 
 ---------------------
 Back to Top
+
+
+
+
+edit products
+http://127.0.0.1:8000/products/edit/1/
+
+add products
+http://127.0.0.1:8000/products/add/
