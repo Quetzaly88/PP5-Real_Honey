@@ -5,6 +5,7 @@ charset-normalizer==3.4.1
 crispy-bootstrap5==2024.10
 cryptography==44.0.2
 defusedxml==0.7.1
+dj-database-url==2.3.0
 Django==4.2.19
 django-allauth==0.50.0
 django-countries==7.6.1

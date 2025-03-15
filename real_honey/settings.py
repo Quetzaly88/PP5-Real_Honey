@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-
+import dj_database_url
 from pathlib import Path
 from django.contrib.messages import constants as messages  # Django messages framework enabled to display success/error messages:
 from decouple import config  # Import decouple to read .env
