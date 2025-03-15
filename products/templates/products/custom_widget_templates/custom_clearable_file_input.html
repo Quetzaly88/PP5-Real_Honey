@@ -1,0 +1,17 @@
+{% if widget.is_initial %}
+    <p>{{ widget.initial_text }}:</p>
+    <a href="{{ widget.value.url }}" target="_blank">
+        <img width="90" class="img-thumbnail rounded shadow-sm" src="{{ widget.value.url }}" alt="Current Image">
+    </a>
+    {% if not widget.required %}
+        <div class="form-check mt-2">
+            <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" class="form-check-input">
+            <label for="{{ widget.checkbox_id }}" class="form-check-label">{{ widget.clear_checkbox_label }}</label>
+        </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="custom-file"><input type="{{ widget.type }}" name="{{ widget.name }}" class="custom-file-input" id="{{ widget.attrs.id }}">
+    <label class="custom-file-label" for="{{ widget.attrs.id }}">{{ widget.input_text }}</label>
+</div>

@@ -1,5 +1,7 @@
 from django import forms
-from .models import Product, ProductSize
+from .models import Product
+from products.widgets import CustomClearableFileInput
+
 
 class ProductForm(forms.ModelForm):
     """
@@ -8,6 +10,8 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'  # Include all product fields
+
+    image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
 
     def __init__(self, *args, **kwargs):
         """Override init method """
@@ -24,8 +28,6 @@ class ProductForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             if field_name in placeholders:
                 field.widget.attrs['placeholder'] = placeholders[field_name]
-
                 field.widget.attrs['class'] = 'form-control border-black rounded-0'
 
-        # set default category choices
         self.fields['category'].widget.attrs['class'] = 'form-control'
