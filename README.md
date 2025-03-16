@@ -496,6 +496,10 @@ http://127.0.0.1:8000/products/add/
    To deploy my application to Heroku I folowed this steps: 
 
 * 1. Prepare the Project for deployment 
+install heroku: brew tap heroku/brew && brew install heroku
+- heroku --version
+
+
 
 1.1 Install required Dependencies:
 
