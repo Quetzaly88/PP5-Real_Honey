@@ -21,6 +21,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'pp5-real-honey-60f1f8b03b81.herokuap
 STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
 STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
+# Stripe Webhook Secret
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
+
 
 
 # Application definition
