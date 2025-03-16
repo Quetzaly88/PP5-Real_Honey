@@ -13,8 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY: Read from .env or Heroku
 SECRET_KEY = config("SECRET_KEY", default=os.environ.get('SECRET_KEY'))
 
-DEBUG = config("DEBUG", default=False, cast=bool)
-print("DEBUG: ", DEBUG)
+DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'pp5-real-honey-60f1f8b03b81.herokuapp.com']  
 
