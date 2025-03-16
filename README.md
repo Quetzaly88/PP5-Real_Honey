@@ -490,3 +490,85 @@ http://127.0.0.1:8000/products/edit/1/
 
 add products
 http://127.0.0.1:8000/products/add/
+
+
+**Heroku Deployment:**
+   To deploy my application to Heroku I folowed this steps: 
+
+* 1. Prepare the Project for deployment 
+
+1.1 Install required Dependencies:
+
+* psycopg2-binary: Required for PostgreSQL database connection.
+* dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
+* gunicorn: A production-ready web server for running Django applications on Heroku.
+
+   After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
+
+1.2 Configure Environment Variables:
+
+- Inside env.py (DO NOT commit this file to GitHub!):
+
+   import os
+   os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
+
+- In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
+
+   import os
+   SECRET_KEY = os.environ.get('SECRET_KEY')
+
+1.3 Set up the database (PostgreSQL):
+
+   Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
+      * Created a PostgreSQL database using Code Institute's PostgreSQL instance. 
+      * Updated settings.py to support PostgreSQL:
+
+            import dj_database_url
+
+         if 'DATABASE_URL' in os.environ:
+            DATABASES = {
+               'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+            }
+         else: 
+            DATABASES = {
+               'default': {
+                     'ENGINE': 'django.db.backends.sqlite3',
+                     'NAME': BASE_DIR / 'db.sqlite3',
+               }
+            }
+   * The DATABASE_URL was retrieved from Heroku Config Vars.
+
+1.4 Find 'import env' in settings and replace with: 
+   if os.path.isfile("env.py"):
+    import env
+   from pathlib import Path
+
+
+2. Setting up Heroku:
+
+   * Log in to heroku and create the app
+   * Add in conf vars:
+      - DISABLE_COLLECTSTATIC:  1
+      - SECRET_KEY: Random secret key from  https://randomkeygen.com/
+   * Create Procfile in root directory with this information: 
+      - web: gunicorn real_honey.wsgi:application
+   * Create runtime.txt with this info:
+      - Python 3.12
+   * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
+      - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
+
+3. Deploy in Heroku
+
+Issues: 
+- First atempt to Deployment:
+   - Heroku deployment failed due to missing dependencies and  a configuration error in settings.py.
+      * Missing python-decouple: This was installed
+         pip install python-decouple
+         pip freeze > requirements.txt
+
+- Second attempt for deployment:
+   - Heroku rejects deployment because of an invalid Python version format in runtime.txt. Additionally, Heroku now prefers .python-version instead of runtime.txt.
+      * Ensured Django 3.12 exixts in runtime.txt
+      * Deleted runtime.txt
+
+      * waiting for guidance...
