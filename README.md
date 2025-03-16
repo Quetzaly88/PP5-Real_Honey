@@ -557,6 +557,10 @@ http://127.0.0.1:8000/products/add/
    * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
       - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
 
+   * In .env Debug Mode (True for development, False for production)
+   DEBUG=False. Before Deployment. 
+
+
 3. Deploy in Heroku
 
 Issues: 
@@ -570,5 +574,161 @@ Issues:
    - Heroku rejects deployment because of an invalid Python version format in runtime.txt. Additionally, Heroku now prefers .python-version instead of runtime.txt.
       * Ensured Django 3.12 exixts in runtime.txt
       * Deleted runtime.txt
+      * Instead Heroku asks to create 'echo "3.12" > .python-version' in root directory. After this change the Deployment was sucessful!
 
-      * waiting for guidance...
+https://devcenter.heroku.com/articles/python-support
+
+Creating an AWS Amazon Web Services s3 Account:
+This is a cloud-based storage servive that gives us a small piece of Amazon's infrastructure to be able to save our files. 
+- Navigate to aws.amazon.com
+- Open an account and continue all the verifications.
+- Create New Bucket called "real-honey".
+      To create the new bucket:
+      1. Enter a bucket name
+      2. Select ‘ACLs enabled’
+      3. Select ‘Bucket owner preferred’
+      4. Deselect ‘Block all public access’
+      5. Check the box to acknowledge the risk of public access
+      6. Leave the other options unchanged and click ‘create bucket’
+- Enable static website hosting:
+      When the bucket is created, click on the bucket name to view the bucket details. Go to Static website hosting and click Edit.
+            1. Click ‘Enable’
+         2. Enter ‘index.html’ (without quotes) into the Index document input
+         3. Enter ‘error.html’ (without quotes) into the Error document input
+         4. Click ‘Save changes
+- Go to Permissions and find 'Cross-origin resource sharing (CORS)': 
+
+Paste this code: 
+[
+{
+"AllowedHeaders": ["Authorization"],
+"AllowedMethods": ["GET"],
+"AllowedOrigins": ["*"],
+"ExposeHeaders": []
+}
+]
+- Save Changes
+
+* In permissions find 'Bucket policy' and edit/ policy generator.
+      1. For the policy type you can select ‘S3 Bucket Policy’
+      2. For the principal you can enter “*” without quotes
+      3. For the Action select ‘GetObject’ from the dropdown
+      - Then go back to the bucket policy editor in the other tab and click this button to copy the ARN:
+      Then go back to the Policy Generator in the other tab
+      1. Paste the ARN into the ARN input
+      2. Click ‘Add Statement
+      3. Scroll down and click ‘Generate Policy’
+      4. Copy all of the text in the popup:
+      5. Go back to the policy editor in the other tab and paste in the policy code.
+      6. Edit the ‘Resource’ value by adding /* to the end, to allow access to all objects within the bucket.
+      {
+  "Id": "Policy1742108698616",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1742108686683",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::real-honey*/",
+      "Principal": "*"
+    }
+  ]
+}
+
+In permissions, Edit 'Access control list (ACL)': 
+      1. Click ‘List’ in the Everyone (public access)
+      2. Click the checkbox to indicate that you understand the effects of the changes
+      3. Click ‘Save changes’
+
+
+Step 1 - Create a user group
+1. Search for ‘iam’ in the search bar at the top
+2. Click on ‘IAM’
+Click ‘User Groups’ on the left:
+Click ‘Create Group’:
+Enter a group name: (here I’ve used ‘manage-test-bucket’ as the name of the bucket is
+‘test-bucket’)
+Scroll down to the bottom and click ‘Create user group’:
+Step 2 - Create a Policy
+Click ‘Policies’ in the menu to the left:
+Click ‘Create Policy’:
+1. Click the ‘JSON’ tab
+2. Click the ‘Actions’ dropdown
+3. Click ‘Import policy’
+1. Search for ‘s3’
+2. Select ‘AmazonS3FullAccess’
+3. Click ‘Import Policy’
+1. Search for ‘s3’ at the top
+2. Right click ‘S3’
+3. Click ‘Open in a new tab’
+Unset
+In the new tab:
+1. Select your bucket
+2. Click ‘Copy ARN’
+Go back to the previous tab and add your ARN in quotes to the ‘Resource’ list twice, for the
+second one add /* after the ARN.
+
+            {
+            "Version": "2012-10-17",
+            "Statement": [
+            {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+            "s3:*"
+            ],
+            "Resource": [
+            "MY ARN",
+            "MY ARN/*"
+            ]
+            }
+            ]
+            }
+Scroll to the bottom and click ‘Next’:
+Enter a policy name and description:
+Scroll down and click ‘Create policy’:
+You’ll see a success message:
+Step 3 - Attach the policy to the group
+Click ‘User groups’ in the menu to the left:
+Click your group:
+1. Click the ‘Permissions’ tab
+2. Click the ‘Add permissions’ dropdown
+3. Click ‘Attach policies’
+1. Search for your policy (you can search for the policy name or description that you
+entered previously)
+2. Select the checkbox beside your policy
+3. Click ‘Attach policies’
+Step 4 - Create a User
+1. Click ‘Users’ in the menu to the left
+2. Click ‘Create user’
+1. Enter a user name
+2. Click ‘Next’
+1. Select the group you created previously
+2. Click ‘Next’
+Scroll down and click ‘Create user’:
+Step 5 - Create an Access Key
+Click on your new user:
+Click ‘Security credentials’:
+Scroll down to the ‘Access keys’ section and click ‘Create access key’:
+1. Select ‘Application running outside AWS’
+2. Click ‘Next’
+Click ‘Create access key’:
+1. Scroll down and click ‘Download .csv file’
+2. Click ‘Done’
+Open the .csv file in any text editor (such as Notepad on Windows, TextEdit on Mac). It will look
+like this:
+Note that the values are separated by a comma, a common mistake is to see the forward slash
+as separating the values, but it’s actually part of the last value:
+Use the values as your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY heroku
+config vars:
+
+# Now that we've created an s3 bucket and the appropriate user's groups and security policies for it, we connected django to it.
+- install two new packages.
+      * pip3 install boto3
+      * pip3 install django-storages
+      * pip3 freeze > requirements.txt
+
+
+
