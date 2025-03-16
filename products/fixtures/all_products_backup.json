@@ -1,0 +1,467 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Autumn Honey",
+      "description": "Fall honey is rich, amber-colored, harvested in autumn. It's made from nectar of late-season blooms like goldenrod or asters. Its flavor is bold, slightly spicy, with earthy, caramel-like undertones.",
+      "season": "autumn",
+      "flavor_tones": "Flowery, earthy.",
+      "image": "products/autumn_vegetation_honey_Vejbystrand_tkRFp3G.jpg",
+      "image_2": "products/bee_deposits_honey_.jpg",
+      "is_featured": true,
+      "is_best_seller": false,
+      "category": "honey"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Birch Tree Vejby Honey",
+      "description": "Birch tree honey, harvested in late summer, is unique and rare. It’s often derived from honeydew or birch blossoms, giving it a dark amber color and robust, malty flavor with hints of caramel and resin. Rich in minerals, it has a mildly tangy, earthy sweetness.",
+      "season": "summer",
+      "flavor_tones": "Flowery",
+      "image": "products/Birch_tree_honey_Vejbystrand_fsYt1GG.jpg",
+      "image_2": "",
+      "is_featured": false,
+      "is_best_seller": true,
+      "category": "honey"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Canola Flowers Honey Ängelholm",
+      "description": "Canola flower honey, derived from canola (rapeseed) blossoms, is light in color, often pale yellow, with a smooth texture. It has a mild, sweet flavor with subtle floral notes. Known for rapid crystallization into a creamy, spreadable consistency, it's popular in many regions.",
+      "season": "summer",
+      "flavor_tones": "Flowery",
+      "image": "products/canola_flowers_honey_Angelholm_GoNq6Ei.jpg",
+      "image_2": "products/beekeeper_in_nature.jpg",
+      "is_featured": false,
+      "is_best_seller": false,
+      "category": "honey"
+    }
+  },
+{
+  "model": "products.product",
+  "pk": 4,
+  "fields": {
+    "name": "Canola flowers honey Vejby",
+    "description": "Canola flower honey, derived from canola (rapeseed) blossoms, is light in color, often pale yellow, with a smooth texture. It has a mild, sweet flavor with subtle floral notes. Known for rapid crystallization into a creamy, spreadable consistency, it's popular in many regions.",
+    "season": "summer",
+    "flavor_tones": "Flowery",
+    "image": "products/canola_flowers_honey_Vejbystrand_JsbDzzF.jpg",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 5,
+  "fields": {
+    "name": "Chestnut flower honey Båstad",
+    "description": "Chestnut honey is dark amber with a reddish hue and has a strong, distinctive flavor. It is less sweet than most honeys, offering a bold, slightly bitter, and nutty taste with earthy undertones. Rich in minerals and antioxidants, it’s prized for its robust character and health benefits.",
+    "season": "autumn",
+    "flavor_tones": "nutty",
+    "image": "products/Chestnut_flower_honey_Bastad_jXKfkS6.jpg",
+    "image_2": "",
+    "is_featured": true,
+    "is_best_seller": true,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 6,
+  "fields": {
+    "name": "Dandelion Honey Båstad",
+    "description": "Dandelion honey is golden-yellow, vibrant, and mildly floral. It offers a sweet, tangy flavor with subtle herbal and earthy notes. Often made from nectar of dandelion flowers, it’s rich in antioxidants and has a unique springtime essence, sometimes slightly reminiscent of toffee.",
+    "season": "spring",
+    "flavor_tones": "Mild flowery",
+    "image": "products/Dandelion_honey_Bastad_jORAM1h.jpg",
+    "image_2": "products/bee_hive_bees_working.jpg",
+    "is_featured": true,
+    "is_best_seller": true,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 7,
+  "fields": {
+    "name": "Dandelion honey Havsbaden",
+    "description": "Dandelion honey is golden-yellow, vibrant, and mildly floral. It offers a sweet, tangy flavor with subtle herbal and earthy notes. Often made from nectar of dandelion flowers, it’s rich in antioxidants and has a unique springtime essence, sometimes slightly reminiscent of toffee.",
+    "season": "spring",
+    "flavor_tones": "Flowery",
+    "image": "products/Dandelion_Honey_Havsbaden__mfMqPBp.jpg",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 8,
+  "fields": {
+    "name": "Eucalyptus Honey Havsbaden",
+    "description": "Eucalyptus honey is medium to dark amber with a distinctive herbal aroma. Its flavor is bold, slightly medicinal, with hints of menthol or camphor, making it soothing for the throat. This honey is highly valued for its antibacterial properties and earthy, rich taste.",
+    "season": "summer",
+    "flavor_tones": "Mild flowery",
+    "image": "products/Eucalyptus_honey_Havsbaden_uRSahSO.jpg",
+    "image_2": "products/beekeeper_in_nature_1dprXtL.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 9,
+  "fields": {
+    "name": "Forest Honey from Båstad",
+    "description": "Forest honey from mixed vegetation is dark, rich, and complex, often derived from honeydew or a variety of wildflowers and trees. It has a deep, earthy flavor with malty, woody, and slightly smoky notes. Packed with minerals and antioxidants, it’s prized for its robust taste and health benefits.",
+    "season": "standard",
+    "flavor_tones": "mild flowery, smoky.",
+    "image": "products/Forest_honey_Bastad_frGCmOG.jpg",
+    "image_2": "products/beekeeper_checking_for_honey.jpg",
+    "is_featured": false,
+    "is_best_seller": true,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 10,
+  "fields": {
+    "name": "Lavender Honey Ängelholm",
+    "description": "Lavender honey is a fragrant, floral honey derived from bees feeding on lavender blossoms. It has a delicate sweetness with subtle herbal notes, a creamy texture, and is prized for its calming aroma.",
+    "season": "Autumn",
+    "flavor_tones": "Flowery",
+    "image": "",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 11,
+  "fields": {
+    "name": "Raspberry Honey Vejbystrand",
+    "description": "Raspberry honey is a light, fruity honey made from bees pollinating raspberry plants. It has a mild sweetness with berry-like undertones, a smooth texture, and pairs well with tea, yogurt, or desserts.",
+    "season": "Late summer",
+    "flavor_tones": "Flowery",
+    "image": "products/Raspberry-honey_Vejbystrand_6fVHByz.jpg",
+    "image_2": "products/honey-jars-new-production.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 12,
+  "fields": {
+    "name": "Raw Honey Havsbaden",
+    "description": "Raw honey is unprocessed, unpasteurized honey directly from the hive, retaining its natural nutrients, enzymes, and antioxidants. It has a rich flavor, varying by floral source, and can appear creamy or crystallized. Loved for its purity, it’s used as a natural sweetener or remedy.",
+    "season": "Standard",
+    "flavor_tones": "Mild flowery",
+    "image": "products/Raw_honey_Havsbaden__Qnae2fx.jpg",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 13,
+  "fields": {
+    "name": "Red Berries Honey Ängelholm",
+    "description": "Red berries honey, produced in late summer, is crafted from nectar of berry plants like raspberries or strawberries. It boasts a rich, fruity sweetness with mild tangy undertones and a golden-amber hue. Its unique flavor reflects the vibrant essence of summer blooms.",
+    "season": "Late summer",
+    "flavor_tones": "Flowery, earthy.",
+    "image": "products/Red_berries_honey_Angelholm_qpRWT0Q.jpg",
+    "image_2": "products/bee_on_flower.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 14,
+  "fields": {
+    "name": "Sage Honey Havsbaden",
+    "description": "Sage honey is a light, delicate honey made from bees pollinating sage plants. It has a mild sweetness with earthy, herbal undertones and a smooth texture. Known for its slow crystallization, it pairs well with tea and cheese.",
+    "season": "standard",
+    "flavor_tones": "Herbal",
+    "image": "products/Sage_honey_Havsbaden.jpg",
+    "image_2": "products/filling_honey_jar.jpg",
+    "is_featured": true,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 15,
+  "fields": {
+    "name": "Old Honey - 20 Years",
+    "description": "Honey that is 20 years old, if properly stored in an airtight container, remains safe to eat due to its natural preservative properties. Over time, it may darken, crystallize, or develop a more intense flavor. Historical records show honey can last for centuries if sealed, showcasing its incredible longevity.",
+    "season": "Standard",
+    "flavor_tones": "woody",
+    "image": "products/special_edition_20_years_old_honey._Vejbystrand.jpg",
+    "image_2": "products/honey-jars-new-production_J8aGR5e.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 16,
+  "fields": {
+    "name": "Summer Honey Vejbystrand",
+    "description": "Summer honey is made from nectar gathered by bees during the summer months, often from a mix of wildflowers, clover, and blooming trees. It typically has a light to golden color, a balanced sweetness, and floral, fruity undertones, reflecting the vibrant blooms of the season.",
+    "season": "Late spring, summer.",
+    "flavor_tones": "Flowery",
+    "image": "products/summer-flowers-honey_Vejbystrand_DFa1KdB.jpg",
+    "image_2": "products/bee_on_top_of_flower.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 17,
+  "fields": {
+    "name": "Sunflower Honey Båstad",
+    "description": "Sunflower honey is a bright, golden-yellow honey derived from bees pollinating sunflower fields. It has a medium sweetness with subtle floral and fruity notes, a slightly tangy finish, and crystallizes quickly into a creamy texture. Perfect for baking or spreading!",
+    "season": "Late summer, early fall",
+    "flavor_tones": "Flowery, earthy.",
+    "image": "products/Sunflower_honey._Bastad_YtSdmfQ.jpg",
+    "image_2": "products/bee_flying_to_sunflower_covered_in_polen.jpg",
+    "is_featured": true,
+    "is_best_seller": true,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 18,
+  "fields": {
+    "name": "Sweet beans honey Imported",
+    "description": "This unique imported honey is infused with the essence of coffee and cacao beans by aging it with the grains for six months. The result is a rich, aromatic honey with bold notes of roasted coffee, deep cocoa, and a natural sweetness that balances the flavors. Perfect for gourmet desserts or drizzling over pastries! Imported from Brasil.",
+    "season": "Standard",
+    "flavor_tones": "Nutty, earthy, flowery",
+    "image": "products/sweet-beans-honey-cofeevanilla_Imported_3iqnOP4.jpg",
+    "image_2": "products/honey-jars.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 19,
+  "fields": {
+    "name": "Polen",
+    "description": "Pollen from different beekeepers offers diverse nutrients and antioxidants, boosting the immune system, energy levels, and overall well-being naturally.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "products/bee-polen.webp",
+    "image_2": "products/polen.jpg",
+    "is_featured": true,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 20,
+  "fields": {
+    "name": "Propolis Tincture",
+    "description": "Propolis tincture is a natural extract made by dissolving bee propolis in alcohol. Rich in antioxidants and bioactive compounds, it supports immune health, soothes sore throats, and aids wound healing.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "products/propolis-tincture.webp",
+    "image_2": "products/beekeeper_checking_for_honey_WgKsw53.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 23,
+  "fields": {
+    "name": "Handcream beeswax and aloe",
+    "description": "Beeswax and aloe hand cream deeply nourishes and protects dry skin. Beeswax locks in moisture, while aloe soothes and heals, leaving hands soft, smooth, and hydrated without feeling greasy.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "products/Handcream-beeswax-aloevera.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 24,
+  "fields": {
+    "name": "Handcream coconut and honey",
+    "description": "Coconut and honey hand cream deeply hydrates and softens dry skin. Coconut oil nourishes and repairs, while honey locks in moisture, leaving hands smooth, supple, and delicately scented.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 25,
+  "fields": {
+    "name": "Handcream beeswax-olive oil",
+    "description": "Beeswax and olive oil hand cream provides deep hydration and protection. Beeswax locks in moisture, while olive oil nourishes and softens, leaving hands smooth, supple, and shielded from dryness.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "products/Handcream-beeswax-oliveoil.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 26,
+  "fields": {
+    "name": "Shampoo horse tail-honey",
+    "description": "Horsetail and honey shampoo strengthens and revitalizes hair. Horsetail, rich in silica, promotes healthy growth and shine, while honey moisturizes and smooths, leaving hair soft, strong, and radiant.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "products/horsetail-honey-shampoo.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 27,
+  "fields": {
+    "name": "Soap Lavender-honey",
+    "description": "Lavender and honey soap gently cleanses and soothes the skin. Lavender calms and relaxes, while honey moisturizes and nourishes, leaving skin soft, refreshed, and delicately scented.",
+    "season": "Standard",
+    "flavor_tones": null,
+    "image": "products/lavender-honey-soap.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 28,
+  "fields": {
+    "name": "Soap mint-honey",
+    "description": "Mint and honey soap invigorates and refreshes the skin. Cooling mint revitalizes and energizes, while honey deeply moisturizes, leaving skin clean, soft, and lightly scented with a fresh, minty aroma.",
+    "season": null,
+    "flavor_tones": null,
+    "image": "products/Mint-honey-soap.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 29,
+  "fields": {
+    "name": "Shampoo Rosemary-honey",
+    "description": "Rosemary and honey shampoo revitalizes and strengthens hair. Rosemary stimulates the scalp and promotes growth, while honey moisturizes and adds shine, leaving hair soft, healthy, and refreshed.",
+    "season": null,
+    "flavor_tones": null,
+    "image": "products/Rosemary-honey-shampoo.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 30,
+  "fields": {
+    "name": "Soap Chamomile and Honey",
+    "description": "Chamomile honey soap combines soothing chamomile with moisturizing honey to gently cleanse and nourish skin. It calms irritation, promotes healing, and leaves skin soft, smooth, and lightly fragranced.",
+    "season": "standard",
+    "flavor_tones": "N/A",
+    "image": "products/Chamomile-Honey-soap_GQltLVv.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 31,
+  "fields": {
+    "name": "Shampoo chamomile-honey",
+    "description": "Chamomile and honey shampoo gently cleanses while soothing the scalp. Chamomile calms irritation and enhances shine, while honey moisturizes, leaving hair soft, smooth, and naturally radiant.",
+    "season": null,
+    "flavor_tones": null,
+    "image": "products/chamomille-honey-shampoo_WkDxEXz.webp",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": true,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 32,
+  "fields": {
+    "name": "Autumn Honey",
+    "description": "giubvh",
+    "season": null,
+    "flavor_tones": null,
+    "image": "",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "bee_products"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 33,
+  "fields": {
+    "name": "Skin Care",
+    "description": "Body Cream",
+    "season": "standard",
+    "flavor_tones": "N/A",
+    "image": "",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": true,
+    "category": "bee_products"
+  }
+}
+]
