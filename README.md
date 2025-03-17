@@ -60,8 +60,6 @@ Project Name: PP5_Real_Honey
 
 14. Issues
 
-
-
 **3. User Experience (UX)**
 
    *3.1 The Strategy Plane*
@@ -124,33 +122,7 @@ Project Name: PP5_Real_Honey
          - Product list page
          - Product Detail page.
          - Checkout Page:
-            
          - Profile management 
-
-         - Settings for REal Honey Project (Cart/Discounts):
-            In this project, I define custom settings in settings.py to configure advanced shopping cart functionality as delivery fees, discounts and session behaviour. This settings help centralize configuration and make the codebase more flexible. 
-
-               # Custom Shopping cart settings: 
-               - Custom settings are accessed using django.config.settings
-               * from django.conf import settings
-                  free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
-
-               FREE_DELIVERY_THRESHOLD = 50.00 *Free delivery for orders above this value
-               STANDARD_DELIVERY_PERCENTAGE = 10 *Delivery fee as a percentage of the total
-
-               # Session Settings
-               SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-               SESSION_COOKIE_AGE = 1209600  # 2 weeks
-               SESSION_SAVE_EVERY_REQUEST = True
-
-               # Messages Framework Settings
-               MESSAGE_TAGS = {
-                  messages.DEBUG: 'alert-secondary',
-                  messages.INFO: 'alert-info',
-                  messages.SUCCESS: 'alert-success',
-                  messages.WARNING: 'alert-warning',
-                  messages.ERROR: 'alert-danger',  # Bootstrap error message
-               }
 
    *4.3 Future Implementations:*
       4.3.1 Bulk product import via CSV:
@@ -187,7 +159,7 @@ Project Name: PP5_Real_Honey
 
    *6.2 Testing*
       - Manual and automated tests.
-         - Performed bu using print(), console.log() and manual testing. 
+         * Performed bu using print(), console.log() and manual testing. 
       - User experience Testing
       - Payment gateway testing.
          - Usind dummy credit card information. 
@@ -378,20 +350,47 @@ Project Name: PP5_Real_Honey
                   [Code-Institute tutors]: 
                   [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
 
-**9. Additional Resources**
-   *Useful links for Django, Bootstrap and Stripe documentation 
-
-   * Fixtures before deployment and to be able to save the product information. 
-      1. Create a fixture file
+**9. Handling product images and information**
+   To ensure product information and images persists across deployments, fixtures were used. However, some product data was missing after loading the fixtures, so an automated script was created to fix missing descriptions. 
+ 
+      1. Create a fixture file (Backup of all product data)
          - products/fixtures/ all_products_backup.json
       2. Load fixtures into the Database
          - python manage.py loaddata fixtures/products.json
       3. Dump Existing Data into a Fixture to export current data as a fixture
          - python manage.py dumpdata app_name.ModelName --indent 2 > fixtures/products.json
 
+   
+   * Fixing Missing Product Information in Fixtures
+      To ensure all products have a short description, an automation script was created:
+      1. Create and store the script
+         - Create a new Python script named update_fixtures.py in the root directory of the project (same level as manage.py).
+         - The script reads products/fixtures/all_products_backup.json, updates missing descriptions, and saves a new fixture file. (code copied from chat.gpt)
+      2. Run the Script to Update Missing Descriptions
+         - python update_fixtures.py
+         This generated an updated fixture file:
+            - all_products_backup_updated.json
+      3. Load the Updated Fixture into the Database
+         - python manage.py loaddata products/fixtures/all_products_backup_updated.json
+      4. Verify Data in Django Admin and Product Listings
+         - Check if descriptions are correct and ensure proper display
+      5. Replace the old Fixture with hte updated one
+         - mv products/fixtures/all_products_backup_updated.json products/fixtures/all_products_backup.json
+            * Each time you update products through Django Admin, remember to export new data:
+               - python manage.py dumpdata products.Product products.ProductSize --indent 2 > products/fixtures/all_products_backup.json.
+               This ensures your fixture always contains the latest product details
+            * Test the Fixture by Reloading It. To make sure everything is working, reload the fixture and verify data:
+               - python manage.py loaddata products/fixtures/all_products_backup.json
 
-**12. User Stories Summary**
+   This method ensures all product descriptions are always complete while keeping the fixture-based data management consistent across deployments. 
+
+**10. Additional Resources**
+   *Useful links for Django, Bootstrap and Stripe documentation 
+
+**11. Future Implementations**
    This project implements key e-commerce functionalities, focusing on product browsing, user authentication, shopping cart management, wishlist features, cheeckout..............
+
+**12. User Stories:**
 
       *User Story 1: Product Listing: Shoppers can browse a list of products with sorting, pagination, and responsive design. 
          - Displays product details (name, description, price, image).
@@ -768,3 +767,73 @@ Deployment & Webhooks Setup:
 - Verified logs: heroku logs --tail
 
 
+Email Configuration and Testing
+- Configure Gmail for e-commerce emails.
+   1. Open "see all settings" in own gmail accoun.
+   2. Find accounts and import/other google account settings
+   3. In security create 2-step verification.
+   4. Search "app passwords"
+   5. Create app "real-honey-app" and save the 16 digit password. 
+   6. In Heroku save in config Vars:
+      - EMAIL_HOST_USER---'my-app-email@gmail.com'
+      - EMAIL_HOST_PASSWORD---16 digit password without spaces
+      - DEFAULT_FROM_EMAIL---'my-app-email@gmail.com'
+
+   7. Add the necessary functionality in settings.py:
+   
+         # Email Configuration
+      if 'DEVELOPMENT' in os.environ:
+         EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+         DEFAULT_FROM_EMAIL = 'realhoney@example.com'
+      else:
+         EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+         EMAIL_USE_TLS = True
+         EMAIL_PORT = 587
+         EMAIL_HOST = 'smtp.gmail.com'
+         EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+         EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+         DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+   8. Commit changes and restart heroku dynos 
+      - heroku ps:restart
+      - heroku run python manage.py shell
+
+   9. Run the Django shell on Heroku and send a test email:
+      -  from django.core.mail import send_mail
+
+      -  send_mail(
+            'Test Email from Real Honey',
+            'This is a test email to confirm SMTP settings work correctly.',
+            'my-app-email@gmail.com',
+            ['recipient-email@example.com'],
+            fail_silently=False,
+         )
+   10. If the function returns 1, the email was sent successfully.
+
+
+
+
+         - Settings for REal Honey Project (Cart/Discounts):
+            In this project, I define custom settings in settings.py to configure advanced shopping cart functionality as delivery fees, discounts and session behaviour. This settings help centralize configuration and make the codebase more flexible. 
+
+               # Custom Shopping cart settings: 
+               - Custom settings are accessed using django.config.settings
+               * from django.conf import settings
+                  free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
+
+               FREE_DELIVERY_THRESHOLD = 50.00 *Free delivery for orders above this value
+               STANDARD_DELIVERY_PERCENTAGE = 10 *Delivery fee as a percentage of the total
+
+               # Session Settings
+               SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+               SESSION_COOKIE_AGE = 1209600  # 2 weeks
+               SESSION_SAVE_EVERY_REQUEST = True
+
+               # Messages Framework Settings
+               MESSAGE_TAGS = {
+                  messages.DEBUG: 'alert-secondary',
+                  messages.INFO: 'alert-info',
+                  messages.SUCCESS: 'alert-success',
+                  messages.WARNING: 'alert-warning',
+                  messages.ERROR: 'alert-danger',  # Bootstrap error message
+               }

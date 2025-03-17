@@ -1,49 +1,49 @@
 [
-  {
-    "model": "products.product",
-    "pk": 1,
-    "fields": {
-      "name": "Autumn Honey",
-      "description": "Fall honey is rich, amber-colored, harvested in autumn. It's made from nectar of late-season blooms like goldenrod or asters. Its flavor is bold, slightly spicy, with earthy, caramel-like undertones.",
-      "season": "autumn",
-      "flavor_tones": "Flowery, earthy.",
-      "image": "products/autumn_vegetation_honey_Vejbystrand_tkRFp3G.jpg",
-      "image_2": "products/bee_deposits_honey_.jpg",
-      "is_featured": true,
-      "is_best_seller": false,
-      "category": "honey"
-    }
-  },
-  {
-    "model": "products.product",
-    "pk": 2,
-    "fields": {
-      "name": "Birch Tree Vejby Honey",
-      "description": "Birch tree honey, harvested in late summer, is unique and rare. It’s often derived from honeydew or birch blossoms, giving it a dark amber color and robust, malty flavor with hints of caramel and resin. Rich in minerals, it has a mildly tangy, earthy sweetness.",
-      "season": "summer",
-      "flavor_tones": "Flowery",
-      "image": "products/Birch_tree_honey_Vejbystrand_fsYt1GG.jpg",
-      "image_2": "",
-      "is_featured": false,
-      "is_best_seller": true,
-      "category": "honey"
-    }
-  },
-  {
-    "model": "products.product",
-    "pk": 3,
-    "fields": {
-      "name": "Canola Flowers Honey Ängelholm",
-      "description": "Canola flower honey, derived from canola (rapeseed) blossoms, is light in color, often pale yellow, with a smooth texture. It has a mild, sweet flavor with subtle floral notes. Known for rapid crystallization into a creamy, spreadable consistency, it's popular in many regions.",
-      "season": "summer",
-      "flavor_tones": "Flowery",
-      "image": "products/canola_flowers_honey_Angelholm_GoNq6Ei.jpg",
-      "image_2": "products/beekeeper_in_nature.jpg",
-      "is_featured": false,
-      "is_best_seller": false,
-      "category": "honey"
-    }
-  },
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "name": "Autumn Honey",
+    "description": "Fall honey is rich, amber-colored, harvested in autumn. It's made from nectar of late-season blooms like goldenrod or asters. Its flavor is bold, slightly spicy, with earthy, caramel-like undertones.",
+    "season": "autumn",
+    "flavor_tones": "Flowery, earthy.",
+    "image": "products/autumn_vegetation_honey_Vejbystrand_tkRFp3G.jpg",
+    "image_2": "products/bee_deposits_honey_.jpg",
+    "is_featured": true,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Birch Tree Vejby Honey",
+    "description": "Birch tree honey, harvested in late summer, is unique and rare. It’s often derived from honeydew or birch blossoms, giving it a dark amber color and robust, malty flavor with hints of caramel and resin. Rich in minerals, it has a mildly tangy, earthy sweetness.",
+    "season": "summer",
+    "flavor_tones": "Flowery",
+    "image": "products/Birch_tree_honey_Vejbystrand_fsYt1GG.jpg",
+    "image_2": "",
+    "is_featured": false,
+    "is_best_seller": true,
+    "category": "honey"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "name": "Canola Flowers Honey Ängelholm",
+    "description": "Canola flower honey, derived from canola (rapeseed) blossoms, is light in color, often pale yellow, with a smooth texture. It has a mild, sweet flavor with subtle floral notes. Known for rapid crystallization into a creamy, spreadable consistency, it's popular in many regions.",
+    "season": "summer",
+    "flavor_tones": "Flowery",
+    "image": "products/canola_flowers_honey_Angelholm_GoNq6Ei.jpg",
+    "image_2": "products/beekeeper_in_nature.jpg",
+    "is_featured": false,
+    "is_best_seller": false,
+    "category": "honey"
+  }
+},
 {
   "model": "products.product",
   "pk": 4,
@@ -55,7 +55,7 @@
     "image": "products/canola_flowers_honey_Vejbystrand_JsbDzzF.jpg",
     "image_2": "",
     "is_featured": false,
-    "is_best_seller": false,
+    "is_best_seller": true,
     "category": "honey"
   }
 },
@@ -112,8 +112,8 @@
     "description": "Eucalyptus honey is medium to dark amber with a distinctive herbal aroma. Its flavor is bold, slightly medicinal, with hints of menthol or camphor, making it soothing for the throat. This honey is highly valued for its antibacterial properties and earthy, rich taste.",
     "season": "summer",
     "flavor_tones": "Mild flowery",
-    "image": "products/Eucalyptus_honey_Havsbaden_uRSahSO.jpg",
-    "image_2": "products/beekeeper_in_nature_1dprXtL.jpg",
+    "image": "products/Eucaliptus_honey_Havsbaden__oSxgYZA.jpg",
+    "image_2": "products/beekeeper_checking_for_honey_eHFxR2o.jpg",
     "is_featured": false,
     "is_best_seller": false,
     "category": "honey"
@@ -142,7 +142,7 @@
     "description": "Lavender honey is a fragrant, floral honey derived from bees feeding on lavender blossoms. It has a delicate sweetness with subtle herbal notes, a creamy texture, and is prized for its calming aroma.",
     "season": "Autumn",
     "flavor_tones": "Flowery",
-    "image": "",
+    "image": "products/Lavender_honey_angelholm_bkw8T9h.jpg",
     "image_2": "",
     "is_featured": false,
     "is_best_seller": false,
@@ -174,7 +174,7 @@
     "flavor_tones": "Mild flowery",
     "image": "products/Raw_honey_Havsbaden__Qnae2fx.jpg",
     "image_2": "",
-    "is_featured": false,
+    "is_featured": true,
     "is_best_seller": false,
     "category": "honey"
   }
@@ -322,7 +322,7 @@
     "description": "Coconut and honey hand cream deeply hydrates and softens dry skin. Coconut oil nourishes and repairs, while honey locks in moisture, leaving hands smooth, supple, and delicately scented.",
     "season": "Standard",
     "flavor_tones": null,
-    "image": "",
+    "image": "products/Handcream-beeswax-coconut.webp",
     "image_2": "",
     "is_featured": false,
     "is_best_seller": false,
@@ -411,7 +411,7 @@
     "name": "Soap Chamomile and Honey",
     "description": "Chamomile honey soap combines soothing chamomile with moisturizing honey to gently cleanse and nourish skin. It calms irritation, promotes healing, and leaves skin soft, smooth, and lightly fragranced.",
     "season": "standard",
-    "flavor_tones": "N/A",
+    "flavor_tones": null,
     "image": "products/Chamomile-Honey-soap_GQltLVv.webp",
     "image_2": "",
     "is_featured": false,
@@ -435,33 +435,303 @@
   }
 },
 {
-  "model": "products.product",
-  "pk": 32,
+  "model": "products.productsize",
+  "pk": 1,
   "fields": {
-    "name": "Autumn Honey",
-    "description": "giubvh",
-    "season": null,
-    "flavor_tones": null,
-    "image": "",
-    "image_2": "",
-    "is_featured": false,
-    "is_best_seller": false,
-    "category": "bee_products"
+    "product": 31,
+    "size": "Standard",
+    "price": "5.00",
+    "stock": 100
   }
 },
 {
-  "model": "products.product",
-  "pk": 33,
+  "model": "products.productsize",
+  "pk": 2,
   "fields": {
-    "name": "Skin Care",
-    "description": "Body Cream",
-    "season": "standard",
-    "flavor_tones": "N/A",
-    "image": "",
-    "image_2": "",
-    "is_featured": false,
-    "is_best_seller": true,
-    "category": "bee_products"
+    "product": 30,
+    "size": "Standard",
+    "price": "5.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 3,
+  "fields": {
+    "product": 29,
+    "size": "Standard",
+    "price": "5.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 4,
+  "fields": {
+    "product": 28,
+    "size": "Standard",
+    "price": "3.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 5,
+  "fields": {
+    "product": 27,
+    "size": "Standard",
+    "price": "3.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 6,
+  "fields": {
+    "product": 26,
+    "size": "Standard",
+    "price": "4.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 7,
+  "fields": {
+    "product": 25,
+    "size": "Standard",
+    "price": "6.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 8,
+  "fields": {
+    "product": 24,
+    "size": "Standard",
+    "price": "4.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 9,
+  "fields": {
+    "product": 23,
+    "size": "Standard",
+    "price": "4.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 10,
+  "fields": {
+    "product": 20,
+    "size": "Standard",
+    "price": "9.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 11,
+  "fields": {
+    "product": 19,
+    "size": "Standard",
+    "price": "12.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 12,
+  "fields": {
+    "product": 18,
+    "size": "450g",
+    "price": "9.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 13,
+  "fields": {
+    "product": 18,
+    "size": "600g",
+    "price": "12.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 14,
+  "fields": {
+    "product": 17,
+    "size": "450g",
+    "price": "9.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 15,
+  "fields": {
+    "product": 17,
+    "size": "600g",
+    "price": "12.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 16,
+  "fields": {
+    "product": 16,
+    "size": "600g",
+    "price": "13.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 17,
+  "fields": {
+    "product": 15,
+    "size": "450g",
+    "price": "14.00",
+    "stock": 20
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 18,
+  "fields": {
+    "product": 14,
+    "size": "450g",
+    "price": "12.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 19,
+  "fields": {
+    "product": 13,
+    "size": "450g",
+    "price": "11.00",
+    "stock": 25
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 20,
+  "fields": {
+    "product": 12,
+    "size": "450g",
+    "price": "11.00",
+    "stock": 25
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 21,
+  "fields": {
+    "product": 11,
+    "size": "450g",
+    "price": "9.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 22,
+  "fields": {
+    "product": 10,
+    "size": "450g",
+    "price": "10.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 23,
+  "fields": {
+    "product": 9,
+    "size": "600g",
+    "price": "15.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 24,
+  "fields": {
+    "product": 8,
+    "size": "450g",
+    "price": "11.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 25,
+  "fields": {
+    "product": 7,
+    "size": "450g",
+    "price": "9.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 26,
+  "fields": {
+    "product": 5,
+    "size": "450g",
+    "price": "12.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 27,
+  "fields": {
+    "product": 4,
+    "size": "450g",
+    "price": "9.00",
+    "stock": 50
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 28,
+  "fields": {
+    "product": 4,
+    "size": "600g",
+    "price": "12.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 29,
+  "fields": {
+    "product": 2,
+    "size": "600g",
+    "price": "15.00",
+    "stock": 100
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 30,
+  "fields": {
+    "product": 1,
+    "size": "450g",
+    "price": "9.00",
+    "stock": 50
   }
 }
 ]
