@@ -25,7 +25,6 @@ STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
 
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -156,7 +155,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AWS
 if 'USE_AWS' in os.environ:
@@ -216,5 +214,17 @@ COUNTRIES_FIRST_SORT = False  # Show common countries first, but keep order
 COUNTRIES_FLAG_URL = 'https://flagcdn.com/w40/{code}.png'  # Optional: Show flags in dropdown
 
 # Email Configuration
-DEFAULT_FROM_EMAIL = 'realhoney@example.com'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+if 'DEVELOPMENT' in os.environ:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'realhoney@example.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

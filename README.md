@@ -3,7 +3,7 @@
 **1. Key Project Information**
 
 Project Name: PP5_Real_Honey
-   * 1.1 Description
+      * Description
       Real Honey is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
 
       * Key Goal
@@ -15,7 +15,7 @@ Project Name: PP5_Real_Honey
       - Supporters of local beekeepers
 
       * Live Project:
-      URL: 
+      URL: https://pp5-real-honey-60f1f8b03b81.herokuapp.com/
 
       * Dummy Card for Testing: 
       - Card Number:  4242 4242 4242 4242
@@ -95,10 +95,13 @@ Project Name: PP5_Real_Honey
 
    *3.3 The Structure Plan*
          - Site map
+         ----------
          - Database Schema
+         ----------
 
    *3.4 Wireframes*
          [link or imgs]
+         ------------
 
    *3.5 The Surface Plan*
          - Logo
@@ -377,6 +380,14 @@ Project Name: PP5_Real_Honey
 
 **9. Additional Resources**
    *Useful links for Django, Bootstrap and Stripe documentation 
+
+   * Fixtures before deployment and to be able to save the product information. 
+      1. Create a fixture file
+         - products/fixtures/ all_products_backup.json
+      2. Load fixtures into the Database
+         - python manage.py loaddata fixtures/products.json
+      3. Dump Existing Data into a Fixture to export current data as a fixture
+         - python manage.py dumpdata app_name.ModelName --indent 2 > fixtures/products.json
 
 
 **12. User Stories Summary**
@@ -734,5 +745,26 @@ config vars:
       * pip3 install django-storages
       * pip3 freeze > requirements.txt
 
+Deployment & Webhooks Setup:
+
+1. AWS S3 Setup
+- Configured AWS S3 for static and media files.
+- Updated settings.py to use AWS S3 
+- Uploaded media files to the S3 media folder with public read access.
+
+2. Stripe Webhooks Setup
+- Create a webhook in Stripe Dashboard > Developers > Webhooks
+- Set endpoint "https://your-heroku-app.herokuapp.com/checkout/wh/"
+- Enabled all events and copied the Signing Secret.
+- Added STRIPE_WH_SECRET to Heroku Config Vars.
+- Updated settings.py to include the webhook secret. 
+
+3. Testing Stripe Webhooks
+- Installed Stripe CLI / stripe log-in.
+- Foward events "stripe listen --forward-to your-heroku-app.herokuapp.com/checkout/wh/"
+- Trigger test events:
+   stripe trigger payment_intent.succeeded
+   stripe trigger payment_intent.payment_failed
+- Verified logs: heroku logs --tail
 
 
