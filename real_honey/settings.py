@@ -4,14 +4,19 @@ from django.contrib.messages import constants as messages  # Django messages fra
 from decouple import config  # Import decouple to read .env
 from pathlib import Path
 
-if os.path.isfile("env.py"):
-    import env  # Load environment variables from env.py (for local development)
+# Load environment variables from .env file if exists
+if os.path.exists('.env'):
+    from dotenv import load_dotenv
+    load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET_KEY: Read from .env or Heroku
-SECRET_KEY = config("SECRET_KEY", default=os.environ.get('SECRET_KEY'))
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY is missing! Add it to .env or Heroku config.")
 
 DEBUG = 'DEVELOPMENT' in os.environ
 
