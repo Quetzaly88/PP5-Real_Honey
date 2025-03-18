@@ -4,7 +4,7 @@
 
 <head>
   {% block meta %}
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% endblock %}
@@ -73,10 +73,11 @@
   {% endif %}
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">
-        <img src="{% static 'images/logo.png' %}" alt="Real Honey" class="navbar-logo"></a>
+      <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+        <img src="{% static 'images/logo.png' %}" alt="Real Honey" class="navbar-logo mr-2" width="50" height="50">
+      </a>
 
       <!-- Mobile toggle button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -97,37 +98,31 @@
               aria-haspopup="true" aria-expanded="false">
               Products
             </a>
-            <div class="dropdown-menu" aria-labelledby="" navbarDropdown">
+            <div class="dropdown-menu">
               <a class="dropdown-item" href="{% url 'product_list' %}">All products</a>
               <a class="dropdown-item" href="{% url 'product_category' 'honey' %}">Honey</a>
               <a class="dropdown-item" href="{% url 'product_category' 'bee_products' %}">Bee Products</a>
             </div>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" href="#contact">Contact</a>
           </li>
         </ul>
 
         <ul class="nav-bar navbar-icons">
-          <!-- wishlist -->
           <li class="nav-item">
             <a class="nav-link" href="{% url 'wishlist' %}">
               <i class="fas fa-heart text-danger"></i>
             </a>
           </li>
-
-          <!-- Shopping cart -->
           <li class="nav-item">
             <a class="nav-link" href="{% url 'cart' %}">
               <i class="fas fa-shopping-cart text-warning"></i>
             </a>
           </li>
-
-          <!-- user account -->
           {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{% url 'profile' %}">
               <i class="fas fa-user"></i> My Profile</a>
           </li>
           <li class="nav-item">
@@ -169,7 +164,6 @@
 
         <!-- social media links -->
         <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center">
-          <h5>Follow us</h5>
           <div class="social-icons mb-3">
             <a href="#" class="btn btn-social mx-2"><i class="fab fa-facebook"></i></a>
             <a href="#" class="btn btn-social mx-2"><i class="fab fa-instagram"></i></a>

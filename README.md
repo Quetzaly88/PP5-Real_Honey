@@ -23,7 +23,10 @@ Project Name: PP5_Real_Honey
       - CVC: 123
       - ZIP: 12345
 
-      * Test failing transactions *
+      * Test payments using Stripe test cards.
+      - Card number 4242 4242 4242 4242 (successful)
+      - Card number 4000 0000 0000 0002 (failed)
+      - Card number 4000 0025 0000 3155 (3D Secure)
 
       Developer: 
       Andrea Nilsson Coronado
@@ -190,9 +193,7 @@ Project Name: PP5_Real_Honey
 
 **8. Technologies & Credits**
    *8.1 Technologies:*
-
       - Django (Backend Framework). 
-
       - Allauth:
          To setup an entire authentication sistem and user account sistem 
       - Python (Core Programming Language)
@@ -203,16 +204,13 @@ Project Name: PP5_Real_Honey
 
       [Python-Decouple:]
          Secret Keys & Security Improvements: Security improvements made to protect sensitive API keys and secret credentials.
-
-            Why Use Python-Decouple? 
+            * Why Use Python-Decouple? 
                - Keeps secret keys secure by storing them in .env (added to .gitignore)
                - Improves maintainability by separating configuration from the codebase.
                - Prevents security risks by avoiding storing secrets in vesion control. 
-
-            Installation of python-decouple:
+            * Installation of python-decouple:
                The python-decouple helps manage environment variables securely by loading them from a .env file instead of hardcoding sensitive information in settings.py.
-
-            How I used python decouple? 
+            * How I used python decouple? 
                1. Install: pip install python-decouple
                2. Create a .env file in project root and add it to .gitignore
                3. Add secret keys to .env: 
@@ -221,8 +219,7 @@ Project Name: PP5_Real_Honey
                STRIPE_SECRET_KEY='your-secret-key-here'
                STRIPE_WEBHOOK_SECRET='your-webhook-secret-here' # if needed
                DEBUG=True  # Change to False in production
-
-            Load the secrets in settings.py:
+            *Load the secrets in settings.py:
                import os
                from decouple import config  # Import python-decouple
                SECRET_KEY = config("SECRET_KEY")  # Securely fetch secret key
@@ -233,18 +230,17 @@ Project Name: PP5_Real_Honey
             
       [Stripe Payment Integration:]
          Overview:
-            Stripe payment processing in the project. Stripe is used to securely handle online payments for customer orders. 
-            1. Pip Install Stripe
-            2. Open an account in Stripe to obtain API Keys. This keys are added in the main settings.py.
-            3. Modify checkout/views.py
-               - Creating a Stripe PaymentIntent
-               - Passing the client secret to the frontend
-               - Handling order creation after successful payment. 
-            4. Modify checkout.html
-                  - Ensure that checkout.html passes the client_secret to Javascript
-            5. Create stripe.js for Payment Processing.
-               - Path: checkout/static/js/stripe.js
-
+            * Stripe payment processing in the project. Stripe is used to securely handle online payments for customer orders. 
+                  1. Pip Install Stripe
+                  2. Open an account in Stripe to obtain API Keys. This keys are added in the main settings.py.
+                  3. Modify checkout/views.py
+                     - Creating a Stripe PaymentIntent
+                     - Passing the client secret to the frontend
+                     - Handling order creation after successful payment. 
+                  4. Modify checkout.html
+                        - Ensure that checkout.html passes the client_secret to Javascript
+                  5. Create stripe.js for Payment Processing.
+                     - Path: checkout/static/js/stripe.js
          Conclusion: 
                This integration allows secure payment processing using Stripe Elements. It ensures that: 
                   - No sensitive card details are stored on the server.
@@ -256,15 +252,12 @@ Project Name: PP5_Real_Honey
             1. Open Your Mac Terminal
                - Press `Command + Space` to open **Spotlight Search**.  
                - Type **Terminal** and press **Enter**.  
-
             2. Install Homebrew (If Not Already Installed)
             Homebrew is a package manager for macOS that simplifies software installations.
                -  Verify Homebrew Installation:
                bash: brew --version
-
             3. Install Stripe CLI
             bash: brew install stripe/stripe-cli/stripe
-
             4. Verify installation
             bash: stripe version. 
                If Stripe CLI is installed correctly, it will return a version number (e.g., 1.23.5 or higher).
@@ -274,28 +267,22 @@ Project Name: PP5_Real_Honey
             bash: stripe login
                This will open a browser window prompting you to log in to your Stripe account.
                Follow the instructions to complete the authentication.
-
                Once logged in, Stripe CLI will be linked to your account for testing webhooks and payments.
 
          Part 3: Troubleshooting Permission Errors
             If you encounter "permission denied" errors during login, follow these steps:
-
             1. Check Permissions of ~/.config Directory
             bash: ls -ld ~/.config
                If the owner is root instead of your username, change it. Replace yourusername with your actual macOS username:
             bash: sudo chown -R yourusername:staff ~/.config
-
             2.  Verify Updated Permissions
             bash: ls -ld ~/.config
-
             3.  Retry Logging In
             bash: stripe login
-
             * Note: Stripe CLI login keys expire every 90 days. You will need to log in again using the same command.
 
          Part 4: Testing Webhooks Using Stripe CLI
             1. Preparing Your Code
-
                - Modify checkout/webhooks.py to confirm the webhook is working:
 
                   print('Success!')
@@ -308,7 +295,6 @@ Project Name: PP5_Real_Honey
                    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
             
             2.  Open Three Terminals
-
                * Python server	Runs Django (python manage.py runserver)
                * Stripe portal	Generates a webhook listener (stripe listen --forward-to localhost:8000/webhook/)
                * Testing terminal	Sends Stripe webhook triggers (e.g., stripe trigger payment_intent.succeeded)
@@ -346,9 +332,9 @@ Project Name: PP5_Real_Honey
 
 
 
-               *8.2 Credits:*
-                  [Code-Institute tutors]: 
-                  [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
+      *8.2 Credits:*
+         [Code-Institute tutors]: 
+         [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
 
 **9. Handling product images and information**
    To ensure product information and images persists across deployments, fixtures were used. However, some product data was missing after loading the fixtures, so an automated script was created to fix missing descriptions. 
@@ -361,8 +347,7 @@ Project Name: PP5_Real_Honey
          - python manage.py dumpdata app_name.ModelName --indent 2 > fixtures/products.json
 
    
-   * Fixing Missing Product Information in Fixtures
-      To ensure all products have a short description, an automation script was created:
+   * Fixing Missing Product Information in Fixtures, to ensure all products have a short description, an automation script was created:
       1. Create and store the script
          - Create a new Python script named update_fixtures.py in the root directory of the project (same level as manage.py).
          - The script reads products/fixtures/all_products_backup.json, updates missing descriptions, and saves a new fixture file. (code copied from chat.gpt)
@@ -386,6 +371,8 @@ Project Name: PP5_Real_Honey
 
 **10. Additional Resources**
    *Useful links for Django, Bootstrap and Stripe documentation 
+
+
 
 **11. Future Implementations**
    This project implements key e-commerce functionalities, focusing on product browsing, user authentication, shopping cart management, wishlist features, cheeckout..............
@@ -503,94 +490,87 @@ http://127.0.0.1:8000/products/add/
 
 
 **Heroku Deployment:**
-   To deploy my application to Heroku I folowed this steps: 
 
-* 1. Prepare the Project for deployment 
-install heroku: brew tap heroku/brew && brew install heroku
-- heroku --version
+   * 1. Prepare the Project for deployment 
+   install heroku: brew tap heroku/brew && brew install heroku
+   - heroku --version
 
+      1.1 Install required Dependencies:
 
+         * psycopg2-binary: Required for PostgreSQL database connection.
+         * dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
+         * gunicorn: A production-ready web server for running Django applications on Heroku.
 
-1.1 Install required Dependencies:
+            After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
 
-* psycopg2-binary: Required for PostgreSQL database connection.
-* dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
-* gunicorn: A production-ready web server for running Django applications on Heroku.
+      1.2 Configure Environment Variables:
 
-   After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
+         - Inside env.py (DO NOT commit this file to GitHub!):
 
-1.2 Configure Environment Variables:
+            import os
+            os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
 
-- Inside env.py (DO NOT commit this file to GitHub!):
+         - In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
 
-   import os
-   os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
+            import os
+            SECRET_KEY = os.environ.get('SECRET_KEY')
 
-- In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
+      1.3 Set up the database (PostgreSQL):
 
-   import os
-   SECRET_KEY = os.environ.get('SECRET_KEY')
+         _ Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
+            * Created a PostgreSQL database using Code Institute's PostgreSQL instance. 
+            * Updated settings.py to support PostgreSQL:
 
-1.3 Set up the database (PostgreSQL):
+                  import dj_database_url
+                  if 'DATABASE_URL' in os.environ:
+                     DATABASES = {
+                        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+                     }
+                  else: 
+                     DATABASES = {
+                        'default': {
+                              'ENGINE': 'django.db.backends.sqlite3',
+                              'NAME': BASE_DIR / 'db.sqlite3',
+                        }
+                     }
+         * The DATABASE_URL was retrieved from Heroku Config Vars.
 
-   Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
-      * Created a PostgreSQL database using Code Institute's PostgreSQL instance. 
-      * Updated settings.py to support PostgreSQL:
-
-            import dj_database_url
-
-         if 'DATABASE_URL' in os.environ:
-            DATABASES = {
-               'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-            }
-         else: 
-            DATABASES = {
-               'default': {
-                     'ENGINE': 'django.db.backends.sqlite3',
-                     'NAME': BASE_DIR / 'db.sqlite3',
-               }
-            }
-   * The DATABASE_URL was retrieved from Heroku Config Vars.
-
-1.4 Find 'import env' in settings and replace with: 
-   if os.path.isfile("env.py"):
-    import env
-   from pathlib import Path
+      1.4 Find 'import env' in settings and replace with: 
+               if os.path.isfile("env.py"):
+               import env
+               from pathlib import Path
 
 
-2. Setting up Heroku:
+   * 2. Setting up Heroku:
 
-   * Log in to heroku and create the app
-   * Add in conf vars:
-      - DISABLE_COLLECTSTATIC:  1
-      - SECRET_KEY: Random secret key from  https://randomkeygen.com/
-   * Create Procfile in root directory with this information: 
-      - web: gunicorn real_honey.wsgi:application
-   * Create runtime.txt with this info:
-      - Python 3.12
-   * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
-      - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
+         * Log in to heroku and create the app
+         * Add in conf vars:
+            - DISABLE_COLLECTSTATIC:  1
+            - SECRET_KEY: Random secret key from  https://randomkeygen.com/
+         * Create Procfile in root directory with this information: 
+            - web: gunicorn real_honey.wsgi:application
+         * Create runtime.txt with this info:
+            - Python 3.12
+         * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
+            - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
+         * In .env Debug Mode (True for development, False for production)
+         DEBUG=False. Before Deployment. 
 
-   * In .env Debug Mode (True for development, False for production)
-   DEBUG=False. Before Deployment. 
-
-
-3. Deploy in Heroku
+   * 3. Deploy in Heroku
 
 Issues: 
-- First atempt to Deployment:
-   - Heroku deployment failed due to missing dependencies and  a configuration error in settings.py.
+
+   -  Heroku deployment failed due to missing dependencies and  a configuration error in settings.py.
       * Missing python-decouple: This was installed
          pip install python-decouple
          pip freeze > requirements.txt
 
-- Second attempt for deployment:
-   - Heroku rejects deployment because of an invalid Python version format in runtime.txt. Additionally, Heroku now prefers .python-version instead of runtime.txt.
+   - Heroku rejects deployment because of an invalid Python version format in runtime.txt. Additionally, Heroku now prefers .       python-version instead of runtime.txt.
       * Ensured Django 3.12 exixts in runtime.txt
       * Deleted runtime.txt
       * Instead Heroku asks to create 'echo "3.12" > .python-version' in root directory. After this change the Deployment was sucessful!
 
-https://devcenter.heroku.com/articles/python-support
+      https://devcenter.heroku.com/articles/python-support
 
 Creating an AWS Amazon Web Services s3 Account:
 This is a cloud-based storage servive that gives us a small piece of Amazon's infrastructure to be able to save our files. 
@@ -612,15 +592,14 @@ This is a cloud-based storage servive that gives us a small piece of Amazon's in
          4. Click ‘Save changes
 - Go to Permissions and find 'Cross-origin resource sharing (CORS)': 
 
-Paste this code: 
-[
-{
-"AllowedHeaders": ["Authorization"],
-"AllowedMethods": ["GET"],
-"AllowedOrigins": ["*"],
-"ExposeHeaders": []
-}
-]
+         [
+         {
+         "AllowedHeaders": ["Authorization"],
+         "AllowedMethods": ["GET"],
+         "AllowedOrigins": ["*"],
+         "ExposeHeaders": []
+         }
+         ]
 - Save Changes
 
 * In permissions find 'Bucket policy' and edit/ policy generator.
