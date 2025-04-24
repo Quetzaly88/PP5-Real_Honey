@@ -8,8 +8,11 @@ with open(fixture_path, "r", encoding="utf-8") as file:
     products = json.load(file)
 
 # Function to generate a short description
+
+
 def generate_short_description(product_name):
     return f"{product_name} is a premium honey product, offering rich flavor and natural sweetness. Perfect for your daily needs."[:150]
+
 
 # Update missing descriptions
 for product in products:

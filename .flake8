@@ -1,0 +1,11 @@
+[flake8]
+ignore = E501
+exclude =
+    venv,
+    migrations,
+    __pycache__,
+    static,
+    manage.py,
+    .vscode,
+    settings.py
+max-complexity = 10

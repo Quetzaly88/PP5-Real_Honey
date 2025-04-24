@@ -816,3 +816,41 @@ Email Configuration and Testing
                   messages.WARNING: 'alert-warning',
                   messages.ERROR: 'alert-danger',  # Bootstrap error message
                }
+
+
+
+from PP4:
+Python Code Validation To ensure code quality and PEP8 compliance, I used:
+
+- **[Flake8](https://flake8.pycqa.org/)** to identify issues such as unused imports, indentation problems, trailing spaces, etc.
+   Command in terminal: pip install flake8
+   Command to run flake: flake8 .
+
+- A '.flake8' config was used to exclude irrelevant files. A new file called '.flake8' was created in the project root.
+   File: 
+
+   [flake8]
+   ignore = E501
+   exclude =
+         venv,
+         migrations,
+         __pycache__,
+         static,
+         manage.py,
+         .vscode,
+         settings.py
+   max-complexity = 10
+
+      * What this config does:
+         - ignore = E501: skips the "line too long" error
+
+         - exclude: skips folders and files you don’t want to check (like migrations, static, etc.)
+
+         - max-complexity: optional — sets the allowed complexity of functions (you can remove this line if not needed)
+
+   Again, run command: flake8 .
+
+- **[Autopep8](https://pypi.org/project/autopep8/)** was used to automatically fix basic errors: 
+Command in terminal: pip install autopep8
+Command in terminal: autopep8 . --in-place --recursive
+command in terminal to keep checking the errors: flake8 .

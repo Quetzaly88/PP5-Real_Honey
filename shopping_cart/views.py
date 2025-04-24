@@ -60,7 +60,7 @@ def cart_view(request):
         cart_items = CartItem.objects.filter(user=request.user)
         total_price = sum(
             Decimal(item.get_total_price()) for item in cart_items
-            )  # Convert to decimals
+        )  # Convert to decimals
     else:
         cart_items = request.session.get('cart', {})
         total_price = sum(
@@ -130,7 +130,7 @@ def update_cart_quantity(request, item_id):
             # for loged in users
             cart_item = get_object_or_404(
                 CartItem, id=item_id, user=request.user
-                )
+            )
             # validate against product stock
             if new_quantity > cart_item.product.stock:
                 messages.error(request, f"Only {cart_item.product.stock} items available.")
@@ -173,7 +173,7 @@ def validate_coupon(request):
                 messages.error(request, "Coupon has expired.")  # Add message
                 request.session['coupon_discount'] = 0
                 return redirect('cart')
-     
+
             # Store the discount value in the session
             discount_value = (
                 coupon.value if coupon.discount_type == 'fixed'

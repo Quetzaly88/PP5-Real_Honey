@@ -98,7 +98,7 @@ def checkout_view(request):
             if request.user.is_authenticated:
                 user_profile = UserProfile.objects.get(user=request.user)
                 order.user_profile = user_profile
-          
+
             order.total_cost = total_price
             order.delivery_fee = delivery_fee
             order.final_price = final_price
@@ -158,7 +158,6 @@ def checkout_view(request):
             })
         else:
             form = OrderForm()
-
 
     # Render checkout page
     context = {

@@ -42,7 +42,7 @@ def wishlist_view(request):
 def remove_from_wishlist(request, item_id):
     wishlist_item = get_object_or_404(
         WishlistItem, id=item_id, user=request.user
-        )
+    )
     wishlist_item.delete()
     messages.success(request, "Item removed.")
     return redirect('wishlist')

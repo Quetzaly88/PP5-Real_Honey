@@ -13,6 +13,7 @@ from products.models import ProductSize
 # Set up logging
 logger = logging.getLogger(__name__)
 
+
 class StripeWH_Handler:
     """
     Handle Stripe webhooks, including sending confirmation emails.
@@ -32,7 +33,7 @@ class StripeWH_Handler:
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
+
         send_mail(
             subject.strip(),
             body,

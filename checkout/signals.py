@@ -2,6 +2,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import OrderLineItem
 
+
 @receiver(post_save, sender=OrderLineItem)
 def update_order_total_on_save(sender, instance, **kwargs):
     """
@@ -11,6 +12,7 @@ def update_order_total_on_save(sender, instance, **kwargs):
     order.total_cost = sum(item.line_total for item in order.line_items.all())
     order.final_price = max(order.total_cost - order.discount_amount + order.delivery_fee, 0)
     order.save()
+
 
 @receiver(post_delete, sender=OrderLineItem)
 def update_order_total_on_save(sender, instance, **kwargs):
