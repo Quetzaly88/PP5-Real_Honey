@@ -4,9 +4,15 @@
 
 <head>
   {% block meta %}
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{% block title %}Real Honey | Pure Swedish Honey{% endblock %}</title>
+  <meta name="description"
+    content="Real Honey from Sweden offers pure, natural honey and bee products sourced from Sweden.">
+  <meta name="keywords" content="honey, bee products, natural honey, pure honey, Swedish honey">
+  <meta name="author" content="Real Honey from Sweden">
+  <meta name="robots" content="index, follow">
   {% endblock %}
 
   {% block corecss %}
@@ -107,6 +113,12 @@
           <li class="nav-item">
             <a class="nav-link" href="#contact">Contact</a>
           </li>
+
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_product' %}"><i class="fas fa-plus-circle"></i> Add Product</a>
+          </li>
+          {% endif %}
         </ul>
 
         <ul class="nav-bar navbar-icons">
@@ -145,7 +157,7 @@
   </nav>
 
   <!-- page content -->
-  <main class="'flex-grow-1">
+  <main class="flex-grow-1">
     {% block content %}
     {% endblock %}
   </main>
@@ -157,8 +169,8 @@
         <!-- contact info -->
         <div class="col-lg-6 text-lg-left mb-4 mb-lg-0">
           <h5>Contact us</h5>
-          <p>Email: <a href="" class="text-white:">info@...</a></p>
-          <p>Phone: <a href="" class="text-white">+00454543</a></p>
+          <p>Email: <a href="mailto:info@realhoney.com" class="text-white">info@realhoney.com</a></p>
+          <p>Phone: <a href="tel:+00454543" class="text-white">+00 45 4543</a></p>
           <p>Adress: Bjäre Peninsula, Sweden</p>
         </div>
 
@@ -173,13 +185,13 @@
       </div>
 
       <div class="text-center p-3 copyright">
-        &copy; {{ year|default:2025 }} Real Honey from Sweden. All rights reserved
+        {% now "Y" as year %}
+        &copy; {{ year }} Real Honey from Sweden. All rights reserved
       </div>
     </div>
   </footer>
+  {% block postloadjs %}
+  {% endblock %}
 </body>
-
-{% block postloadjs %}
-{% endblock %}
 
 </html>

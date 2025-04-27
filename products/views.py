@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from .models import Product, ProductSize
+from .models import Product, ProductSize, ProductSizeFormSet
 from django.core.paginator import Paginator
 from django.db.models import Q, F, Min, Max
 from .forms import ProductForm
@@ -9,7 +9,6 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 
-# Handles displaying and filtering the product list based on filters
 def product_list(request, category=None):
     search_query = request.GET.get('search', '')
     size_filter = request.GET.get('size', '')
@@ -89,25 +88,50 @@ def product_detail(request, pk):
 
 @login_required
 def add_product(request):
-    """Add a product to the store"""
+    """Add a product to the store and its sizes"""
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
+        formset = ProductSizeFormSet(request.POST)
+
+        if form.is_valid() and formset.is_valid():
             product = form.save()
+            sizes = formset.save(commit=False)
+            for size in sizes:
+                size.product = product
+                size.save()
             messages.success(request, f"Product '{product.name}' added successfully!")
             return redirect('product_list')
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         form = ProductForm()
+        formset = ProductSizeFormSet(queryset=ProductSize.objects.none())
 
     template = 'products/add_product.html'
-    context = {'form': form}
+    context = {
+        'form': form,
+        'formset': formset,
+    }
     return render(request, template, context)
+
+    # if request.method == 'POST':
+    #     form = ProductForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         product = form.save()
+    #         messages.success(request, f"Product '{product.name}' added successfully!")
+    #         return redirect('product_list')
+    #     else:
+    #         messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    # else:
+    #     form = ProductForm()
+
+    # template = 'products/add_product.html'
+    # context = {'form': form}
+    # return render(request, template, context)
 
 
 @login_required

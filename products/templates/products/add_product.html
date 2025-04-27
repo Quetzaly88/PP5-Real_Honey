@@ -15,6 +15,14 @@
                     {% csrf_token %}
                     {{ form|crispy }}
 
+                    <h5 class="mt-4">Product Sizes</h5>
+                    {{ formset.management_form}}
+                    {% for size_form in formset %}
+                        <div class="card mb-2 p-3 border">
+                            {{ size_form|crispy }}
+                        </div>
+                    {% endfor %}
+
                     <div class="d-flex justify-content-between mt-3">
                         <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">Cancel</a>
                         <button type="submit" class="btn btn-success">Add Product</button>

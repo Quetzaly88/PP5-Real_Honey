@@ -1,6 +1,7 @@
 from django import forms
-from .models import Product
+from .models import Product, ProductSize
 from products.widgets import CustomClearableFileInput
+from django.forms import modelformset_factory  # Let manage multiple forms of the same type on the page. 
 
 
 class ProductForm(forms.ModelForm):
@@ -31,3 +32,20 @@ class ProductForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control border-black rounded-0'
 
         self.fields['category'].widget.attrs['class'] = 'form-control'
+
+
+class ProductSizeForm(forms.ModelForm):
+    """
+    Form for store owners to add/edit product sizes
+    """
+    class Meta:
+        model = ProductSize
+        fields = ['size', 'price', 'stock']
+
+
+ProductSizeFormSet = modelformset_factory(
+    ProductSize,
+    form=ProductSizeForm,
+    extra=1,  # Number of empty forms to display
+    can_delete=True,  # Allow deletion of forms
+)
