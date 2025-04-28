@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from .models import Product, ProductSize, ProductSizeFormSet
+from .models import Product, ProductSize
+from .forms import ProductForm, ProductSizeFormSet
 from django.core.paginator import Paginator
 from django.db.models import Q, F, Min, Max
 from .forms import ProductForm

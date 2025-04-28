@@ -447,8 +447,9 @@ Thank you to "mittnamnkenny" for creating an spectacular README file, which I ha
 
 
 **14. Issues**
+
    14.1 Stripe Integration Fixes-Summary:
-Implemented critical fixes to **Stripe integration** to ensure smooth payment processing and reliable webhook handling.  
+Implemented critical fixes to "Stripe integration" to ensure smooth payment processing and reliable webhook handling.  
 
    *Client Secret & Public Key Handling
       - Used `json_script` to safely pass `client_secret` and `stripe_public_key` to JavaScript, preventing encoding issues.  
@@ -475,6 +476,44 @@ Implemented critical fixes to **Stripe integration** to ensure smooth payment pr
       - Stripe webhooks **reliably process** order completions.  
 
    *Stripe payments are now fully functional. Because of my deadline I used AI to help me out fixing this issue. Javascript code was pasted to avoid more critical issues. 
+
+14.2 CLOUDINARY SETUP
+* Create a claudinary account and set up a confirmation code to be able to see the api secret key.
+* CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dapm2mnex
+
+   Media Files Storage – Cloudinary
+   Originally, the project was planned to use AWS S3 for media storage.
+   However, after reviewing the project requirements and the importance of rapid deployment, Cloudinary was chosen for the following reasons:
+
+* Simpler and Faster Setup: Cloudinary integrates easily with Django using the django-cloudinary-storage package, requiring fewer configuration steps compared to AWS S3 (which needs IAM users, CORS setup, storage classes, etc.).
+
+* Ideal for Portfolio Projects: Cloudinary offers a free plan that fits the needs of this e-commerce application without extra configuration for custom domains or regional buckets.
+
+* Quick Deployment: Cloudinary allows rapid deployment of media files in production environments like Heroku, where file systems are ephemeral (i.e., lost after dyno restarts).
+
+* Built-in Image Optimization: Cloudinary automatically optimizes images for faster loading times, improving UX and SEO without additional settings.
+
+      How It Was Implemented:
+      1. Installed the required packages:
+
+         pip install django-cloudinary-storage cloudinary
+
+      2. Added Cloudinary settings to settings.py:
+
+         CLOUDINARY_STORAGE = {
+            'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+            'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+            'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+         }
+
+         DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+      3. Configured environment variables securely in Heroku Config Vars.
+
+      4. Updated requirements.txt and deployed to Heroku.
+
+   All product images and user-uploaded files are now safely stored and served via Cloudinary.
+   This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
 
 ---------------------
 Back to Top
