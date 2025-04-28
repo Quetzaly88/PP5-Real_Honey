@@ -498,16 +498,22 @@ Implemented critical fixes to "Stripe integration" to ensure smooth payment proc
 
          pip install django-cloudinary-storage cloudinary
 
-      2. Added Cloudinary settings to settings.py:
+      2. Media File Storage - Local Development vs. Cloudinary Production. 
+         In order to handle media files correctly during development and production, the following smart configuration was implemented in settings.py:
 
-         CLOUDINARY_STORAGE = {
-            'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-            'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-            'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-         }
+         if 'DEVELOPMENT' in os.environ:
+            DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+         else:
+            CLOUDINARY_STORAGE = {
+               'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+               'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+               'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+            }
+            DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-         DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+      * ADD DEVELOPMENT=1 in the .env file TO BE ABLE TO SAVE UPLOADED IMAGES INTO THE LOCAL /MEDIA/ DIRECTORY. 
 
+      
       3. Configured environment variables securely in Heroku Config Vars.
 
       4. Updated requirements.txt and deployed to Heroku.
