@@ -899,3 +899,29 @@ Python Code Validation To ensure code quality and PEP8 compliance, I used:
 Command in terminal: pip install autopep8
 Command in terminal: autopep8 . --in-place --recursive
 command in terminal to keep checking the errors: flake8 .
+
+
+from PP4, static files not showing in deployed app
+Static files (CSS, JavaScript, images): Static files were configured work in both development and production using WhiteNoise and Django's static settings:
+
+   STATIC_URL = '/static/'
+   STATICFILES_DIRS = [BASE_DIR / 'static']
+   STATIC_ROOT = BASE_DIR / 'staticfiles'
+Command to collect static files:
+
+% python manage.py collectstatic 
+This collects all static assets into the /staticfiles/ directory, which is served by Heroku in production.
+
+DISABLE_COLLECTSTATIC = 1 is removed from config vars in Heroku. This variable skips static file collection, which breaks CSS, images and JavaScript in production.
+
+Middleware configuration (in settings.py):
+
+MIDDLEWARE = [ 'django.middleware.security.SecurityMiddleware', 'whitenoise.middleware.WhiteNoiseMiddleware', ...]
+
+Heroku Setup & Commands
+
+To prepare and deploy your app on Heroku:
+
+% heroku run --app pp5-real-honey "python manage.py collectstatic --noinput"
+
+Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remote server).
