@@ -369,6 +369,64 @@ Project Name: PP5_Real_Honey
 
    This method ensures all product descriptions are always complete while keeping the fixture-based data management consistent across deployments. 
 
+* Product images are now automatically uploaded to Cloudinary for optimized storage and delivery.
+
+   I made this choice after AWs did not work as expected. 
+   - Cloudinary is fast and reliable, I could  deliver the images via CDN. 
+   - Simplified deployment (no need to manage media files on Heroku)
+
+Process: 
+1. Install Cloudinary and add it to requirements.txt.
+- pip install cloudinary django-cloudinary-storage
+- pip freeze > requirements.txt
+
+2. Upload images from desktop to Cloudinary.
+
+2. CloudinaryField used in Product/models for automatic handling.
+
+image = CloudinaryField(
+        'image',
+        blank=True,
+        null=True
+    )
+    image_2 = CloudinaryField(
+        'image',
+        blank=True,
+        null=True
+    )
+
+3. Update settings.py an add secret keys in Heroku. 
+
+      INSTALLED_APPS = [
+    ...
+    'cloudinary_storage',
+    'cloudinary',
+    'storages',
+    ...
+]
+
+   CLOUDINARY_STORAGE = {
+      'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+      'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+      'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+      }
+
+      DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+      MEDIA_URL = '/media/'
+
+
+Testing:
+
+- Added product images via Add Product page and Django Admin. 
+
+- Verified images uploaded to Cloudinary Media Library
+
+- Confirmed images display properly on product pages
+
+*Images now display across the site, fixing all broken image issues from initial deployment.
+
+
 **10. Additional Resources**
    *Useful links for Django, Bootstrap and Stripe documentation 
 
