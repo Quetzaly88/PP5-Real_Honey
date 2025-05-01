@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+<meta name="robots" content="noindex, follow">
+{% endblock %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <h1 class="display-4">404 - Page Not Found</h1>
+    <p>Sorry, the page you are looking for does not exist.</p>
+    
+    <img src="{% static 'images/404.jpg' %}" alt="Page Not Found" class="img-fluid my-4" style="max-width: 400px;">
+    
+    <p>Let me take you back!</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Go back to the homepage</a>
+</div>
+{% endblock %}
