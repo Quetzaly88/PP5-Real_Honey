@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 SIZE_CHOICES = [
@@ -26,16 +27,17 @@ class Product(models.Model):
         blank=True,
         null=True
     )
-    image = models.ImageField(
-        upload_to='products/',
+    image = CloudinaryField(
+        'image',
         blank=True,
         null=True
     )
-    image_2 = models.ImageField(
-        upload_to='products/',
+    image_2 = CloudinaryField(
+        'image',
         blank=True,
         null=True
     )
+
     is_featured = models.BooleanField(default=False)
     is_best_seller = models.BooleanField(default=False)
     category = models.CharField(
