@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Newsletter Signup</h2>
+    <p>Enter your email to receive updates on the latest honey products and offers</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Sign Up</button>
+    </form>
+</div>
+
+{% endblock}

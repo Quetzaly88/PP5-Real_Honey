@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://pp5-real-honey-60f1f8b03b81.herokuapp.com//sitemap.xml
+Sitemap: https://pp5-real-honey-60f1f8b03b81.herokuapp.com/sitemap.xml

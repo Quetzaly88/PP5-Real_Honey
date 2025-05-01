@@ -143,6 +143,22 @@ Project Name: PP5_Real_Honey
          - Customer reward points and discounts
          - AI based product recomendations 
 
+   *4.4 Add a subsection "SEO and Error Handling"
+
+      Custom 404 Error Page: A user-friendly 404 page is shown when non-existent pages are accessed.
+
+      robots.txt: Added to guide search engines and allow them to crawl the website properly.
+       https://pp5-real-honey-60f1f8b03b81.herokuapp.com/robots.txt
+
+      sitemap.xml: Provides a sitemap for search engine bots to index all important pages.
+      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/sitemap.xml
+
+      Meta Tags: Added meta description and keywords tags to improve SEO. Added this to base.html. 
+
+      Broken Links Fixed: All previously broken links have been resolved, ensuring smooth navigation.
+
+      Page titles: All pages use meaningful titles to reflect the page content and improve SEO.
+
 **5. Marketing**
    *5.1 Social Media Presence:*
          - Active engagement on platforms like Facebook, instagram and youtube.
@@ -153,6 +169,10 @@ Project Name: PP5_Real_Honey
          - SEO- friendly URLs and meta tags
          - Structured content for better search engine indexing.
          - Email marketing campaigns for customer engagement. 
+
+   *5.3 Newsletter Signup
+      - Users can sign up to receive updates and offers from the products. Emails are collected via a simple form and processed by the application. 
+      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/newsletter/
 
 **6. Validation, Testing & Bugs
    *6.1 Validation*
@@ -578,10 +598,6 @@ Implemented critical fixes to "Stripe integration" to ensure smooth payment proc
 
    All product images and user-uploaded files are now safely stored and served via Cloudinary.
    This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
-
----------------------
-Back to Top
-
 
 
 

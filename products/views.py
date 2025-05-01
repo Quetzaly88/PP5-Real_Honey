@@ -8,6 +8,7 @@ from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
+from .forms import NewsletterSignupForm
 
 
 def product_list(request, category=None):
@@ -119,21 +120,6 @@ def add_product(request):
     }
     return render(request, template, context)
 
-    # if request.method == 'POST':
-    #     form = ProductForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         product = form.save()
-    #         messages.success(request, f"Product '{product.name}' added successfully!")
-    #         return redirect('product_list')
-    #     else:
-    #         messages.error(request, 'Failed to add product. Please ensure the form is valid.')
-    # else:
-    #     form = ProductForm()
-
-    # template = 'products/add_product.html'
-    # context = {'form': form}
-    # return render(request, template, context)
-
 
 @login_required
 def edit_product(request, product_id):
@@ -175,3 +161,18 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, f"Product '{product.name}' deleted successfully!")
     return redirect('product_list')
+
+
+def newsletter_signup(request):
+    """Newsletter signup view"""
+    if request.method == 'POST':
+        form = NewsletterSignupForm(request.POST)
+        if form.is_valid():
+            messages.success(request, 'Thank you for signing up for our newsletter!')
+            return redirect('newsletter_signup')
+        else:
+            form = NewsletterSignupForm()
+
+        return render(request, 'products/newsletter_signup.html', {
+            'form': form,
+        })

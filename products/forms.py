@@ -49,3 +49,7 @@ ProductSizeFormSet = modelformset_factory(
     extra=1,  # Number of empty forms to display
     can_delete=True,  # Allow deletion of forms
 )
+
+
+class NewsletterSignupForm(forms.Form):
+    email = forms.EmailField(label='Your email', max_length=254)
