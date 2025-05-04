@@ -40,9 +40,9 @@
          <div class="card h-100 shadow-sm">
             <!-- show product image -->
             {% if product.image %}
-            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            <img src="{{ product.image.url|replace:'http://','https://' }}" class="card-img-top" alt="{{ product.name }}" loading="lazy">
             {% else %}
-            <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
+            <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image" loading="lazy">
             {% endif %}
 
             <div class="card-body d-flex flex-column text-center">

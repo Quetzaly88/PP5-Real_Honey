@@ -88,8 +88,6 @@
          - Support local beekeepers and promote sustainable, small-scale production.
          - Allow customers to easily browse products, learn about them, and securely purchase them online.
 
-
-
       3.2 The Ideal User
          - Interested in natural and organic products.
          - Health- conscious individuals
@@ -108,6 +106,7 @@
          [https://github.com/users/Quetzaly88/projects/14]
 
       3.5 The Scope Plane*
+         Implemented Features: 
          - Product Listings & Categorization
          - Sorting and Filtering of products
          - Cart and Checkout
@@ -115,27 +114,41 @@
          - SEO
          - Responsive Design
 
-      3.6 The Structure Plan*
-         - Site map
+      3.6 The Structure Plan: 
+         The website follows an organized structure. Each Django app manages its own URLs and templates, creating a modular and scalable project:
+
+         - Products → List, Detail
+         - Checkout → Cart, Payment, Confirmation
+         - Shopping Cart → Wishlist, Saved items
+         - Profiles → User account management, Order history
+         - Newsletter signup and Social Media Mockups → Marketing and engagement
+         - SEO → robots.txt and sitemap.xml
+         - Static Pages → About, Contact
+         - Error handling → Custom 404 page
+
+         ## Sitemap
+![Sitemap ](docs/sitemap_readme.png)
+
          ----------
-         - Database Schema
-         https://dbdiagram.io/d
 
          ## Database schema
 ![Databases schema](docs/database_schema.png)
 
          ----------
 
-      3.7 Wireframes
-         [link or imgs]
-         ------------
+      3.7 Wireframes: 
+         Wireframes were created during the planning phase to ensure a user-centered design.
+## Wireframes
+![Wireframes](docs/wireframes.png)
+
 
       3.8 The Surface Plan
          Visual Elements: 
             Logo: Clean and minimalist logo designed to represent nature and honey.
 
          3.8.1 Color Palette:
-(Save color palette as /docs/color_palette.png)
+         ## Palette colors
+![Palette](docs/palette.png)
 
          3.8.2 Typography: Simple, elegant, easy-to-read fonts, provided from Google Fonts. 
          
@@ -145,10 +158,27 @@
          - Noto Sans (Body text and UI):
             Used for general readability, user interface elements, product descriptions, and other body text. Ensures excellent legibility across devices.
 
+![Google Fonts](docs/fonts.png)
 
          3.8.3 Icons: Font Awesome.
 
-         3.8.4.Images: Product images optimized and stored via Cloudinary.
+         3.8.4.Images: The project uses two different storage solutions to serve images, depending on their purpose.
+         
+         * Static Images (Logo, banners, 404, and default product images). Stored in /static/images directory. These images are part of the website design and layout and are necessary for:
+
+         - Displaying the site logo in the header. 
+         - Adding homepage slides/banners.
+         - Showing a friendly image on the custom 404 error page.
+         - Providing default product images if a product does not have one uploaded.
+
+         These are collected and served through WhiteNoise and Heroku's static file system, ensuring they are always available to site visitors.
+
+         * Dynamic Product Images (uploaded by admin). 
+         
+         - Stored on Cloudinary, an external cloud storage and CDN.
+         - Uploaded through the Django admin or product forms.
+         - Automatically optimized and resized for faster delivery and improved user experience.
+         
 
 **4. Features**
    *4.1 Core Features:*
@@ -808,7 +838,10 @@ Implemented critical fixes to "Stripe integration" to ensure smooth payment proc
    - https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
 
 README:
-Thank you to "mittnamnkenny" for creating an spectacular README file, which I have used as a path and template  to create my README. https://github.com/mittnamnkenny/galleriet.git
+   -https://lucid.app/ Lucidchart for sitemaps, database and wireframes.
+   - Database Schema
+         https://dbdiagram.io/d
+
 
 
 

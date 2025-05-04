@@ -37,3 +37,11 @@
   </url>
 
 </urlset>
+
+
+
+edit products
+http://127.0.0.1:8000/products/edit/1/
+
+add products
+http://127.0.0.1:8000/products/add/
