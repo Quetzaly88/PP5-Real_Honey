@@ -40,7 +40,8 @@
          <div class="card h-100 shadow-sm">
             <!-- show product image -->
             {% if product.image %}
-            <img src="{{ product.image.url|replace:'http://','https://' }}" class="card-img-top" alt="{{ product.name }}" loading="lazy">
+            <img src="{{ product.image.url|replace:'/upload/','/upload/w_400,q_auto,f_auto/' }}" class="card-img-top" alt="Photo of {{ product.name }}"
+            " loading="lazy">
             {% else %}
             <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image" loading="lazy">
             {% endif %}

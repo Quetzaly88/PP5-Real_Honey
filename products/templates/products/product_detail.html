@@ -10,13 +10,15 @@
             <div class="carousel-inner">
                {% if product.image %}
                <div class="carousel-item active">
-                  <img src="{{ product.image.url|replace:'http://','https://' }}" alt="{{ product.name }}" loading="lazy">
+                  <img src="{{ product.image.url|replace:'/upload/','/upload/w_800,q_auto,f_auto/' }}" alt="Photo of {{ product.name }}"
+                  " loading="lazy">
                </div>
                {% endif %}
                {% if product.image_2 %}
                <div class="carousel-item {% if not product.image %}active{% endif %}">
-                  <img src="{{ product.image_2.url|replace:'http://','https://' }}" class="d-block w-100 rounded" alt="{{ product.name }}" loading="lazy">               </div>
-               {% endif %}
+                  <img src="{{ product.image_2.url|replace:'/upload/','/upload/w_800,q_auto,f_auto/' }}" class="d-block w-100 rounded" alt="Photo of {{ product.name }}"
+                  " loading="lazy">
+                  {% endif %}
                {% if not product.image and not product.image_2 %}
                <div class="carousel-item active">
                   <img src="{% static 'images/default.jpg' %}" class="d-block w-100 rounded" alt="Default Image" loading="lazy">
