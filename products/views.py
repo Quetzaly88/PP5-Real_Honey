@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import Product, ProductSize
 from .forms import ProductForm, ProductSizeFormSet
 from django.core.paginator import Paginator
-from django.db.models import Q, F, Min, Max
+from django.db.models import Q, Min
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
@@ -168,11 +168,11 @@ def newsletter_signup(request):
     if request.method == 'POST':
         form = NewsletterSignupForm(request.POST)
         if form.is_valid():
-            messages.success(request, 'Thank you for signing up for our newsletter!')
+            messages.success(request, "Thank you for signing up for our newsletter!")
             return redirect('newsletter_signup')
-        else:
-            form = NewsletterSignupForm()
+    else:
+        form = NewsletterSignupForm()
 
-        return render(request, 'products/newsletter_signup.html', {
-            'form': form,
-        })
+    return render(request, 'products/newsletter_signup.html', {
+        'form': form,
+    })

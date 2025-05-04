@@ -1,10 +1,40 @@
 # PP5-Real_Honey - Buy Local, Authentic Honey - Online
 
-**1. Key Project Information**
-
 Project Name: PP5_Real_Honey
       * Description
       Real Honey is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
+
+
+**Table of Contents**
+
+1. Key Project Information
+
+2. Features
+
+3. User Experience (UX)
+
+4. Marketing
+
+5. Validation, Testing & Bugs
+
+6. Deployment
+
+8. Technologies & Credits
+
+9. Handling Product Images
+
+10. Additional Resources
+
+11. Future Implementations
+
+12. User Stories: 
+
+13. Resources for project development. 
+
+14. Issues
+
+
+**1. Key Project Information**
 
       * Key Goal
       To provide a seamless and enjoyable shopping experience while supporting local beekeepers.
@@ -29,39 +59,68 @@ Project Name: PP5_Real_Honey
       - Card number 4000 0025 0000 3155 (3D Secure)
 
       Developer: 
-      Andrea Nilsson Coronado
+      Andrea Nilsson
 
       Note: This project is for educational purposes only!
 
-**2. Table of Contents**
+**2. Features**
+   *4.1 Core Features:*
+         - Header and navigation: Consistent responsive navigation bar with logo, links to redirect the user to Home, Products and  Contact. The header has also the posibility to log-in/out the user, redirect to the shopping cart liked products. 
 
-1. Key Project Information
+         - Footer: Includes contact info, adress and social media engagement. 
 
-2. Table of Contents
+         - Wishlist management: Consistenly located in the navbar. The users are allowed to save the products for future reference. 
 
-3. User Experience (UX)
+         - Order History: Users can view past orders and purchase details from their account. 
 
-4. Features
+         - Search functionality: Keyword search and filters help users find products easily. 
 
-5. Marketing
+         - Notifications (on-screen and email): Provided for order confirmations and important events. 
 
-6. Validation, Testing & Bugs
+   *4.2 Pages Overview:*
 
-7. Deployment
+         - Landing page (Home): Highlights featured and best-selling products. 
 
-8. Technologies & Credits
+         - Product list page: Displays avaiable products with filtering and sorting options. 
 
-9. Handling Product Images
+         - Product Detail page: Detailed view of product images, descriptions, avaiable sizes and prices. 
 
-10. Additional Resources
+         - Checkout Page: Secure checkout process with Stripe payment integration. 
 
-11. Future Implementations
+         - Profile management page: Allows users to view and manage theiir account information, adresses and order history. 
 
-12. User Stories: 
 
-13. Resources for project development. 
+   *4.3 Future Implementations:*
+      4.3.1 Bulk product import via CSV:
+         This feature can be implemented in the future to allow administrators to upload product details through a CSV file, reducing the time and effort required for manual data entry. For this we will need to immport csv. This won't be done in this project now because this project is in a small scale, otherwise, it can be implemented in the future.
+         https://docs.djangoproject.com/en/5.1/howto/outputting-csv/
 
-14. Issues
+      4.3.2 Future implementation product size:
+         Currently, the product size options are defined as a set of predefined choices in the SIZE_CHOICES tuple. This approach ensures consistency and simplifies management for standard product sizes like 450g and 600g. However, it may require code updates every time a new size (e.g., 50g or 700g) needs to be added.
+
+      4.3.3 Aditional Future Enhancements:
+         - Product Inventory management
+         - Improved search and filtering options
+         - Wishlist functionality
+         - Order tracking and status updates
+         - Customer reward points and discounts
+         - AI based product recomendations 
+
+   *4.4 SEO and Error Handling*
+
+      Custom 404 Error Page: A user-friendly 404 page is shown when non-existent pages are accessed.
+
+      robots.txt: Added to guide search engines and allow them to crawl the website properly.
+       https://pp5-real-honey-60f1f8b03b81.herokuapp.com/robots.txt
+
+      sitemap.xml: Provides a sitemap for search engine bots to index all important pages.
+      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/sitemap.xml
+
+      Meta Tags: Added meta description and keywords tags to improve SEO. Added this to base.html. 
+
+      Broken Links Fixed: All previously broken links have been resolved, ensuring smooth navigation.
+
+      Page titles: All pages use meaningful titles to reflect the page content and improve SEO.
 
 **3. User Experience (UX)**
 
@@ -111,83 +170,64 @@ Project Name: PP5_Real_Honey
          - Icons (fontawsome)
          - Images
 
-**4. Features**
-   *4.1 Core Features:*
-         - Header with navigation and logo.
-         - Footer with contact info, adress and social media engagement. 
-         - Wishlist management
-         - Order History
-         - Search functionality
-         - Notifications (on-screen and email)
 
-   *4.2 Pages:*
-         - Landing page. Home.
-         - Product list page
-         - Product Detail page.
-         - Checkout Page:
-         - Profile management 
+**4. Marketing**
+   This project incorporates several marketing techniques to increase brand visibility, reach the target audience and drive customer engagement across social media, SEO, and newsletter campaigns. The social media links are integrated into the website footer. These mockups were created instead of real social media businesses because of new security measures from Meta. 
 
-   *4.3 Future Implementations:*
-      4.3.1 Bulk product import via CSV:
-         This feature can be implemented in the future to allow administrators to upload product details through a CSV file, reducing the time and effort required for manual data entry. For this we will need to immport csv. This won't be done in this project now because this project is in a small scale, otherwise, it can be implemented in the future.
-         https://docs.djangoproject.com/en/5.1/howto/outputting-csv/
+   *4.1 Social Media Presence:*
+      To simulate real-world social media marketing, mockups of social media pages were created and included in the project. These showcase how the product would be promoted across major platforms:
 
-      4.3.2 Future implementation product size:
-         Currently, the product size options are defined as a set of predefined choices in the SIZE_CHOICES tuple. This approach ensures consistency and simplifies management for standard product sizes like 450g and 600g. However, it may require code updates every time a new size (e.g., 50g or 700g) needs to be added.
+      *Facebook Page: Created to demonstrate page view and important information about the business. The "Shop now" call to action is included. 
+      
+## Facebook Page Mockups
+![Facebook Page Mockup Desktop](docs/facebook_mockup.png)
+![Facebook Page Mockup Mobile](docs/facebook_mockup_mobil.png)
 
-      4.3.3 Aditional Future Enhancements:
-         - Product Inventory management
-         - Improved search and filtering options
-         - Wishlist functionality
-         - Order tracking and status updates
-         - Customer reward points and discounts
-         - AI based product recomendations 
 
-   *4.4 Add a subsection "SEO and Error Handling"
+      *Instagram Profile Mockup: Designed for mobile to showcase products, bio, and "Shop" functionality for easy product discovery.
+## Instagram mockup
+![Instagram Mockup](docs/instagram_mockup.png)
 
-      Custom 404 Error Page: A user-friendly 404 page is shown when non-existent pages are accessed.
+      *YouTube Channel Mockup: Displays how video marketing and educational content about honey products could be used to promote the brand.
 
-      robots.txt: Added to guide search engines and allow them to crawl the website properly.
-       https://pp5-real-honey-60f1f8b03b81.herokuapp.com/robots.txt
+## Youtube chanel mockup
+![Youtube Mockup](docs/youtube_mockup.png)
 
-      sitemap.xml: Provides a sitemap for search engine bots to index all important pages.
-      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/sitemap.xml
 
-      Meta Tags: Added meta description and keywords tags to improve SEO. Added this to base.html. 
+   *4.2 Search Engine Optimization (SEO)*
+      SEO strategies have been implemented across the website to improve visibility in search engines:
 
-      Broken Links Fixed: All previously broken links have been resolved, ensuring smooth navigation.
+      - SEO-friendly URLs and meta tags included in the site's base HTML templates.
 
-      Page titles: All pages use meaningful titles to reflect the page content and improve SEO.
+      - robots.txt and sitemap.xml have been added to help search engine bots crawl and index the site properly.
 
-**5. Marketing**
-   *5.1 Social Media Presence:*
-         - Active engagement on platforms like Facebook, instagram and youtube.
-         - Social media buttons integrated on all the website. 
-         - Community engagement through newsletters. 
+      - Custom 404 page implemented to handle non-existing content gracefully.
 
-   *5.2 Search Engine Optimization (SEO)*
-         - SEO- friendly URLs and meta tags
-         - Structured content for better search engine indexing.
-         - Email marketing campaigns for customer engagement. 
+      - Structured content and meaningful text used throughout the site to ensure clarity and relevance to the business domain.
 
-   *5.3 Newsletter Signup
+
+   *4.3 Newsletter Signup
       - Users can sign up to receive updates and offers from the products. Emails are collected via a simple form and processed by the application. 
-      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/newsletter/
+      - Simple signup form using Django forms
+      - Users are shown a thank-you message upon submission
+      - Demonstrates intent for marketing and customer re-engagement
 
-**6. Validation, Testing & Bugs
-   *6.1 Validation*
+      * Signup form avaiable here: https://pp5-real-honey-60f1f8b03b81.herokuapp.com/newsletter/
+
+**5. Validation, Testing & Bugs
+   *5.1 Validation*
       - HTML, CSS and JavaScript validation
       - Accessibility testing
       - SEO validation using Google Tools
 
-   *6.2 Testing*
+   *5.2 Testing*
       - Manual and automated tests.
          * Performed bu using print(), console.log() and manual testing. 
       - User experience Testing
       - Payment gateway testing.
          - Usind dummy credit card information. 
 
-   *6.3 Bugs*
+   *5.3 Bugs*
       - Issues with Stripe due to missing postload.js in base.html. 
       - Several changes on models for better performance. 
       - Fixed checkout and Stripe integration: Ensured that cart items persisted untill payment confirmation.
@@ -199,7 +239,7 @@ Project Name: PP5_Real_Honey
 
    
 
-**7. Deployment**
+**6. Deployment**
    *7.1 Deployment Steps*
       - Transfer progress from IDE to GitHub
       - Deployment to cloud Heroku.
