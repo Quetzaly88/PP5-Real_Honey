@@ -13,6 +13,15 @@
   <meta name="keywords" content="honey, bee products, natural honey, pure honey, Swedish honey">
   <meta name="author" content="Real Honey from Sweden">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="{% block og_title %}Real Honey | Pure Swedish Honey{% endblock %}">
+  <meta property="og:description"
+    content="{% block og_description %}Real Honey from Sweden offers pure, natural honey and bee products sourced from Sweden.{% endblock %}">
+  <meta property="og:image" content="{% static 'images/logo.png' %}">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:type" content="website">
   {% endblock %}
 
   {% block corecss %}
@@ -171,7 +180,8 @@
           <h5>Contact us</h5>
           <p>Email: <a href="mailto:info@realhoney.com" class="text-white">info@realhoney.com</a></p>
           <p>Phone: <a href="tel:+00454543" class="text-white">+00 45 4543</a></p>
-          <p>Adress: <a href="https://maps.app.goo.gl/ux6HR2LanajbtRUk9" class="text-white" target="blank">Bjäre Peninsula, Sweden</a></p>
+          <p>Adress: <a href="https://maps.app.goo.gl/ux6HR2LanajbtRUk9" class="text-white" target="blank">Bjäre
+              Peninsula, Sweden</a></p>
           <p>Newsletter: <a href="{% url 'newsletter_signup' %}">Subscribe to our Newsletter</a></p>
         </div>
 

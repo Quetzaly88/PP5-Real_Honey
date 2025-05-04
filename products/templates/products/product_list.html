@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block meta %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Our Products | Real Honey</title>
+<meta name="description" content="Explore our full range of premium Swedish honey and bee products. Shop raw honey, bee pollen, beeswax and more directly from local beekeepers.">
+<meta name="keywords" content="honey, bee products, natural honey, pure honey, Swedish honey, raw honey, bee pollen, beeswax">
+<meta name="author" content="Real Honey from Sweden">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="Our Products | Real Honey">
+<meta property="og:description" content="Explore our full range of premium Swedish honey and bee products. Shop raw honey, bee pollen, beeswax and more directly from local beekeepers.">
+<meta property="og:image" content="{% static 'images/logo.png' %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+{% endblock %}
+
 {% block extra_css %}
 <!-- link to product.css only for this page -->
 <link rel="stylesheet" href="{% static 'css/product.css' %}">

@@ -1,6 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block meta %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{{ product.name }} | Real Honey</title>
+<meta name="description" content="{{ product.description|truncatechars:150 }}">
+<meta name="keywords" content="honey, bee products, natural honey, pure honey, Swedish honey, {{ product.name }}">
+<meta name="author" content="Real Honey from Sweden">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="{{ product.name }} | Real Honey">
+<meta property="og:description" content="{{ product.description|truncatechars:150 }}">
+<meta property="og:image" content="{{ product.image.url|default:'https://pp5-real-honey-60f1f8b03b81.herokuapp.com/static/images/default.jpg' }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="product">
+{% endblock %}
+
+
 {% block content %}
 <div class="container my-5">
    <div class="row align-items-start">

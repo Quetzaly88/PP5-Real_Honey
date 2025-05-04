@@ -139,8 +139,9 @@
       3.7 Wireframes: 
          Wireframes were created during the planning phase to ensure a user-centered design.
 ## Wireframes
-![Wireframes](docs/wireframes.png)
-
+![Wireframe1](docs/wireframe_1.png)
+![Wireframe2](docs/wireframe_2.png)
+![Wireframe3](docs/wireframe_3.png)
 
       3.8 The Surface Plan
          Visual Elements: 
@@ -265,15 +266,43 @@
 
 
    *5.2 Search Engine Optimization (SEO)*
-      SEO strategies have been implemented across the website to improve visibility in search engines:
 
-      - SEO-friendly URLs and meta tags included in the site's base HTML templates.
+      *SEO strategies have been implemented across the website to improve visibility in search engines and ensure proper indexing. 
 
-      - robots.txt and sitemap.xml have been added to help search engine bots crawl and index the site properly.
+      - SEO-friendly URLs and meta tags (title, description, keywords, and robots directives) included globally in the base.html template.
 
-      - Custom 404 page implemented to handle non-existing content gracefully.
+      - Product list page (product_list.html) has specific meta tags and canonical URL to prevent duplicate content across paginated views.
 
-      - Structured content and meaningful text used throughout the site to ensure clarity and relevance to the business domain.
+      - Product detail pages (product_detail.html) use dynamic meta tags that display product name, description, and images for each product individually. This improves indexing and sharing on search engines and social media.
+
+      *Open Graph Tags:
+      - Open Graph meta tags have been added to product list and product detail pages.
+      
+      - These allow the website’s content (including product images) to display properly when shared on social media platforms.
+
+      *Canonical URLs
+      - Canonical tags have been added to key pages such as product listings and product details to avoid duplicate content issues from pagination or sharing.
+
+      *robots.txt and sitemap.xml:
+      - robots.txt has been implemented to guide search engines on how to crawl the site.
+      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/robots.txt
+
+      - sitemap.xml provides a sitemap for search engine bots to index all important pages.
+      https://pp5-real-honey-60f1f8b03b81.herokuapp.com/sitemap.xml
+
+      *Custom 404 page 
+      - A user-friendly custom 404 page has been implemented for users visiting non-existent URLs, improving UX and avoiding SEO penalties.
+
+      *Broken Links Fixed
+      - All previously broken links were identified and corrected to ensure smooth navigation and avoid crawling errors.
+
+      *Page Titles
+      - All pages use clear and meaningful titles to improve indexing and help users understand the content.
+
+      *Image Optimization
+
+      - All product images are served through Cloudinary with automatic resizing and format optimization.
+      - This improves page load speed and Largest Contentful Paint (LCP), which are important SEO ranking factors.
 
 
    *5.3 Newsletter Signup
@@ -841,6 +870,10 @@ README:
    -https://lucid.app/ Lucidchart for sitemaps, database and wireframes.
    - Database Schema
          https://dbdiagram.io/d
+
+   - META Tags:
+      https://www.semrush.com/blog/
+      https://ahrefs.com/blog/open-graph-meta-tags/#what-are-open-graph-tags
 
 
 
