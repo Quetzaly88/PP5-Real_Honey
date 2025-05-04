@@ -1,25 +1,25 @@
 # PP5-Real_Honey - Buy Local, Authentic Honey - Online
 
-Project Name: PP5_Real_Honey
-      * Description
-      Real Honey is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
+   **Real Honey** is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
 
 
 **Table of Contents**
 
-1. Key Project Information
+1. Project Overview
 
-2. Features
+2. Business Model and Target Audience
 
-3. User Experience (UX)
+3. User Experience (UX) Design Process
 
-4. Marketing
+4. Features
 
-5. Validation, Testing & Bugs
+5. Marketing
 
-6. Deployment
+6. Test and Validation
 
-8. Technologies & Credits
+7. Deployment
+
+8. Technologies
 
 9. Handling Product Images
 
@@ -27,22 +27,17 @@ Project Name: PP5_Real_Honey
 
 11. Future Implementations
 
-12. User Stories: 
+12. User Stories
 
-13. Resources for project development. 
+13. Issues
 
-14. Issues
+14. Resources for Project Development
 
 
-**1. Key Project Information**
+**1. Project Overview**
 
       * Key Goal
       To provide a seamless and enjoyable shopping experience while supporting local beekeepers.
-
-      * Target Audience
-      - Nature and health-conscious individuals that love honey. 
-      - Online shoppers seeking convenience
-      - Supporters of local beekeepers
 
       * Live Project:
       URL: https://pp5-real-honey-60f1f8b03b81.herokuapp.com/
@@ -63,7 +58,99 @@ Project Name: PP5_Real_Honey
 
       Note: This project is for educational purposes only!
 
-**2. Features**
+**2. Business Model and Target Audience**
+
+   Business Model: 
+      Real Honey is an e-commerce platform designed to connect local beekeepers with consumers who value natural, high-quality, and ethically sourced honey and bee products.
+
+   This e-commerce website allows users to:
+      - Browse, learn about and purchase a variety of honey-related products.
+      - Support local businesses by offering a platform where small producers can showcase and sell their products directly to customers.
+      - Complete secure purchases using Stripe as the integrated payment processor.
+
+   Future business opportunities include:
+      - Subscription model for recurring honey deliveries to loyal customers. 
+      - Wholesale options enabling bulk purchases by retailers. 
+      - Gift sets and seasonal promotions. 
+
+   Target Audience:
+      - Health-conscious individuals seeking organic and natural honey products.
+      - Eco-friendly consumers supporting sustainable and local production.
+      - Gift buyers looking for artisan products with traceable origins.
+      - Beekeeping enthusiasts and supporters of biodiversity.
+      - Online shoppers who value convenience, fast and reliable shipping.
+
+
+**3. User Experience (UX) Design Process**
+
+      3.1 The Idea:
+         - Provide natural and ethically-sourced honey through a clean, easy-to-use platform.
+         - Support local beekeepers and promote sustainable, small-scale production.
+         - Allow customers to easily browse products, learn about them, and securely purchase them online.
+
+
+
+      3.2 The Ideal User
+         - Interested in natural and organic products.
+         - Health- conscious individuals
+         - Enthisiasts of unique honey flavours.
+         - Supporters of sustainable and ethical sourcing.
+         - Online shoppers looking for a convenient experience. 
+
+      3.3 Site Goals
+         - Allow easy browsing and product discovery through categories and filters.
+         - Provide secure checkout and payment options.- Ensure site is accessible and SEO-friendly.- Promote products with strong visual appeal and clear information.
+
+
+      3.4 User stories and Epics: 
+         - All user stories were documented and managed via GitHub Issues and Project Board.
+
+         [https://github.com/users/Quetzaly88/projects/14]
+
+      3.5 The Scope Plane*
+         - Product Listings & Categorization
+         - Sorting and Filtering of products
+         - Cart and Checkout
+         - User Authentication
+         - SEO
+         - Responsive Design
+
+      3.6 The Structure Plan*
+         - Site map
+         ----------
+         - Database Schema
+         https://dbdiagram.io/d
+
+         ## Database schema
+![Databases schema](docs/database_schema.png)
+
+         ----------
+
+      3.7 Wireframes
+         [link or imgs]
+         ------------
+
+      3.8 The Surface Plan
+         Visual Elements: 
+            Logo: Clean and minimalist logo designed to represent nature and honey.
+
+         3.8.1 Color Palette:
+(Save color palette as /docs/color_palette.png)
+
+         3.8.2 Typography: Simple, elegant, easy-to-read fonts, provided from Google Fonts. 
+         
+         - Macondo (Headings & Logo):
+            Used to give the site a friendly, organic, and artisan feel, fitting the nature of honey and small business branding.
+
+         - Noto Sans (Body text and UI):
+            Used for general readability, user interface elements, product descriptions, and other body text. Ensures excellent legibility across devices.
+
+
+         3.8.3 Icons: Font Awesome.
+
+         3.8.4.Images: Product images optimized and stored via Cloudinary.
+
+**4. Features**
    *4.1 Core Features:*
          - Header and navigation: Consistent responsive navigation bar with logo, links to redirect the user to Home, Products and  Contact. The header has also the posibility to log-in/out the user, redirect to the shopping cart liked products. 
 
@@ -122,59 +209,12 @@ Project Name: PP5_Real_Honey
 
       Page titles: All pages use meaningful titles to reflect the page content and improve SEO.
 
-**3. User Experience (UX)**
-
-   *3.1 The Strategy Plane*
-      3.1.1 The Idea:
-         To create an e-commerce platform that offers locally sourced honey and honey-related products with a focus on authenticity and sustainability. 
-
-      3.1.2 The Ideal User
-         - Interested in natural and organic products.
-         - Health- conscious individuals
-         - Enthisiasts of unique honey flavours.
-         - Supporters of sustainable and ethical sourcing.
-         - Online shoppers looking for a convenient experience. 
-
-      3.1.3 Site Goals
-         - Provide a seamless shopping experience.
-         - Ensure users can easily browse and purchase honey.
-         - Offer transparency about honey origins and beekeepers
-         - Implement strong SEO. 
-
-      3.1.4 Epics and user stories: 
-         [Link or resume of useer stories]
-
-   *3.2 The Scope Plane*
-      3.2.1 Features to be implemented.
-         - Product Listings & Categorization
-         - Sorting and Filtering of products
-         - Cart and Checkout
-         - User Authentication
-         - SEO
-         - Responsive Design
-
-   *3.3 The Structure Plan*
-         - Site map
-         ----------
-         - Database Schema
-         ----------
-
-   *3.4 Wireframes*
-         [link or imgs]
-         ------------
-
-   *3.5 The Surface Plan*
-         - Logo
-         - Color Palette
-         - Fonts
-         - Icons (fontawsome)
-         - Images
 
 
-**4. Marketing**
+**5. Marketing**
    This project incorporates several marketing techniques to increase brand visibility, reach the target audience and drive customer engagement across social media, SEO, and newsletter campaigns. The social media links are integrated into the website footer. These mockups were created instead of real social media businesses because of new security measures from Meta. 
 
-   *4.1 Social Media Presence:*
+   *5.1 Social Media Presence:*
       To simulate real-world social media marketing, mockups of social media pages were created and included in the project. These showcase how the product would be promoted across major platforms:
 
       *Facebook Page: Created to demonstrate page view and important information about the business. The "Shop now" call to action is included. 
@@ -194,7 +234,7 @@ Project Name: PP5_Real_Honey
 ![Youtube Mockup](docs/youtube_mockup.png)
 
 
-   *4.2 Search Engine Optimization (SEO)*
+   *5.2 Search Engine Optimization (SEO)*
       SEO strategies have been implemented across the website to improve visibility in search engines:
 
       - SEO-friendly URLs and meta tags included in the site's base HTML templates.
@@ -206,7 +246,7 @@ Project Name: PP5_Real_Honey
       - Structured content and meaningful text used throughout the site to ensure clarity and relevance to the business domain.
 
 
-   *4.3 Newsletter Signup
+   *5.3 Newsletter Signup
       - Users can sign up to receive updates and offers from the products. Emails are collected via a simple form and processed by the application. 
       - Simple signup form using Django forms
       - Users are shown a thank-you message upon submission
@@ -214,20 +254,20 @@ Project Name: PP5_Real_Honey
 
       * Signup form avaiable here: https://pp5-real-honey-60f1f8b03b81.herokuapp.com/newsletter/
 
-**5. Validation, Testing & Bugs
-   *5.1 Validation*
+**6. Validation, Testing & Bugs**
+   *6.1 Validation*
       - HTML, CSS and JavaScript validation
       - Accessibility testing
       - SEO validation using Google Tools
 
-   *5.2 Testing*
+   *6.2 Testing*
       - Manual and automated tests.
          * Performed bu using print(), console.log() and manual testing. 
       - User experience Testing
       - Payment gateway testing.
          - Usind dummy credit card information. 
 
-   *5.3 Bugs*
+   *6.3 Bugs*
       - Issues with Stripe due to missing postload.js in base.html. 
       - Several changes on models for better performance. 
       - Fixed checkout and Stripe integration: Ensured that cart items persisted untill payment confirmation.
@@ -237,9 +277,70 @@ Project Name: PP5_Real_Honey
       - Resolved issue of best sellers and featured products not seen in home page. 
       - Reinstallation of Django that was causing problems for lack of compatibility....
 
-   
 
-**6. Deployment**
+*6.4 Python Code Validation To ensure code quality and PEP8 compliance, I used:*
+
+- **[Flake8](https://flake8.pycqa.org/)** to identify issues such as unused imports, indentation problems, trailing spaces, etc.
+   Command in terminal: pip install flake8
+   Command to run flake: flake8 .
+
+- A '.flake8' config was used to exclude irrelevant files. A new file called '.flake8' was created in the project root.
+   File: 
+
+   [flake8]
+   ignore = E501
+   exclude =
+         venv,
+         migrations,
+         __pycache__,
+         static,
+         manage.py,
+         .vscode,
+         settings.py
+   max-complexity = 10
+
+      * What this config does:
+         - ignore = E501: skips the "line too long" error
+
+         - exclude: skips folders and files you don’t want to check (like migrations, static, etc.)
+
+         - max-complexity: optional — sets the allowed complexity of functions (you can remove this line if not needed)
+
+   Again, run command: flake8 .
+
+- **[Autopep8](https://pypi.org/project/autopep8/)** was used to automatically fix basic errors: 
+Command in terminal: pip install autopep8
+Command in terminal: autopep8 . --in-place --recursive
+command in terminal to keep checking the errors: flake8 .
+
+
+from PP4, static files not showing in deployed app
+Static files (CSS, JavaScript, images): Static files were configured work in both development and production using WhiteNoise and Django's static settings:
+
+   STATIC_URL = '/static/'
+   STATICFILES_DIRS = [BASE_DIR / 'static']
+   STATIC_ROOT = BASE_DIR / 'staticfiles'
+Command to collect static files:
+
+% python manage.py collectstatic 
+This collects all static assets into the /staticfiles/ directory, which is served by Heroku in production.
+
+DISABLE_COLLECTSTATIC = 1 is removed from config vars in Heroku. This variable skips static file collection, which breaks CSS, images and JavaScript in production.
+
+Middleware configuration (in settings.py):
+
+MIDDLEWARE = [ 'django.middleware.security.SecurityMiddleware', 'whitenoise.middleware.WhiteNoiseMiddleware', ...]
+
+Heroku Setup & Commands
+
+To prepare and deploy your app on Heroku:
+
+% heroku run --app pp5-real-honey "python manage.py collectstatic --noinput"
+
+Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remote server).
+
+   
+**7. Deployment**
    *7.1 Deployment Steps*
       - Transfer progress from IDE to GitHub
       - Deployment to cloud Heroku.
@@ -249,6 +350,76 @@ Project Name: PP5_Real_Honey
       - Database Setup
       - Cloud Storage Configuration
       - Payment Gateway Integration
+
+
+**Heroku Deployment:**
+
+   * 1. Prepare the Project for deployment 
+   install heroku: brew tap heroku/brew && brew install heroku
+   - heroku --version
+
+      1.1 Install required Dependencies:
+
+         * psycopg2-binary: Required for PostgreSQL database connection.
+         * dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
+         * gunicorn: A production-ready web server for running Django applications on Heroku.
+
+            After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
+
+      1.2 Configure Environment Variables:
+
+         - Inside env.py (DO NOT commit this file to GitHub!):
+
+            import os
+            os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
+
+         - In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
+
+            import os
+            SECRET_KEY = os.environ.get('SECRET_KEY')
+
+      1.3 Set up the database (PostgreSQL):
+
+         _ Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
+            * Created a PostgreSQL database using Code Institute's PostgreSQL instance. 
+            * Updated settings.py to support PostgreSQL:
+
+                  import dj_database_url
+                  if 'DATABASE_URL' in os.environ:
+                     DATABASES = {
+                        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+                     }
+                  else: 
+                     DATABASES = {
+                        'default': {
+                              'ENGINE': 'django.db.backends.sqlite3',
+                              'NAME': BASE_DIR / 'db.sqlite3',
+                        }
+                     }
+         * The DATABASE_URL was retrieved from Heroku Config Vars.
+
+      1.4 Find 'import env' in settings and replace with: 
+               if os.path.isfile("env.py"):
+               import env
+               from pathlib import Path
+
+
+   * 2. Setting up Heroku:
+
+         * Log in to heroku and create the app
+         * Add in conf vars:
+            - DISABLE_COLLECTSTATIC:  1
+            - SECRET_KEY: Random secret key from  https://randomkeygen.com/
+         * Create Procfile in root directory with this information: 
+            - web: gunicorn real_honey.wsgi:application
+         * Create runtime.txt with this info:
+            - Python 3.12
+         * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
+            - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
+         * In .env Debug Mode (True for development, False for production)
+         DEBUG=False. Before Deployment. 
+
+   * 3. Deploy in Heroku
 
 
 **8. Technologies & Credits**
@@ -532,41 +703,11 @@ Testing:
          - Delivery fees apply dynamically.
          - Secure Stripe payment integration.
          - Order confirmation page and email notifications.  
-         
-
-**13. Resources for Project Development**
-
-   * Useful links: 
-   - navbar: https://getbootstrap.com/docs/4.0/components/navbar/
-
-   - Bootstrap 4 Card container: https://bbbootstrap.com/snippets/card-container-48980697
-
-   - bootstrap pagination: https://getbootstrap.com/docs/4.0/components/pagination/
-
-   - color palette generator http://colormind.io/image/
-
-   - footer bootstrap snippet https://mdbootstrap.com/snippets/standard/mdbootstrap/2885115
-
-   * Documentation for settings: 
-   - https://docs.djangoproject.com/en/5.1/topics/settings/
-   - https://docs.djangoproject.com/en/5.1/topics/http/sessions/#settings
-   - https://docs.djangoproject.com/en/5.1/ref/settings/#std:setting-MESSAGE_TAGS
-   - https://docs.djangoproject.com/en/5.1/ref/settings/
-
-   * Documentation for Stripe and Decouple: 
-   - https://docs.stripe.com/js/payment_intents/confirm_konbini_payment
-   - https://dashboard.stripe.com/test/dashboard
-   - https://pypi.org/project/python-decouple/
-         https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
-   - https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
-
-README:
-Thank you to "mittnamnkenny" for creating an spectacular README file, which I have used as a path and template  to create my README. https://github.com/mittnamnkenny/galleriet.git
 
 
-**14. Issues**
+**13. Issues**
 
-   14.1 Stripe Integration Fixes-Summary:
+   13.1 Stripe Integration Fixes-Summary:
 Implemented critical fixes to "Stripe integration" to ensure smooth payment processing and reliable webhook handling.  
 
    *Client Secret & Public Key Handling
@@ -595,7 +736,7 @@ Implemented critical fixes to "Stripe integration" to ensure smooth payment proc
 
    *Stripe payments are now fully functional. Because of my deadline I used AI to help me out fixing this issue. Javascript code was pasted to avoid more critical issues. 
 
-14.2 CLOUDINARY SETUP
+13.2 CLOUDINARY SETUP
 * Create a claudinary account and set up a confirmation code to be able to see the api secret key.
 * CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dapm2mnex
 
@@ -640,82 +781,36 @@ Implemented critical fixes to "Stripe integration" to ensure smooth payment proc
    This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
 
 
+**14. Resources for Project Development**
 
-edit products
-http://127.0.0.1:8000/products/edit/1/
+   * Useful links: 
+   - navbar: https://getbootstrap.com/docs/4.0/components/navbar/
 
-add products
-http://127.0.0.1:8000/products/add/
+   - Bootstrap 4 Card container: https://bbbootstrap.com/snippets/card-container-48980697
 
+   - bootstrap pagination: https://getbootstrap.com/docs/4.0/components/pagination/
 
-**Heroku Deployment:**
+   - color palette generator http://colormind.io/image/
 
-   * 1. Prepare the Project for deployment 
-   install heroku: brew tap heroku/brew && brew install heroku
-   - heroku --version
+   - footer bootstrap snippet https://mdbootstrap.com/snippets/standard/mdbootstrap/2885115
 
-      1.1 Install required Dependencies:
+   * Documentation for settings: 
+   - https://docs.djangoproject.com/en/5.1/topics/settings/
+   - https://docs.djangoproject.com/en/5.1/topics/http/sessions/#settings
+   - https://docs.djangoproject.com/en/5.1/ref/settings/#std:setting-MESSAGE_TAGS
+   - https://docs.djangoproject.com/en/5.1/ref/settings/
 
-         * psycopg2-binary: Required for PostgreSQL database connection.
-         * dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
-         * gunicorn: A production-ready web server for running Django applications on Heroku.
+   * Documentation for Stripe and Decouple: 
+   - https://docs.stripe.com/js/payment_intents/confirm_konbini_payment
+   - https://dashboard.stripe.com/test/dashboard
+   - https://pypi.org/project/python-decouple/
+         https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
+   - https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
 
-            After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
-
-      1.2 Configure Environment Variables:
-
-         - Inside env.py (DO NOT commit this file to GitHub!):
-
-            import os
-            os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
-
-         - In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
-
-            import os
-            SECRET_KEY = os.environ.get('SECRET_KEY')
-
-      1.3 Set up the database (PostgreSQL):
-
-         _ Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
-            * Created a PostgreSQL database using Code Institute's PostgreSQL instance. 
-            * Updated settings.py to support PostgreSQL:
-
-                  import dj_database_url
-                  if 'DATABASE_URL' in os.environ:
-                     DATABASES = {
-                        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-                     }
-                  else: 
-                     DATABASES = {
-                        'default': {
-                              'ENGINE': 'django.db.backends.sqlite3',
-                              'NAME': BASE_DIR / 'db.sqlite3',
-                        }
-                     }
-         * The DATABASE_URL was retrieved from Heroku Config Vars.
-
-      1.4 Find 'import env' in settings and replace with: 
-               if os.path.isfile("env.py"):
-               import env
-               from pathlib import Path
+README:
+Thank you to "mittnamnkenny" for creating an spectacular README file, which I have used as a path and template  to create my README. https://github.com/mittnamnkenny/galleriet.git
 
 
-   * 2. Setting up Heroku:
-
-         * Log in to heroku and create the app
-         * Add in conf vars:
-            - DISABLE_COLLECTSTATIC:  1
-            - SECRET_KEY: Random secret key from  https://randomkeygen.com/
-         * Create Procfile in root directory with this information: 
-            - web: gunicorn real_honey.wsgi:application
-         * Create runtime.txt with this info:
-            - Python 3.12
-         * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
-            - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
-         * In .env Debug Mode (True for development, False for production)
-         DEBUG=False. Before Deployment. 
-
-   * 3. Deploy in Heroku
 
 Issues: 
 
@@ -978,64 +1073,3 @@ Email Configuration and Testing
 
 
 
-from PP4:
-Python Code Validation To ensure code quality and PEP8 compliance, I used:
-
-- **[Flake8](https://flake8.pycqa.org/)** to identify issues such as unused imports, indentation problems, trailing spaces, etc.
-   Command in terminal: pip install flake8
-   Command to run flake: flake8 .
-
-- A '.flake8' config was used to exclude irrelevant files. A new file called '.flake8' was created in the project root.
-   File: 
-
-   [flake8]
-   ignore = E501
-   exclude =
-         venv,
-         migrations,
-         __pycache__,
-         static,
-         manage.py,
-         .vscode,
-         settings.py
-   max-complexity = 10
-
-      * What this config does:
-         - ignore = E501: skips the "line too long" error
-
-         - exclude: skips folders and files you don’t want to check (like migrations, static, etc.)
-
-         - max-complexity: optional — sets the allowed complexity of functions (you can remove this line if not needed)
-
-   Again, run command: flake8 .
-
-- **[Autopep8](https://pypi.org/project/autopep8/)** was used to automatically fix basic errors: 
-Command in terminal: pip install autopep8
-Command in terminal: autopep8 . --in-place --recursive
-command in terminal to keep checking the errors: flake8 .
-
-
-from PP4, static files not showing in deployed app
-Static files (CSS, JavaScript, images): Static files were configured work in both development and production using WhiteNoise and Django's static settings:
-
-   STATIC_URL = '/static/'
-   STATICFILES_DIRS = [BASE_DIR / 'static']
-   STATIC_ROOT = BASE_DIR / 'staticfiles'
-Command to collect static files:
-
-% python manage.py collectstatic 
-This collects all static assets into the /staticfiles/ directory, which is served by Heroku in production.
-
-DISABLE_COLLECTSTATIC = 1 is removed from config vars in Heroku. This variable skips static file collection, which breaks CSS, images and JavaScript in production.
-
-Middleware configuration (in settings.py):
-
-MIDDLEWARE = [ 'django.middleware.security.SecurityMiddleware', 'whitenoise.middleware.WhiteNoiseMiddleware', ...]
-
-Heroku Setup & Commands
-
-To prepare and deploy your app on Heroku:
-
-% heroku run --app pp5-real-honey "python manage.py collectstatic --noinput"
-
-Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remote server).
