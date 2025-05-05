@@ -32,8 +32,7 @@
                {% if product.image %}
                {% with product.image.url as img_url %}
                <div class="carousel-item active">
-                  <img src="{{ img_url|add:'?w=800&q=auto&f=auto' }}" alt="Photo of {{ product.name }}" loading="lazy"
-                     class="d-block w-100 rounded">
+                  <img src="{{ img_url|add:'?w=800&q=auto&f=auto' }}" alt="Photo of {{ product.name }}" class="d-block w-100 rounded">
                </div>
                {% endwith %}
                {% endif %}
@@ -41,8 +40,7 @@
                {% if product.image_2 %}
                {% with product.image_2.url as img_url_2 %}
                <div class="carousel-item {% if not product.image %}active{% endif %}">
-                  <img src="{{ img_url_2|add:'?w=800&q=auto&f=auto' }}" alt="Photo of {{ product.name }}" loading="lazy"
-                     class="d-block w-100 rounded">
+                  <img src="{{ img_url_2|add:'?w=800&q=auto&f=auto' }}" alt="Photo of {{ product.name }}" class="d-block w-100 rounded">
                </div>
                {% endwith %}
                {% endif %}
