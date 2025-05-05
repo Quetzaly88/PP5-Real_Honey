@@ -780,6 +780,16 @@
 
    - footer bootstrap snippet https://mdbootstrap.com/snippets/standard/mdbootstrap/2885115
 
+   * Helpful siates for image handling
+   - cloudinary https://cloudinary.com/
+   - Sqoosh resize images https://squoosh.app/
+   - DALL-E open AI's image creator https://chatgpt.com/g/g-2fkFE8rbu-dall-e
+
+   * Python:
+   - https://www.codecademy.com/
+   - https://www.techwithtim.net/
+   - 
+
    * Documentation for settings: 
    - https://docs.djangoproject.com/en/5.1/topics/settings/
    - https://docs.djangoproject.com/en/5.1/topics/http/sessions/#settings
@@ -803,4 +813,7 @@
    * Documentation for resolve issues found in LIGHTHOUSE:
       - https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/?utm_source=lighthouse&utm_medium=devtools
       - https://community.cloudinary.com/discussion/639/persistent-poor-lcp-largest-contentful-paint-score-in-lighthouse
+
+   * Deployment: https://dashboard.heroku.com/
+
 
