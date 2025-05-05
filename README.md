@@ -620,15 +620,15 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
 
                   * This confirms that the webhook was received successfully.
 
-
-
       *8.2 Credits:*
          [Code-Institute tutors]: 
          [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
 
-**9. Handling product images and information**
-   To ensure product information and images persists across deployments, fixtures were used. However, some product data was missing after loading the fixtures, so an automated script was created to fix missing descriptions. 
- 
+**9. Handling product images and Product information**
+   To ensure product data and images persists across deployments a combination of fixtures and Cloudinary storage was used. 
+   This approach ensures consistency, avoids missing product information, and optimizes media delivery for fast page load times.
+
+   9.1 Product Fixtures (Backup and loading Process)
       1. Create a fixture file (Backup of all product data)
          - products/fixtures/ all_products_backup.json
       2. Load fixtures into the Database
@@ -636,8 +636,9 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
       3. Dump Existing Data into a Fixture to export current data as a fixture
          - python manage.py dumpdata app_name.ModelName --indent 2 > fixtures/products.json
 
-   
-   * Fixing Missing Product Information in Fixtures, to ensure all products have a short description, an automation script was created:
+   9.2 Fixing Missing Product Information
+      To ensure all products have a short description, an automation script was created:
+
       1. Create and store the script
          - Create a new Python script named update_fixtures.py in the root directory of the project (same level as manage.py).
          - The script reads products/fixtures/all_products_backup.json, updates missing descriptions, and saves a new fixture file. (code copied from chat.gpt)
@@ -651,71 +652,35 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
          - Check if descriptions are correct and ensure proper display
       5. Replace the old Fixture with hte updated one
          - mv products/fixtures/all_products_backup_updated.json products/fixtures/all_products_backup.json
-            * Each time you update products through Django Admin, remember to export new data:
-               - python manage.py dumpdata products.Product products.ProductSize --indent 2 > products/fixtures/all_products_backup.json.
-               This ensures your fixture always contains the latest product details
-            * Test the Fixture by Reloading It. To make sure everything is working, reload the fixture and verify data:
-               - python manage.py loaddata products/fixtures/all_products_backup.json
 
-   This method ensures all product descriptions are always complete while keeping the fixture-based data management consistent across deployments. 
+   9.3 Product Images Handling via Cloudinary
+      Product images are now automatically uploaded and managed through Cloudinary, which provides:
+         - Optimized delivery via CDN (Content Delivery Network)
+         - Automated resizing and compression for better performance
+         - No need to manage media files directly in Heroku. 
 
-* Product images are now automatically uploaded to Cloudinary for optimized storage and delivery.
+      Reason for using Cloudinary:
+         - AWS S3 setup did not work as expected
+         - Cloudinary was faster to configure and offers good performance
+            Process: 
+               1. Install Cloudinary and add it to requirements.txt.
+                  - pip install cloudinary django-cloudinary-storage
+                  - pip freeze > requirements.txt
+               2. Upload images from desktop to Cloudinary.
+               3. CloudinaryField used in Product/models for automatic handling.
+               4. Update settings.py an add secret keys in Heroku. 
 
-   I made this choice after AWs did not work as expected. 
-   - Cloudinary is fast and reliable, I could  deliver the images via CDN. 
-   - Simplified deployment (no need to manage media files on Heroku)
+            Testing:
+               - Added product images via Add Product page and Django Admin. 
+               - Verified images uploaded to Cloudinary Media Library
+               - Confirmed images display properly on product pages
+                  Images now display across the site, fixing all broken image issues from initial deployment.
 
-Process: 
-1. Install Cloudinary and add it to requirements.txt.
-- pip install cloudinary django-cloudinary-storage
-- pip freeze > requirements.txt
-
-2. Upload images from desktop to Cloudinary.
-
-2. CloudinaryField used in Product/models for automatic handling.
-
-image = CloudinaryField(
-        'image',
-        blank=True,
-        null=True
-    )
-    image_2 = CloudinaryField(
-        'image',
-        blank=True,
-        null=True
-    )
-
-3. Update settings.py an add secret keys in Heroku. 
-
-      INSTALLED_APPS = [
-    ...
-    'cloudinary_storage',
-    'cloudinary',
-    'storages',
-    ...
-]
-
-   CLOUDINARY_STORAGE = {
-      'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-      'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-      'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-      }
-
-      DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-      MEDIA_URL = '/media/'
-
-
-Testing:
-
-- Added product images via Add Product page and Django Admin. 
-
-- Verified images uploaded to Cloudinary Media Library
-
-- Confirmed images display properly on product pages
-
-*Images now display across the site, fixing all broken image issues from initial deployment.
-
+      Template image Fixes:
+         In Product List and Product Detail issues arised during testing. The product pages would crash and show a TemplateSyntaxError related to the replace filter. Django templates do not support the replace filter by default, which caused a 500 server error. 
+         
+            - The issue was fixed by removing all 'replace' filters from the templates. 
+            - Added lazy loading and a default fallback image (default.jpg) for improved user experience and performance.
 
 **10. Additional Resources**
    *Useful links for Django, Bootstrap and Stripe documentation 
