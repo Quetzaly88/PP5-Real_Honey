@@ -6,9 +6,6 @@
 <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
-{% block extra_js %}
-{% endblock %}
-
 {% block content %}
 <div class="container my-4">
     <h2 class="mb-4 text-center">CHECKOUT</h2>
@@ -113,6 +110,8 @@
             console.error("Error parsing Stripe variables:", error);
         }
     </script>
+    <!-- Stripe.js library -->
+<script src="https://js.stripe.com/v3/"></script>
 
 {% if stripe_public_key and client_secret %}
 <script src="{% static 'checkout/js/stripe.js' %}"></script>

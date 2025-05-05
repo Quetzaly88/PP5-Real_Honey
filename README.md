@@ -840,6 +840,10 @@ README:
       https://www.semrush.com/blog/
       https://ahrefs.com/blog/open-graph-meta-tags/#what-are-open-graph-tags
 
+LIGHTHOUSE:
+- https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/?utm_source=lighthouse&utm_medium=devtools
+- https://community.cloudinary.com/discussion/639/persistent-poor-lcp-largest-contentful-paint-score-in-lighthouse
+
 
 
 
