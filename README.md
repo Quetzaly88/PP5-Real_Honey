@@ -315,18 +315,29 @@
 
 **6. Validation, Testing & Bugs**
    *6.1 Validation*
-      - HTML, CSS and JavaScript validation
-      - Accessibility testing
-      - SEO validation using Google Tools
+      6.1.1 HTML, CSS and JavaScript validation:
+         - The code was validated using W3C validators to ensure clean, semantic markup and avoid errors or warnings. 
+
+      6.1.2 Accessibility testing
+         - The site was tested using Lighthouse to ensure compliance with accessibility standards.
+
+      6.1.3 SEO validation
+         - Google Lighthouse was used to validate that meta tags, robots.txt, sitemap.xml, and alt attributes were implemented properly.
 
    *6.2 Testing*
-      - Manual and automated tests.
-         * Performed bu using print(), console.log() and manual testing. 
-      - User experience Testing
-      - Payment gateway testing.
-         - Usind dummy credit card information. 
+      6.2.1 Manual and automated testing
+         - Manual testing was performed regularly during development, including navigation, forms, and checkout process.
+         - print() and console.log() were used during development to debug and trace issues.
 
-   *6.3 Bugs*
+      6.2.2 User experience Testing
+         - Tested across different devices and browsers to ensure responsiveness and a consistent user experience. 
+         - Use of dev tools for responsiveness and cloudinary automatic sizing for images. 
+
+      6.2.3 Payment Gateway Testing
+         - Stripe integration was tested using provided dummy credit card details to confirm payment flow and order creation.
+
+
+   *6.3 Bugs and fixes*
       - Issues with Stripe due to missing postload.js in base.html. 
       - Several changes on models for better performance. 
       - Fixed checkout and Stripe integration: Ensured that cart items persisted untill payment confirmation.
@@ -337,109 +348,93 @@
       - Reinstallation of Django that was causing problems for lack of compatibility....
 
 
-*6.4 Python Code Validation To ensure code quality and PEP8 compliance, I used:*
+   *6.4 Python Code Validation*
+      **[Flake8](https://flake8.pycqa.org/)** 
+         - Was used to identify issues such as unused imports, indentation problems, trailing spaces, etc.
+            Bash: 
+               pip install flake8
+               flake8 .
+               
+            Configuration (.flake8 file):
+               [flake8]
+               ignore = E501
+               exclude =
+                  venv,
+                  migrations,
+                  __pycache__,
+                  static,
+                  manage.py,
+                  .vscode,
+                  settings.py
+               max-complexity = 10
 
-- **[Flake8](https://flake8.pycqa.org/)** to identify issues such as unused imports, indentation problems, trailing spaces, etc.
-   Command in terminal: pip install flake8
-   Command to run flake: flake8 .
+         - ignore = E501 ignores "line too long" warnings.
+         - exclude irrelevant files and its warnings. 
 
-- A '.flake8' config was used to exclude irrelevant files. A new file called '.flake8' was created in the project root.
-   File: 
+      **[Autopep8](https://pypi.org/project/autopep8)** 
+         - Used to automatically format code according to PEP8 standards. 
+            Bash: 
+               pip install autopep8
+               autopep8 . --in-place --recursive
+               flake8 .
 
-   [flake8]
-   ignore = E501
-   exclude =
-         venv,
-         migrations,
-         __pycache__,
-         static,
-         manage.py,
-         .vscode,
-         settings.py
-   max-complexity = 10
+   *6.5 Static Files and Deployment Validation*
+      Static files (CSS, JavaScript, images): Static files were configured work in both development and production using WhiteNoise and Django's static settings:
 
-      * What this config does:
-         - ignore = E501: skips the "line too long" error
+         Bash:
+            STATIC_URL = '/static/'
+            STATICFILES_DIRS = [BASE_DIR / 'static']
+            STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-         - exclude: skips folders and files you don’t want to check (like migrations, static, etc.)
+         - Collect static command: % python manage.py collectstatic 
 
-         - max-complexity: optional — sets the allowed complexity of functions (you can remove this line if not needed)
+         - DISABLE_COLLECTSTATIC = 1 is removed from config vars in Heroku. This variable skips static file collection, which breaks CSS, images and JavaScript in production.
 
-   Again, run command: flake8 .
+      Middleware configuration:
+               MIDDLEWARE = [
+         'django.middleware.security.SecurityMiddleware',
+         'whitenoise.middleware.WhiteNoiseMiddleware',
+         ...]
 
-- **[Autopep8](https://pypi.org/project/autopep8/)** was used to automatically fix basic errors: 
-Command in terminal: pip install autopep8
-Command in terminal: autopep8 . --in-place --recursive
-command in terminal to keep checking the errors: flake8 .
+      Deployment command for Heroku: % heroku run --app pp5-real-honey "python manage.py collectstatic --noinput"
+
+            - This process ensures static files are properly served and visible on the deployed application.
 
 
-from PP4, static files not showing in deployed app
-Static files (CSS, JavaScript, images): Static files were configured work in both development and production using WhiteNoise and Django's static settings:
-
-   STATIC_URL = '/static/'
-   STATICFILES_DIRS = [BASE_DIR / 'static']
-   STATIC_ROOT = BASE_DIR / 'staticfiles'
-Command to collect static files:
-
-% python manage.py collectstatic 
-This collects all static assets into the /staticfiles/ directory, which is served by Heroku in production.
-
-DISABLE_COLLECTSTATIC = 1 is removed from config vars in Heroku. This variable skips static file collection, which breaks CSS, images and JavaScript in production.
-
-Middleware configuration (in settings.py):
-
-MIDDLEWARE = [ 'django.middleware.security.SecurityMiddleware', 'whitenoise.middleware.WhiteNoiseMiddleware', ...]
-
-Heroku Setup & Commands
-
-To prepare and deploy your app on Heroku:
-
-% heroku run --app pp5-real-honey "python manage.py collectstatic --noinput"
-
-Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remote server).
-
-   
 **7. Deployment**
-   *7.1 Deployment Steps*
-      - Transfer progress from IDE to GitHub
-      - Deployment to cloud Heroku.
+   *7.1 Deployment Overview*
+      The project was developed locally using VS Code and Git for version control. Once development was complete, the code was pushed to GitHub and then deployed to Heroku.
+         - Code pushed regularly from VS Code to GitHub.
+         - Deployed from GitHub to Heroku using Heroku CLI and Git integration.
 
-   *7.2 Deployment Prerequisites*
-      - Email Configuration
-      - Database Setup
-      - Cloud Storage Configuration
-      - Payment Gateway Integration
+      *7.2 Heroku Deployment*
+         7.2.1 Prepare the Project for deployment 
+            - Install heroku: 
+            Bash:
+               brew tap heroku/brew && brew install heroku
+               heroku --version
 
+            - Install required Dependencies:
 
-**Heroku Deployment:**
+            * psycopg2-binary: Required for PostgreSQL database connection.
+            * dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
+            * gunicorn: A production-ready web server for running Django applications on Heroku.
 
-   * 1. Prepare the Project for deployment 
-   install heroku: brew tap heroku/brew && brew install heroku
-   - heroku --version
+               After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
 
-      1.1 Install required Dependencies:
+            - Configure Environment Variables:
+               DO NOT commit .env.py to Github
 
-         * psycopg2-binary: Required for PostgreSQL database connection.
-         * dj-database-url: Allows easy database configuration using a DATABASE_URL environment variable.
-         * gunicorn: A production-ready web server for running Django applications on Heroku.
+                  import os
+                  os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
 
-            After installation the 'pip freeze > requirements.txt' file was updated to include dependencies. 
+                  In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
 
-      1.2 Configure Environment Variables:
+                  import os
+                  SECRET_KEY = os.environ.get('SECRET_KEY')
 
-         - Inside env.py (DO NOT commit this file to GitHub!):
-
-            import os
-            os.environ.setdefault('SECRET_KEY', 'your-secret-key-here')
-
-         - In settings.py, we updated the SECRET_KEY to use the environment variable instead of hardcoding it:
-
-            import os
-            SECRET_KEY = os.environ.get('SECRET_KEY')
-
-      1.3 Set up the database (PostgreSQL):
-
-         _ Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
+         7.2.2 Configure PostgreSQL Database
+            Since SQLite is not suitable for production, we migrated to PostgreSQL, a cloud-based relational database provided by Heroku.
             * Created a PostgreSQL database using Code Institute's PostgreSQL instance. 
             * Updated settings.py to support PostgreSQL:
 
@@ -457,66 +452,86 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
                      }
          * The DATABASE_URL was retrieved from Heroku Config Vars.
 
-      1.4 Find 'import env' in settings and replace with: 
+            Find 'import env' in settings and replace with: 
                if os.path.isfile("env.py"):
                import env
                from pathlib import Path
 
 
-   * 2. Setting up Heroku:
+         7.3.3 Setting up Heroku:
+            * Log in to heroku and create the app
+               heroku login
+               heroku create pp5-real-honey
 
-         * Log in to heroku and create the app
-         * Add in conf vars:
-            - DISABLE_COLLECTSTATIC:  1
-            - SECRET_KEY: Random secret key from  https://randomkeygen.com/
-         * Create Procfile in root directory with this information: 
-            - web: gunicorn real_honey.wsgi:application
-         * Create runtime.txt with this info:
-            - Python 3.12
-         * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
-            - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
-         * In .env Debug Mode (True for development, False for production)
-         DEBUG=False. Before Deployment. 
+            * Set conf vars in Heroku: 
 
-   * 3. Deploy in Heroku
+               - DISABLE_COLLECTSTATIC:  1
+               - SECRET_KEY: Random secret key from  https://randomkeygen.com/
+               - DATABASE_URL	PostgreSQL URL generated by Heroku
+               - CLOUDINARY_URL	Cloudinary config URL
+               - STRIPE KEYS
+
+            * Create Procfile in root directory with this information: 
+               - web: gunicorn real_honey.wsgi:application
+
+            * Create runtime.txt with this info:
+               - Python 3.12
+
+            * In settings.py, add the URL for your app to the ALLOWED_HOSTS. Remove https:// from the start of the URL, and the trailing slash from the end of the URL:
+               - 'pp5-real-honey-60f1f8b03b81.herokuapp.com'
+
+            * In .env Debug Mode (True for development, False for production)
+            DEBUG=False. Before Deployment. 
+
+         7.3.4 Final Deployment
+            - Pushed all code to GitHub.        
+            - Connected GitHub repository to Heroku app.
+            - Enabled automatic deployment or manually deployed latest commit.
+            - The app was successfully deployed and can be accessed via the Heroku live link.
 
 
 **8. Technologies & Credits**
-   *8.1 Technologies:*
-      - Django (Backend Framework). 
-      - Allauth:
-         To setup an entire authentication sistem and user account sistem 
-      - Python (Core Programming Language)
-      - HTML, CSS, JavaScript (Frontend Technologies)
-      - Bootstrap (UI Framework)
-      - PostgreSQL (Database)
-      - Flake8(Debugging)
+   8.1 Technologies:
+         - Django: Backend framework used for building the web application.
 
-      [Python-Decouple:]
-         Secret Keys & Security Improvements: Security improvements made to protect sensitive API keys and secret credentials.
-            * Why Use Python-Decouple? 
+         - Django Allauth: Used to set up the complete authentication and user account system.
+
+         - Python: Core programming language for backend logic and integrations.
+
+         - HTML, CSS, JavaScript: Frontend technologies used to build the user interface.
+
+         - Bootstrap: UI framework for responsive design and layout.
+
+         - PostgreSQL: Relational database used in production.
+
+         - Flake8: Python linting tool to maintain code quality and PEP8 compliance.
+
+   8.2 Python-Decouple
+         Used to securely manage secret keys and sensitive environment variables.
                - Keeps secret keys secure by storing them in .env (added to .gitignore)
                - Improves maintainability by separating configuration from the codebase.
                - Prevents security risks by avoiding storing secrets in vesion control. 
-            * Installation of python-decouple:
-               The python-decouple helps manage environment variables securely by loading them from a .env file instead of hardcoding sensitive information in settings.py.
-            * How I used python decouple? 
-               1. Install: pip install python-decouple
-               2. Create a .env file in project root and add it to .gitignore
-               3. Add secret keys to .env: 
+                  
+         Instalation: pip install python-decouple
+
+         Usage: Create a .env file in the project root to store sensitive variables like:
+
                SECRET_KEY='your-django-secret-key'
                STRIPE_PUBLIC_KEY='your-public-key-here'
                STRIPE_SECRET_KEY='your-secret-key-here'
                STRIPE_WEBHOOK_SECRET='your-webhook-secret-here' # if needed
                DEBUG=True  # Change to False in production
-            *Load the secrets in settings.py:
-               import os
-               from decouple import config  # Import python-decouple
+
+         Load the secrets in settings.py:
+
+               from decouple import config
+               python-decouple
+
                SECRET_KEY = config("SECRET_KEY")  # Securely fetch secret key
                STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
                STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
                STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET") # if needed
-               DEBUG = config("DEBUG", default=False, cast=bool). **(Toggle debug will be changed in .env)
+               DEBUG = config("DEBUG", default=False, cast=bool)
             
       [Stripe Payment Integration:]
          Overview:
@@ -537,92 +552,48 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
                    - Secure and efficient transactions.
                    - Real-time validation and error handling. 
 
-      [Stripe Webhooks Instalation.]
-         Part 1: Installing Stripe CLI
-            1. Open Your Mac Terminal
-               - Press `Command + Space` to open **Spotlight Search**.  
-               - Type **Terminal** and press **Enter**.  
-            2. Install Homebrew (If Not Already Installed)
+   8.3 Stripe Integration and Webhooks
+      Stripe webhooks were integrated into the project to handle payment confirmations after checkout.
+         * Installing Stripe CLI: 
+            1. In Mac terminal install Homebrew (If Not Already Installed)
             Homebrew is a package manager for macOS that simplifies software installations.
-               -  Verify Homebrew Installation:
+               Verify Homebrew Installation:
                bash: brew --version
-            3. Install Stripe CLI
+            2. Install Stripe CLI
             bash: brew install stripe/stripe-cli/stripe
-            4. Verify installation
-            bash: stripe version. 
-               If Stripe CLI is installed correctly, it will return a version number (e.g., 1.23.5 or higher).
-
-         Part 2: Logging into Stripe CLI
-            1. Authenticate with Stripe. To log in and authenticate your Stripe account, run:
+                  stripe version
+            3. Stripe CLI was authenticated with:
             bash: stripe login
-               This will open a browser window prompting you to log in to your Stripe account.
-               Follow the instructions to complete the authentication.
-               Once logged in, Stripe CLI will be linked to your account for testing webhooks and payments.
 
-         Part 3: Troubleshooting Permission Errors
-            If you encounter "permission denied" errors during login, follow these steps:
-            1. Check Permissions of ~/.config Directory
-            bash: ls -ld ~/.config
-               If the owner is root instead of your username, change it. Replace yourusername with your actual macOS username:
-            bash: sudo chown -R yourusername:staff ~/.config
-            2.  Verify Updated Permissions
-            bash: ls -ld ~/.config
-            3.  Retry Logging In
-            bash: stripe login
-            * Note: Stripe CLI login keys expire every 90 days. You will need to log in again using the same command.
+         * Local Webhook Testing
+            - checkout/webhooks.py was modified to print and return a success response to confirm webhook reception:
+               print('Success!')
+               return HttpResponse(status=200)
+            - settings.py was updated to include localhost in ALLOWED_HOSTS.
 
-         Part 4: Testing Webhooks Using Stripe CLI
-            1. Preparing Your Code
-               - Modify checkout/webhooks.py to confirm the webhook is working:
+            - Stripe CLI was used to forward webhook events to the local server:
+               stripe listen --forward-to localhost:8000/webhook/
 
-                  print('Success!')
-                  return HttpResponse(status=200)
+            - Test events were triggered using:
+               stripe trigger payment_intent.succeeded
 
-                  This will print "Success!" and return a 200 OK response when the webhook is triggered.
+            - The Django terminal confirmed webhook receipt:
+               Webhook received: payment_intent.succeeded
+               Success!
 
-               - Modify settings.py to include localhost in ALLOWED_HOSTS:
+            - Webhook Signing Secret
+               Stripe webhook secret was stored securely in .env and loaded into settings.py using python-decouple.
 
-                   ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-            
-            2.  Open Three Terminals
-               * Python server	Runs Django (python manage.py runserver)
-               * Stripe portal	Generates a webhook listener (stripe listen --forward-to localhost:8000/webhook/)
-               * Testing terminal	Sends Stripe webhook triggers (e.g., stripe trigger payment_intent.succeeded)
+            - Verification
+               Stripe Dashboard → Developers → Events were used to verify that webhook events returned a 200 OK response.
 
-         Part 5. Steps to Test Webhooks
-            1. Start Django Server
-               bash: python manage.py runserver
-            2. Start Stripe Webhook Listener
-               bash: stripe listen --forward-to localhost:8000/webhook/
-            3. Store the Signing Secret in env.py
-               - os.environ.setdefault('STRIPE_WH_SECRET', 'your signing secret here')
-            4. Restart Django Server
-            5.  Trigger a Test Webhook in the Third Terminal
-               bash:
-                  stripe trigger payment_intent.created
-                  stripe trigger payment_intent.succeeded
-                  stripe trigger payment_intent.payment_failed
-                  stripe trigger charge.succeeded
-                  stripe trigger charge.failed
-               * You should see "Trigger succeeded" in the terminal.
+               Webhook events successfully updated orders after payment confirmation.
 
-         Part 6: Confirm Webhook Events in Stripe Dashboard.
-            - Log into Stripe Dashboard
-            - Click Developers > Events
-            - Select the latest event and scroll down to Webhook CLI responses
-            - Expand the response and confirm it shows 200 OK and correct webhook messages
+         *Notes
+            Webhook keys expire every 90 days and must be renewed using stripe login.
 
-         Part 7: Verify Webhooks in Django
-            1. Check the Python Server Terminal
-            
-                  * Webhook received: payment_intent.succeeded 
-                  Success!
+            Stripe webhook integration is complete and working in production to handle post-payment actions.
 
-                  * This confirms that the webhook was received successfully.
-
-      *8.2 Credits:*
-         [Code-Institute tutors]: 
-         [Chat GPT]: I used AI for the Stripe set up because of time management and how clear were the steps to follow, 
 
 **9. Handling product images and Product information**
    To ensure product data and images persists across deployments a combination of fixtures and Cloudinary storage was used. 
@@ -654,6 +625,8 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
          - mv products/fixtures/all_products_backup_updated.json products/fixtures/all_products_backup.json
 
    9.3 Product Images Handling via Cloudinary
+      **AWS S3 was originally planned but replaced with Cloudinary because of ease of integration and deployment speed. Cloudinary now handles all product media files.**
+
       Product images are now automatically uploaded and managed through Cloudinary, which provides:
          - Optimized delivery via CDN (Content Delivery Network)
          - Automated resizing and compression for better performance
@@ -683,131 +656,120 @@ Explanation: - Heroku run: Executes a one-time command on the Heroku dyno (remot
             - Added lazy loading and a default fallback image (default.jpg) for improved user experience and performance.
 
 **10. Additional Resources**
-   *Useful links for Django, Bootstrap and Stripe documentation 
+         - [Code-Institute tutors]: 
+            Provided valuable support throuhg sthe first development process. 
 
-
+         - [Chat GPT]:
+            For clarify and speed up Stripe integration steps, saving time and providing clear guidance.
+            For clarify and guidance in Cloudinary set up. 
 
 **11. Future Implementations**
-   This project implements key e-commerce functionalities, focusing on product browsing, user authentication, shopping cart management, wishlist features, cheeckout..............
+   While this project successfully implements key e-commerce functionalities (product browsing, user authentication, shopping cart, wishlist, checkout, and Stripe payments), there are still additional features that could be added in the future:
+
+      - Product reviews and ratings 
+      - User profile with order history
+      - Newsletter email automation 
+      - Discount codes and promotional offers
+      - Admin dashboard for better product and order management
+      - Multi-language support for internationalization
+
+   These features could further enhance user experience and business capabilities.
+
 
 **12. User Stories:**
+   User stories were created and managed using GitHub Projects to guide the development process and ensure that all the steps are created in order. 
+      The user stories cover:
+         - Product browsing and searching
+         - Wishlist functionality
+         - User registration and authentication
+         - Shopping cart and checkout process
+         - Order confirmation and payment integration
+         - Admin and product management tasks
+         
+   The user stories were created with the intention to help the development process, trying to be very clear in every step. 
 
-      *User Story 1: Product Listing: Shoppers can browse a list of products with sorting, pagination, and responsive design. 
-         - Displays product details (name, description, price, image).
-         -  Implements sorting and pagination.
-         -  Default placeholder for missing images.
-         -  Fully responsive on desktop and mobile.
-      
-      *User Story 2: Authentication & Wishlist: Users can log in to save products, manage their shopping cart, and wishlist. 
-         - Django Allauth for user authentication.
-         - Add/remove items from cart and wishlist.
-         - Cart and wishlist persists across sessions.
-         - "Add to wishlist" button, to save favourite products. 
-
-      *User Story 3: Product Detail and Search: View detailed product pages and search using filters. 
-         - Product page includes full description, season, flavor tones, and images.
-         - "Add to cart" and "add to wishlist" buttons.
-         - Search and filter by keyword, price, category and size.
-
-      *User Story 4: Advanced shopping cart:Enhances the shopping cart with discounts, delivery fees and wishlist integration. 
-         - Users can update item quantities.
-         - Apply coupon codes for discount.
-         - Dinamic delivery fee calculation.
-         - Move items from wishlist to cart. 
-
-      *User Story 5: Featured products & UX Improvements: Enhances UX/UI with best sellers, contact info and better navigation. 
-         - Feature products and best-seller badges.
-         - Footer with contact information.
-         - Improved product category filtering.
-         - Admin panel display key product details.
-         - Optimized UI for mobile and desktop. 
-
-      *User Story 6: Checkout and Payment Integration: Implements a seamless checkout process with Stripe payments. 
-         - Checkout page displays cart summary and shipping form.
-         - Delivery fees apply dynamically.
-         - Secure Stripe payment integration.
-         - Order confirmation page and email notifications.  
+   View the user stories here: [View User Stories (GitHub Project Board)](https://github.com/users/Quetzaly88/projects/14)
 
 
 **13. Issues**
 
    13.1 Stripe Integration Fixes-Summary:
-Implemented critical fixes to "Stripe integration" to ensure smooth payment processing and reliable webhook handling.  
+      Implemented critical fixes to "Stripe integration" to ensure smooth payment processing and reliable webhook handling.  
 
-   *Client Secret & Public Key Handling
+      *Client Secret & Public Key Handling
       - Used `json_script` to safely pass `client_secret` and `stripe_public_key` to JavaScript, preventing encoding issues.  
 
-   *Checkout Data Caching   
+      *Checkout Data Caching   
       - Implemented an AJAX request to **cache checkout data** before confirming payment, ensuring order details are available for Stripe webhooks.  
    
-   *Improved Payment Submission Flow
+      *Improved Payment Submission Flow
       - Disabled the submit button while processing payments to **prevent duplicate submissions**.  
       - Restored the button if errors occurred to allow users to retry.  
 
-   *Conditional Stripe Script Loading
+      *Conditional Stripe Script Loading
       - Ensured Stripe JS only loads on the checkout page, preventing `clientSecret` and `stripePublicKey` errors elsewhere.  
 
-   *Webhook Testing & Validation
+      *Webhook Testing & Validation
       - Used **Stripe CLI** (`stripe listen --forward-to localhost:8000/checkout/webhook/`) to validate webhook events.  
       - Successfully triggered `payment_intent.succeeded` to verify order processing.  
 
-   *We resolved a critical Stripe card element mounting issue that prevented payments from processing. Additional checks ensure the card element remains in the DOM before confirming payments. We also fixed a KeyError: 'county', ensuring all order fields are handled properly
+      I resolved a critical Stripe card element mounting issue that prevented payments from processing. Additional checks ensure the card element remains in the DOM before confirming payments. We also fixed a KeyError: 'county', ensuring all order fields are handled properly
 
-   *Final Outcome:
+      *Final Outcome:
       - Orders are **properly linked** to checkout data and webhook responses.  
       - Payments are **validated & confirmed** before redirecting users.  
       - Stripe webhooks **reliably process** order completions.  
 
-   *Stripe payments are now fully functional. Because of my deadline I used AI to help me out fixing this issue. Javascript code was pasted to avoid more critical issues. 
+      *Stripe payments are now fully functional. Because of my deadline I used AI to help me out fixing this issue. Javascript code was pasted to avoid more critical issues. 
 
-13.2 CLOUDINARY SETUP
-* Create a claudinary account and set up a confirmation code to be able to see the api secret key.
-* CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dapm2mnex
 
-   Media Files Storage – Cloudinary
-   Originally, the project was planned to use AWS S3 for media storage.
-   However, after reviewing the project requirements and the importance of rapid deployment, Cloudinary was chosen for the following reasons:
+   13.2 CLOUDINARY SETUP
+      * Create a claudinary account and set up a confirmation code to be able to see the api secret key.
+      * CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dapm2mnex
 
-* Simpler and Faster Setup: Cloudinary integrates easily with Django using the django-cloudinary-storage package, requiring fewer configuration steps compared to AWS S3 (which needs IAM users, CORS setup, storage classes, etc.).
+      Media Files Storage – Cloudinary
+      Originally, the project was planned to use AWS S3 for media storage.
+      However, after reviewing the project requirements and the importance of rapid deployment, Cloudinary was chosen for the following reasons:
 
-* Ideal for Portfolio Projects: Cloudinary offers a free plan that fits the needs of this e-commerce application without extra configuration for custom domains or regional buckets.
+      * Simpler and Faster Setup: Cloudinary integrates easily with Django using the django-cloudinary-storage package, requiring fewer configuration steps compared to AWS S3 (which needs IAM users, CORS setup, storage classes, etc.).
 
-* Quick Deployment: Cloudinary allows rapid deployment of media files in production environments like Heroku, where file systems are ephemeral (i.e., lost after dyno restarts).
+      * Ideal for Portfolio Projects: Cloudinary offers a free plan that fits the needs of this e-commerce application without extra configuration for custom domains or regional buckets.
 
-* Built-in Image Optimization: Cloudinary automatically optimizes images for faster loading times, improving UX and SEO without additional settings.
+      * Quick Deployment: Cloudinary allows rapid deployment of media files in production environments like Heroku, where file systems are ephemeral (i.e., lost after dyno restarts).
 
-      How It Was Implemented:
-      1. Installed the required packages:
+      * Built-in Image Optimization: Cloudinary automatically optimizes images for faster loading times, improving UX and SEO without additional settings.
 
-         pip install django-cloudinary-storage cloudinary
+         How It Was Implemented:
+         1. Installed the required packages:
 
-      2. Media File Storage - Local Development vs. Cloudinary Production. 
-         In order to handle media files correctly during development and production, the following smart configuration was implemented in settings.py:
+            pip install django-cloudinary-storage cloudinary
 
-         if 'DEVELOPMENT' in os.environ:
-            DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-         else:
-            CLOUDINARY_STORAGE = {
-               'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-               'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-               'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-            }
-            DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+         2. Media File Storage - Local Development vs. Cloudinary Production. 
+            In order to handle media files correctly during development and production, the following smart configuration was implemented in settings.py:
 
-      * ADD DEVELOPMENT=1 in the .env file TO BE ABLE TO SAVE UPLOADED IMAGES INTO THE LOCAL /MEDIA/ DIRECTORY. 
+            if 'DEVELOPMENT' in os.environ:
+               DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+            else:
+               CLOUDINARY_STORAGE = {
+                  'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+                  'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+                  'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+               }
+               DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-      
-      3. Configured environment variables securely in Heroku Config Vars.
+            * ADD DEVELOPMENT=1 in the .env file TO BE ABLE TO SAVE UPLOADED IMAGES INTO THE LOCAL /MEDIA/ DIRECTORY. 
 
-      4. Updated requirements.txt and deployed to Heroku.
+         3. Configured environment variables securely in Heroku Config Vars.
 
-   All product images and user-uploaded files are now safely stored and served via Cloudinary.
-   This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
+         4. Updated requirements.txt and deployed to Heroku.
+
+      All product images and user-uploaded files are now safely stored and served via Cloudinary.
+      This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
 
 
 **14. Resources for Project Development**
+      This project used a variety of resources, including official documentation, Code Institute material, ChatGpt for troubleshooting and Stripe/AWS/Cloudinary setup guidance. There are some comunity tutorials and information from chat groups. 
 
-   * Useful links: 
    - navbar: https://getbootstrap.com/docs/4.0/components/navbar/
 
    - Bootstrap 4 Card container: https://bbbootstrap.com/snippets/card-container-48980697
@@ -831,280 +793,14 @@ Implemented critical fixes to "Stripe integration" to ensure smooth payment proc
          https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
    - https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
 
-README:
+   * Documentatiou used for README:
    -https://lucid.app/ Lucidchart for sitemaps, database and wireframes.
-   - Database Schema
-         https://dbdiagram.io/d
+   - Database Schema https://dbdiagram.io/d
 
-   - META Tags:
-      https://www.semrush.com/blog/
-      https://ahrefs.com/blog/open-graph-meta-tags/#what-are-open-graph-tags
+   - META Tags https://www.semrush.com/blog/
+               https://ahrefs.com/blog/open-graph-meta-tags/#what-are-open-graph-tags
 
-LIGHTHOUSE:
-- https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/?utm_source=lighthouse&utm_medium=devtools
-- https://community.cloudinary.com/discussion/639/persistent-poor-lcp-largest-contentful-paint-score-in-lighthouse
-
-
-
-
-Issues: 
-
-   -  Heroku deployment failed due to missing dependencies and  a configuration error in settings.py.
-      * Missing python-decouple: This was installed
-         pip install python-decouple
-         pip freeze > requirements.txt
-
-   - Heroku rejects deployment because of an invalid Python version format in runtime.txt. Additionally, Heroku now prefers .       python-version instead of runtime.txt.
-      * Ensured Django 3.12 exixts in runtime.txt
-      * Deleted runtime.txt
-      * Instead Heroku asks to create 'echo "3.12" > .python-version' in root directory. After this change the Deployment was sucessful!
-
-      https://devcenter.heroku.com/articles/python-support
-
-Creating an AWS Amazon Web Services s3 Account:
-This is a cloud-based storage servive that gives us a small piece of Amazon's infrastructure to be able to save our files. 
-- Navigate to aws.amazon.com
-- Open an account and continue all the verifications.
-- Create New Bucket called "real-honey".
-      To create the new bucket:
-      1. Enter a bucket name
-      2. Select ‘ACLs enabled’
-      3. Select ‘Bucket owner preferred’
-      4. Deselect ‘Block all public access’
-      5. Check the box to acknowledge the risk of public access
-      6. Leave the other options unchanged and click ‘create bucket’
-- Enable static website hosting:
-      When the bucket is created, click on the bucket name to view the bucket details. Go to Static website hosting and click Edit.
-            1. Click ‘Enable’
-         2. Enter ‘index.html’ (without quotes) into the Index document input
-         3. Enter ‘error.html’ (without quotes) into the Error document input
-         4. Click ‘Save changes
-- Go to Permissions and find 'Cross-origin resource sharing (CORS)': 
-
-         [
-         {
-         "AllowedHeaders": ["Authorization"],
-         "AllowedMethods": ["GET"],
-         "AllowedOrigins": ["*"],
-         "ExposeHeaders": []
-         }
-         ]
-- Save Changes
-
-* In permissions find 'Bucket policy' and edit/ policy generator.
-      1. For the policy type you can select ‘S3 Bucket Policy’
-      2. For the principal you can enter “*” without quotes
-      3. For the Action select ‘GetObject’ from the dropdown
-      - Then go back to the bucket policy editor in the other tab and click this button to copy the ARN:
-      Then go back to the Policy Generator in the other tab
-      1. Paste the ARN into the ARN input
-      2. Click ‘Add Statement
-      3. Scroll down and click ‘Generate Policy’
-      4. Copy all of the text in the popup:
-      5. Go back to the policy editor in the other tab and paste in the policy code.
-      6. Edit the ‘Resource’ value by adding /* to the end, to allow access to all objects within the bucket.
-      {
-  "Id": "Policy1742108698616",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Stmt1742108686683",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::real-honey*/",
-      "Principal": "*"
-    }
-  ]
-}
-
-In permissions, Edit 'Access control list (ACL)': 
-      1. Click ‘List’ in the Everyone (public access)
-      2. Click the checkbox to indicate that you understand the effects of the changes
-      3. Click ‘Save changes’
-
-
-Step 1 - Create a user group
-1. Search for ‘iam’ in the search bar at the top
-2. Click on ‘IAM’
-Click ‘User Groups’ on the left:
-Click ‘Create Group’:
-Enter a group name: (here I’ve used ‘manage-test-bucket’ as the name of the bucket is
-‘test-bucket’)
-Scroll down to the bottom and click ‘Create user group’:
-Step 2 - Create a Policy
-Click ‘Policies’ in the menu to the left:
-Click ‘Create Policy’:
-1. Click the ‘JSON’ tab
-2. Click the ‘Actions’ dropdown
-3. Click ‘Import policy’
-1. Search for ‘s3’
-2. Select ‘AmazonS3FullAccess’
-3. Click ‘Import Policy’
-1. Search for ‘s3’ at the top
-2. Right click ‘S3’
-3. Click ‘Open in a new tab’
-Unset
-In the new tab:
-1. Select your bucket
-2. Click ‘Copy ARN’
-Go back to the previous tab and add your ARN in quotes to the ‘Resource’ list twice, for the
-second one add /* after the ARN.
-
-            {
-            "Version": "2012-10-17",
-            "Statement": [
-            {
-            "Sid": "Statement1",
-            "Effect": "Allow",
-            "Action": [
-            "s3:*"
-            ],
-            "Resource": [
-            "MY ARN",
-            "MY ARN/*"
-            ]
-            }
-            ]
-            }
-Scroll to the bottom and click ‘Next’:
-Enter a policy name and description:
-Scroll down and click ‘Create policy’:
-You’ll see a success message:
-Step 3 - Attach the policy to the group
-Click ‘User groups’ in the menu to the left:
-Click your group:
-1. Click the ‘Permissions’ tab
-2. Click the ‘Add permissions’ dropdown
-3. Click ‘Attach policies’
-1. Search for your policy (you can search for the policy name or description that you
-entered previously)
-2. Select the checkbox beside your policy
-3. Click ‘Attach policies’
-Step 4 - Create a User
-1. Click ‘Users’ in the menu to the left
-2. Click ‘Create user’
-1. Enter a user name
-2. Click ‘Next’
-1. Select the group you created previously
-2. Click ‘Next’
-Scroll down and click ‘Create user’:
-Step 5 - Create an Access Key
-Click on your new user:
-Click ‘Security credentials’:
-Scroll down to the ‘Access keys’ section and click ‘Create access key’:
-1. Select ‘Application running outside AWS’
-2. Click ‘Next’
-Click ‘Create access key’:
-1. Scroll down and click ‘Download .csv file’
-2. Click ‘Done’
-Open the .csv file in any text editor (such as Notepad on Windows, TextEdit on Mac). It will look
-like this:
-Note that the values are separated by a comma, a common mistake is to see the forward slash
-as separating the values, but it’s actually part of the last value:
-Use the values as your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY heroku
-config vars:
-
-# Now that we've created an s3 bucket and the appropriate user's groups and security policies for it, we connected django to it.
-- install two new packages.
-      * pip3 install boto3
-      * pip3 install django-storages
-      * pip3 freeze > requirements.txt
-
-Deployment & Webhooks Setup:
-
-1. AWS S3 Setup
-- Configured AWS S3 for static and media files.
-- Updated settings.py to use AWS S3 
-- Uploaded media files to the S3 media folder with public read access.
-
-2. Stripe Webhooks Setup
-- Create a webhook in Stripe Dashboard > Developers > Webhooks
-- Set endpoint "https://your-heroku-app.herokuapp.com/checkout/wh/"
-- Enabled all events and copied the Signing Secret.
-- Added STRIPE_WH_SECRET to Heroku Config Vars.
-- Updated settings.py to include the webhook secret. 
-
-3. Testing Stripe Webhooks
-- Installed Stripe CLI / stripe log-in.
-- Foward events "stripe listen --forward-to your-heroku-app.herokuapp.com/checkout/wh/"
-- Trigger test events:
-   stripe trigger payment_intent.succeeded
-   stripe trigger payment_intent.payment_failed
-- Verified logs: heroku logs --tail
-
-
-Email Configuration and Testing
-- Configure Gmail for e-commerce emails.
-   1. Open "see all settings" in own gmail accoun.
-   2. Find accounts and import/other google account settings
-   3. In security create 2-step verification.
-   4. Search "app passwords"
-   5. Create app "real-honey-app" and save the 16 digit password. 
-   6. In Heroku save in config Vars:
-      - EMAIL_HOST_USER---'my-app-email@gmail.com'
-      - EMAIL_HOST_PASSWORD---16 digit password without spaces
-      - DEFAULT_FROM_EMAIL---'my-app-email@gmail.com'
-
-   7. Add the necessary functionality in settings.py:
-   
-         # Email Configuration
-      if 'DEVELOPMENT' in os.environ:
-         EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-         DEFAULT_FROM_EMAIL = 'realhoney@example.com'
-      else:
-         EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-         EMAIL_USE_TLS = True
-         EMAIL_PORT = 587
-         EMAIL_HOST = 'smtp.gmail.com'
-         EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-         EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-         DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
-
-   8. Commit changes and restart heroku dynos 
-      - heroku ps:restart
-      - heroku run python manage.py shell
-
-   9. Run the Django shell on Heroku and send a test email:
-      -  from django.core.mail import send_mail
-
-      -  send_mail(
-            'Test Email from Real Honey',
-            'This is a test email to confirm SMTP settings work correctly.',
-            'my-app-email@gmail.com',
-            ['recipient-email@example.com'],
-            fail_silently=False,
-         )
-   10. If the function returns 1, the email was sent successfully.
-
-
-
-
-         - Settings for REal Honey Project (Cart/Discounts):
-            In this project, I define custom settings in settings.py to configure advanced shopping cart functionality as delivery fees, discounts and session behaviour. This settings help centralize configuration and make the codebase more flexible. 
-
-               # Custom Shopping cart settings: 
-               - Custom settings are accessed using django.config.settings
-               * from django.conf import settings
-                  free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
-
-               FREE_DELIVERY_THRESHOLD = 50.00 *Free delivery for orders above this value
-               STANDARD_DELIVERY_PERCENTAGE = 10 *Delivery fee as a percentage of the total
-
-               # Session Settings
-               SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-               SESSION_COOKIE_AGE = 1209600  # 2 weeks
-               SESSION_SAVE_EVERY_REQUEST = True
-
-               # Messages Framework Settings
-               MESSAGE_TAGS = {
-                  messages.DEBUG: 'alert-secondary',
-                  messages.INFO: 'alert-info',
-                  messages.SUCCESS: 'alert-success',
-                  messages.WARNING: 'alert-warning',
-                  messages.ERROR: 'alert-danger',  # Bootstrap error message
-               }
-
-
+   * Documentation for resolve issues found in LIGHTHOUSE:
+      - https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/?utm_source=lighthouse&utm_medium=devtools
+      - https://community.cloudinary.com/discussion/639/persistent-poor-lcp-largest-contentful-paint-score-in-lighthouse
 
