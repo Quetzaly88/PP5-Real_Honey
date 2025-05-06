@@ -133,11 +133,11 @@
          {% if products.has_previous %}
          <li class="page-item">
             <a class="page-link"
-               href="?{% if request.GET %}{{ request.GET.urlencode|cut:'page' }}&{% endif %}page=1">First</a>
+               href="?{% if request.GET %}{{ request.GET.urlencode|cut:'page=' }}&{% endif %}page=1">First</a>
          </li>
          <li class="page-item">
             <a class="page-link"
-               href="?{% if request.GET %}{{ request.GET.urlencode|cut:'page' }}&{% endif %}page={{ products.previous_page_number }}">Previous</a>
+               href="?{% if request.GET %}{{ request.GET.urlencode|cut:'page=' }}&{% endif %}page={{ products.previous_page_number }}">Previous</a>
          </li>
          {% else %}
          <li class="page-item disabled">
