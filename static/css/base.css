@@ -152,7 +152,7 @@ p{
 
 .carousel-item img {
     width: 100%;
-    height: 400px;
+    height: 500px;
     object-fit: cover;
 }
 
@@ -163,6 +163,14 @@ p{
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
+}
+
+/* Featured and Best seller cards */
+.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 /* General Button styles */
@@ -496,14 +504,17 @@ button,
         font-size: 1.25rem;
     }
 
+    .carousel-item img {
+        height: 300px;
+    }
+
     .card {
         margin-bottom: 15px;
     }
 
     .card-img-top {
         width: 100%;
-        height: auto;
-        max-height: 150px;
+        height: 180px;
         object-fit: cover;
     }
 
@@ -553,9 +564,18 @@ button,
         font-size: 1rem;
     }
 
+    .carousel-item img {
+        height: 200px;
+    }
+
     .card {
         margin-bottom: 15px;
     }
+
+    .card-img-top {
+        height: 150px;
+    }
+
     .search-container .btn{
         width: 100%;
         margin-top: 5px;
