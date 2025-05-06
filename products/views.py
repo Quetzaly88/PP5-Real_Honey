@@ -27,7 +27,7 @@ def product_list(request, category=None):
     # search filter
     if search_query:
         products = products.filter(
-            Q(name__icontains=search_query) |
+            Q(name__icontains=search_query)|
             Q(description__icontains=search_query)
         )
 
@@ -68,7 +68,12 @@ def product_list(request, category=None):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'products/product_list.html', {
+    # Cleaned GET parameters for pagination links
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']
+
+    context = {
         'products': page_obj,
         'sort_by': sort_by,
         'search_query': search_query,
@@ -76,8 +81,11 @@ def product_list(request, category=None):
         'price_min': price_min,
         'price_max': price_max,
         'category': category,
-        'request': request
-    })
+        'request': request,
+        'get_params': get_params.urlencode(),
+    }
+
+    return render(request, 'products/product_list.html', context)
 
 
 def product_detail(request, pk):
