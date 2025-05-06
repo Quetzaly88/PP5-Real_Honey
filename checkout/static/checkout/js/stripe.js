@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             line1: address,
                             city: city,
                             country: country,
+                            postal_code: postal_code,
                         },
                     },
                 },
