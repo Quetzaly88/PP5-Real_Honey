@@ -19,9 +19,15 @@
   <meta property="og:title" content="{% block og_title %}Real Honey | Pure Swedish Honey{% endblock %}">
   <meta property="og:description"
     content="{% block og_description %}Real Honey from Sweden offers pure, natural honey and bee products sourced from Sweden.{% endblock %}">
-  <meta property="og:image" content="{% static 'images/logo.png' %}">
+  <meta property="og:image" content="{% static 'images/logo.webp' %}">
   <meta property="og:url" content="{{ request.build_absolute_uri }}">
   <meta property="og:type" content="website">
+  {% endblock %}
+
+  {% block preload %}
+  <link rel="preload" as="image" href="{% static 'images/slide2.webp' %}" imagesrcset="{% static 'images/slide2.webp' %} 1920w" imagesizes="100vw">
+  <link rel="preload" as="image" href="{% static 'images/slide1.webp' %}" imagesrcset="{% static 'images/slide1.webp' %} 1920w" imagesizes="100vw">
+  <link rel="preload" as="image" href="{% static 'images/slide3.webp' %}" imagesrcset="{% static 'images/slide3.webp' %} 1920w" imagesizes="100vw">
   {% endblock %}
 
   {% block corecss %}
@@ -87,7 +93,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-        <img src="{% static 'images/logo.png' %}" alt="Real Honey" class="navbar-logo mr-2" width="50" height="50" alt="Logo">
+        <img src="{% static 'images/logo.webp' %}" alt="Real Honey" class="navbar-logo mr-2" width="50" height="50" alt="Logo">
       </a>
 
       <!-- Mobile toggle button -->

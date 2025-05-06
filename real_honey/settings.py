@@ -1,8 +1,9 @@
 import os
 import dj_database_url
-from django.contrib.messages import constants as messages  # Django messages framework enabled to display success/error messages:
-from decouple import config
+from django.contrib.messages import constants as messages
 from pathlib import Path
+import mimetypes
+from decouple import config
 
 if os.path.exists('.env'):
     from dotenv import load_dotenv
@@ -146,8 +147,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+mimetypes.add_type("image/webp", ".webp", True)
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # tells Django where to gather all static files before serving them.

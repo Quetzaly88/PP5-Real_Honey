@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block meta %}
 <meta charset="utf-8">
@@ -63,7 +64,7 @@
             <!-- show product image -->
             {% if product.image %}
             {% with product.image.url as img_url %}
-            <img src="{{ img_url|add:'?w=400&q=auto&f=auto' }}" class="card-img-top" alt="Photo of {{ product.name }}"
+            <img src="{{ img_url|secure_url|add:'?w=400&q=auto&f=auto' }}" class="card-img-top" alt="Photo of {{ product.name }}"
                loading="lazy">
             {% endwith %}
             {% else %}
