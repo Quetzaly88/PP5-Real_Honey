@@ -12,19 +12,11 @@
             <div>
 
             <div>
-                <!-- Add to cart from wishlist -->
                 <form method="POST" action="{% url 'add_to_cart_from_wishlist' item.id %}" style="display: inline;">
                     {% csrf_token %}
-                    <!-- <select name="size" class="form-control d-inline w-auto">
-                        {% for size in item.product.size_set.all %}
-                            <option value="{{ size.id }}">{{ size.size }}</option>
-                        {% endfor %}
-                    </select> -->
                     <button type="submit" class="btn btn-cart">Move to cart</button>
                 </form>
 
-                <!-- remove from wishlist button -->
-                <!-- <a href="{% url 'product_detail' item.product.id %}" class="btn btn-sm btn-primary">View</a> -->
                 <form method="POST" action="{% url 'remove_from_wishlist' item.id %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-sm btn-danger">Remove</button>

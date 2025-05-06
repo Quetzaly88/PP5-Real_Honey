@@ -99,7 +99,6 @@
          - Allow easy browsing and product discovery through categories and filters.
          - Provide secure checkout and payment options.- Ensure site is accessible and SEO-friendly.- Promote products with strong visual appeal and clear information.
 
-
       3.4 User stories and Epics: 
          - All user stories were documented and managed via GitHub Issues and Project Board.
 
@@ -765,6 +764,13 @@
 
       All product images and user-uploaded files are now safely stored and served via Cloudinary.
       This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
+
+   13.3 LIGHTHOUSE WARNINGS
+      As the project is almost in the last stage, the lighthouse was performed. 
+      There were issues like "The page was loaded over HTTPS, but requested an insecure element..."
+         - SECURE=True in CLOUDINARY_STORAGE settings was written. 
+         - command grep -r "http://" showed all the http:// still left in the project. 
+            Most of the http:// were located in .venv so I just ignore those. 
 
 
 **14. Resources for Project Development**
