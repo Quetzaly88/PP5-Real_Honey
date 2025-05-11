@@ -61,9 +61,9 @@
   <!-- Featured Products Section -->
   <div class="container my-5">
     <h1 class="text-center mb-4">Featured Products</h1>
-    <div class="d-flex overflow-auto pb-3">
+    <div class="d-flex flex-wrap justify-content-center gap-3 pb-3">
 
-      {% for product in featured_products %}
+      {% for product in featured_products|slice:"2" %}
       <div class="card mx-2" style="min-width: 250px;">
         <a href="{% url 'product_detail' product.id %}">
           {% if product.image %}
@@ -93,8 +93,8 @@
   <!-- Best seller sections -->
   <div class="container my-5">
     <h1 class="text-center mb-4">Best Sellers</h1>
-    <div class="d-flex overflow-auto pb-3">
-      {% for product in best_seller_products %}
+    <div class="d-flex flex-wrap justify-content-center gap-3 pb-3">
+      {% for product in best_seller_products|slice:"2" %}
       <div class="card mx-2" style="min-width: 250px;">
         <a href="{% url 'product_detail' product.id %}">
           {% if product.image %}
