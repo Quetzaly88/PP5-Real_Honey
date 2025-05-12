@@ -111,11 +111,11 @@
 
           <!-- products dropdown -->
           <li class="nav-item dropdown">
-            <button class="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" role="button" data-toggle="dropdown"
+            <button class="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Products
             </button>
-            <div class="dropdown-menu" area-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{% url 'product_list' %}">All products</a>
               <a class="dropdown-item" href="{% url 'product_category' 'honey' %}">Honey</a>
               <a class="dropdown-item" href="{% url 'product_category' 'bee_products' %}">Bee Products</a>

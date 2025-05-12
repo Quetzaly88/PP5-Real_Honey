@@ -38,10 +38,10 @@
    <form method="GET" action="{% url 'product_list' %}" class="form-inline mb-3">
       <div class="search-container">
          <input type="text" name="search" class="form-control" placeholder="Search products..."
-            value="{{ search_query }}">
+            value="{{ search_query|default:'' }}">
 
-         <input type="number" name="price_min" class="form-control" placeholder="Min Price" value="{{ price_min }}">
-         <input type="number" name="price_max" class="form-control" placeholder="Max Price" value="{{ price_max }}">
+         <input type="number" name="price_min" class="form-control" placeholder="Min Price" value="{{ price_min|default:'' }}">
+         <input type="number" name="price_max" class="form-control" placeholder="Max Price" value="{{ price_max|default:'' }}">
 
          <select name="size" class="form-control">
             <option value="" {% if not size_filter %}selected{% endif %}>All Sizes</option>

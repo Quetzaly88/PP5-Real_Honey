@@ -79,11 +79,11 @@
     {% endif %}
     {% endif %}
 
-<!-- Coupon Code Form -->
+    <!-- Coupon Code Form -->
     <div class="coupon-container">
         <form method="POST" action="{% url 'validate_coupon' %}" class="form-inline mt-3">
             {% csrf_token %}
-            <input type="text" name="coupon_code" class="form-controlmr-2" placeholder="Enter coupon code" />
+            <input type="text" name="coupon_code" class="form-controlmr-2" placeholder="Enter coupon code">
             <button type="submit" class="btn btn-warning">Apply coupon</button>
         </form>
     </div>
@@ -92,30 +92,29 @@
     <div class="alert alert-success">Coupon applied successfully</div>
     {% endif %}
 
-        {% if coupon_discount %}
-        <p><strong>Discount applied:</strong> {{ coupon_discount }}</p>
-        {% endif %}
+    {% if coupon_discount %}
+    <p><strong>Discount applied:</strong> {{ coupon_discount }}</p>
+    {% endif %}
 
-        <!-- Delivery and Grand Total -->
-        <div class="free-delivery-message alert alert-info">
-            {% if free_delivery_delta > 0 %}
-                Spend <strong>${{ free_delivery_delta }}</strong> more to get **free delivery!**
-            {% else %}
-                <span class="text-success">You qualify for free delivery!</span>
-            {% endif %}
-        </div>
-
-        <div class="total-price">
-            <p>Total: ${{ grand_total }}</p>
-        </div>
-        
-        <!-- Checkout button -->
-        {% if cart_items %}
-            <a href="{% url 'checkout_view' %}" class="btn btn-primary btn-lg btn-block mt-3">
-                Proceed to checkout
-            </a>
+    <!-- Delivery and Grand Total -->
+    <div class="free-delivery-message alert alert-info">
+        {% if free_delivery_delta > 0 %}
+        Spend <strong>${{ free_delivery_delta }}</strong> more to get **free delivery!**
+        {% else %}
+        <span class="text-success">You qualify for free delivery!</span>
         {% endif %}
     </div>
+
+    <div class="total-price">
+        <p>Total: ${{ grand_total }}</p>
+    </div>
+
+    <!-- Checkout button -->
+    {% if cart_items %}
+    <a href="{% url 'checkout_view' %}" class="btn btn-primary btn-lg btn-block mt-3">
+        Proceed to checkout
+    </a>
+    {% endif %}
 </div>
 
 {% endblock %}
