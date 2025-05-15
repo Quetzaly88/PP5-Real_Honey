@@ -2,6 +2,8 @@
 
    **Real Honey** is a user-friendly and scalable online marketplace that connects local beekeepers with customers, allowing them to purchase honey and honey products from the online store. 
 
+![Mockup](docs/mockup-responsive.webp)
+
 
 **Table of Contents**
 
@@ -145,6 +147,8 @@
       3.8 The Surface Plan
          Visual Elements: 
             Logo: Clean and minimalist logo designed to represent nature and honey.
+![logo](docs/logo.webp)
+
 
          3.8.1 Color Palette:
          ## Palette colors
@@ -183,28 +187,41 @@
 **4. Features**
    *4.1 Core Features:*
          - Header and navigation: Consistent responsive navigation bar with logo, links to redirect the user to Home, Products and  Contact. The header has also the posibility to log-in/out the user, redirect to the shopping cart liked products. 
-
+![Header](docs/navbar.webp)
+        
          - Footer: Includes contact info, adress and social media engagement. 
+![Footer](docs/footer.webp)
 
          - Wishlist management: Consistenly located in the navbar. The users are allowed to save the products for future reference. 
+![Wishlist](docs/wishlist.webp)
 
          - Order History: Users can view past orders and purchase details from their account. 
+![User-profile](docs/user-profile-history.webp)
 
          - Search functionality: Keyword search and filters help users find products easily. 
+![Search](docs/product-list-filters.webp)
 
          - Notifications (on-screen and email): Provided for order confirmations and important events. 
 
    *4.2 Pages Overview:*
 
          - Landing page (Home): Highlights featured and best-selling products. 
+![Home](docs/home-hero-img.webp)
+![Featured-Bestsellers](docs/featured-bestseller.webp)
 
          - Product list page: Displays avaiable products with filtering and sorting options. 
+![product-list](docs/product-list.webp)
+![product-list-filters](docs/product-list-filters.webp)
+![product-list-paginator](docs/product-list-paginator.webp)
 
          - Product Detail page: Detailed view of product images, descriptions, avaiable sizes and prices. 
+![product-details](docs/product-detail.webp)
 
          - Checkout Page: Secure checkout process with Stripe payment integration. 
 
-         - Profile management page: Allows users to view and manage theiir account information, adresses and order history. 
+         - Profile management page: Allows users to view and manage their account information, adresses and order history. 
+![user-profile-history](docs/user-profile-history.webp)
+
 
 
    *4.3 Future Implementations:*

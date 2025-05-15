@@ -2,73 +2,74 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container my-5" id="profile-page">
     <h2 class="text-center">My Profile</h2>
-</div>
 
-<!-- Order History -->
-<div class="col-md-6">
-    <div class="card shadow-sm p-4">
-        <h4>Order History</h4>
-        {% if orders %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Order #</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders %}
-                <tr>
-                    <td>{{ order.order_number }}</td>
-                    <td>{{ order.date_created|date:"M d, Y" }}</td>
-                    <td>{{ order.final_price }}</td>
-                    <td><span class="badge badge-success">Completed</span></td>
-                    <td><a href="{% url 'order_detail' order.order_number %}" class="btn btn-info btn-sm">View</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>You haven't placed any orders yet.</p>
-        {% endif %}
-    </div>
-</div>
-
-
-<!-- Success and error messages -->
-{% if messages %}
-<div class="container">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-
-<div class="row">
-    <!-- Profile Info -->
-    <div class="col-md-6">
-        <div class="card shadow-sm p-4">
-            <h4>Profile Information</h4>
-            <hr>
-            <form method="POST">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
-            </form>
+    <!-- Order History -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-10 col-md-12">
+            <div class="card shadow-sm p-4">
+                <h4>Order History</h4>
+                {% if orders %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.order_number }}</td>
+                            <td>{{ order.date_created|date:"M d, Y" }}</td>
+                            <td>{{ order.final_price }}</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td><a href="{% url 'order_detail' order.order_number %}"
+                                    class="btn btn-info btn-sm">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>You haven't placed any orders yet.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 
-    <!-- Password Change -->
+
+    <!-- Success and error messages -->
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="row mt-4">
-        <div class="col-md-6 mx-auto">
+        <!-- Profile Info -->
+        <div class="col-lg-8 col-md-12 mb-4">
+            <div class="card shadow-sm p-4">
+                <h4>Profile Information</h4>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Password Change -->
+        <div class="col-lg-4 col-md-12">
             <div class="card shadow-sm p-4">
                 <h4>Password Update</h4>
                 <hr>
@@ -80,4 +81,5 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

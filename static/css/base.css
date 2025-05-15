@@ -385,6 +385,11 @@ button,
     border-radius: 8px;
 }
 
+#profile-page .card.shadow-sm:hover {
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transform: none;
+}
+
 
 /* Utility Classes */
 .text-center {
