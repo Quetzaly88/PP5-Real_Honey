@@ -17,7 +17,7 @@
 
 5. Marketing
 
-6. Test and Validation
+6. Validation, Testing & Bugs
 
 7. Deployment
 
@@ -25,15 +25,13 @@
 
 9. Handling Product Images
 
-10. Additional Resources
+10. Future Implementations
 
-11. Future Implementations
+11. User Stories
 
-12. User Stories
+12. Issues
 
-13. Issues
-
-14. Resources for Project Development
+13. Resources for Project Development
 
 
 **1. Project Overview**
@@ -104,7 +102,7 @@
       3.4 User stories and Epics: 
          - All user stories were documented and managed via GitHub Issues and Project Board.
 
-         [https://github.com/users/Quetzaly88/projects/14]
+[View user stories on Github](https://github.com/users/Quetzaly88/projects/14)
 
       3.5 The Scope Plane*
          Implemented Features: 
@@ -161,7 +159,6 @@
 
          - Noto Sans (Body text and UI):
             Used for general readability, user interface elements, product descriptions, and other body text. Ensures excellent legibility across devices.
-
 ![Google Fonts](docs/fonts.png)
 
          3.8.3 Icons: Font Awesome.
@@ -185,6 +182,7 @@
          
 
 **4. Features**
+
    *4.1 Core Features:*
          - Header and navigation: Consistent responsive navigation bar with logo, links to redirect the user to Home, Products and  Contact. The header has also the posibility to log-in/out the user, redirect to the shopping cart liked products. 
 ![Header](docs/navbar.webp)
@@ -195,13 +193,12 @@
          - Wishlist management: Consistenly located in the navbar. The users are allowed to save the products for future reference. 
 ![Wishlist](docs/wishlist.webp)
 
-         - Order History: Users can view past orders and purchase details from their account. 
-![User-profile](docs/user-profile-history.webp)
-
          - Search functionality: Keyword search and filters help users find products easily. 
 ![Search](docs/product-list-filters.webp)
 
          - Notifications (on-screen and email): Provided for order confirmations and important events. 
+![notifications](docs/)
+
 
    *4.2 Pages Overview:*
 
@@ -217,22 +214,43 @@
          - Product Detail page: Detailed view of product images, descriptions, avaiable sizes and prices. 
 ![product-details](docs/product-detail.webp)
 
-         - Checkout Page: Secure checkout process with Stripe payment integration. 
+         - Shopping cart: Here the user can proceed to review or update the order. The user can proceed to chechout page. 
+![shopping cart](docs/cart.webp)
+
+         - Checkout Page: Here can the user fill up their information and proceed to a Secure checkout process with Stripe payment integration. 
+![checkout](docs/checkout.webp)
+![payment](docs/personal-details-payment.webp)
+
+         - Order confirmation: The details of the order after the payment is successful.
+![order confirmation](docs/order-confirmation.webp)
 
          - Profile management page: Allows users to view and manage their account information, adresses and order history. 
 ![user-profile-history](docs/user-profile-history.webp)
 
+   *4.3 Admin can edit, erase or add products in the live version, not just in admin.
+      The CRUD functionality was adapted to be able to Create, Read, Update and Delete products through the live website, not only via Django admin panel. 
+
+![edit product admin](docs/edit-product-admin.webp)
+
+      Features: 
+         - Add Products: Admin users can access an "Add Products" link in the navigation bar when logged in, allowing them to create new products. The Admin can also add images from desktop. 
+
+         - Edit Product: From each product’s detail page, admin users see an "Edit" button, enabling them to update product details (name, price, description, image, size, etc.).
+
+         - Delete Product: Products can be safely deleted via a "Delete" button in product list and product detail, with confirmation prompts to prevent accidental removal.
+
+![edit product page admin](docs/edit-product-admin-page.webp)
 
 
-   *4.3 Future Implementations:*
-      4.3.1 Bulk product import via CSV:
+   *4.4 Future Implementations:*
+      4.4.1 Bulk product import via CSV:
          This feature can be implemented in the future to allow administrators to upload product details through a CSV file, reducing the time and effort required for manual data entry. For this we will need to immport csv. This won't be done in this project now because this project is in a small scale, otherwise, it can be implemented in the future.
          https://docs.djangoproject.com/en/5.1/howto/outputting-csv/
 
-      4.3.2 Future implementation product size:
+      4.4.2 Future implementation product size:
          Currently, the product size options are defined as a set of predefined choices in the SIZE_CHOICES tuple. This approach ensures consistency and simplifies management for standard product sizes like 450g and 600g. However, it may require code updates every time a new size (e.g., 50g or 700g) needs to be added.
 
-      4.3.3 Aditional Future Enhancements:
+      4.4.3 Aditional Future Enhancements:
          - Product Inventory management
          - Improved search and filtering options
          - Wishlist functionality
@@ -240,7 +258,7 @@
          - Customer reward points and discounts
          - AI based product recomendations 
 
-   *4.4 SEO and Error Handling*
+   *4.5 SEO and Error Handling*
 
       Custom 404 Error Page: A user-friendly 404 page is shown when non-existent pages are accessed.
 
@@ -308,6 +326,8 @@
 
       *Custom 404 page 
       - A user-friendly custom 404 page has been implemented for users visiting non-existent URLs, improving UX and avoiding SEO penalties.
+![404](docs/404.webp)
+
 
       *Broken Links Fixed
       - All previously broken links were identified and corrected to ensure smooth navigation and avoid crawling errors.
@@ -329,16 +349,26 @@
 
       * Signup form avaiable here: https://pp5-real-honey-60f1f8b03b81.herokuapp.com/newsletter/
 
+![newsletter](docs/newsletter.webp)
+
+
 **6. Validation, Testing & Bugs**
    *6.1 Validation*
       6.1.1 HTML, CSS and JavaScript validation:
-         - The code was validated using W3C validators to ensure clean, semantic markup and avoid errors or warnings. 
+         - The code was validated using W3C validators to ensure clean, semantic markup and avoid errors or warnings. For HTML was used 'Source code'. This code comes clean from Python code to avoid confusion in the validator. 
+![BaseHTML validation](docs/base-html-validator.webp)
+![Base CSS validation](docs/base-css-validator.webp)
 
-      6.1.2 Accessibility testing
-         - The site was tested using Lighthouse to ensure compliance with accessibility standards.
+         - JavaScript syntax warnings are not errors and are safe to ignore, as the project targets ES6+ and runs correctly in all modern browsers. Linter configuration was adjusted using /* jshint esversion: 11 */.
+![JS-Stripe validation](docs/js-stripe-validator.webp)
 
-      6.1.3 SEO validation
+
+
+
+
+      6.1.2 SEO validation
          - Google Lighthouse was used to validate that meta tags, robots.txt, sitemap.xml, and alt attributes were implemented properly.
+         - The site was tested using Lighthouse to ensure compliance with accessibility standards.
 
    *6.2 Testing*
       6.2.1 Manual and automated testing
@@ -671,15 +701,8 @@
             - The issue was fixed by removing all 'replace' filters from the templates. 
             - Added lazy loading and a default fallback image (default.jpg) for improved user experience and performance.
 
-**10. Additional Resources**
-         - [Code-Institute tutors]: 
-            Provided valuable support throuhg sthe first development process. 
 
-         - [Chat GPT]:
-            For clarify and speed up Stripe integration steps, saving time and providing clear guidance.
-            For clarify and guidance in Cloudinary set up. 
-
-**11. Future Implementations**
+**10. Future Implementations**
    While this project successfully implements key e-commerce functionalities (product browsing, user authentication, shopping cart, wishlist, checkout, and Stripe payments), there are still additional features that could be added in the future:
 
       - Product reviews and ratings 
@@ -692,7 +715,7 @@
    These features could further enhance user experience and business capabilities.
 
 
-**12. User Stories:**
+**11. User Stories:**
    User stories were created and managed using GitHub Projects to guide the development process and ensure that all the steps are created in order. 
       The user stories cover:
          - Product browsing and searching
@@ -707,9 +730,9 @@
    View the user stories here: [View User Stories (GitHub Project Board)](https://github.com/users/Quetzaly88/projects/14)
 
 
-**13. Issues**
+**12. Issues**
 
-   13.1 Stripe Integration Fixes-Summary:
+   12.1 Stripe Integration Fixes-Summary:
       Implemented critical fixes to "Stripe integration" to ensure smooth payment processing and reliable webhook handling.  
 
       *Client Secret & Public Key Handling
@@ -739,7 +762,7 @@
       *Stripe payments are now fully functional. Because of my deadline I used AI to help me out fixing this issue. Javascript code was pasted to avoid more critical issues. 
 
 
-   13.2 CLOUDINARY SETUP
+   12.2 CLOUDINARY SETUP
       * Create a claudinary account and set up a confirmation code to be able to see the api secret key.
       * CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dapm2mnex
 
@@ -782,7 +805,7 @@
       All product images and user-uploaded files are now safely stored and served via Cloudinary.
       This choice ensured a faster, simpler, and more reliable deployment for the project's timeline and technical requirements.
 
-   13.3 LIGHTHOUSE WARNINGS
+   12.3 LIGHTHOUSE WARNINGS
       As the project is almost in the last stage, the lighthouse was performed. 
       There were issues like "The page was loaded over HTTPS, but requested an insecure element..."
          - SECURE=True in CLOUDINARY_STORAGE settings was written. 
@@ -790,7 +813,7 @@
             Most of the http:// were located in .venv so I just ignore those. 
 
 
-**14. Resources for Project Development**
+**13. Resources for Project Development**
       This project used a variety of resources, including official documentation, Code Institute material, ChatGpt for troubleshooting and Stripe/AWS/Cloudinary setup guidance. There are some comunity tutorials and information from chat groups. 
 
    - navbar: https://getbootstrap.com/docs/4.0/components/navbar/
@@ -808,10 +831,16 @@
    - Sqoosh resize images https://squoosh.app/
    - DALL-E open AI's image creator https://chatgpt.com/g/g-2fkFE8rbu-dall-e
 
-   * Python:
+   * Images
+   - https://www.iloveimg.com/
+   - https://squoosh.app/
+   - 
+
+
+   * Python/Django:
    - https://www.codecademy.com/
    - https://www.techwithtim.net/
-   - 
+   - https://django-extensions.readthedocs.io/en/latest/
 
    * Documentation for settings: 
    - https://docs.djangoproject.com/en/5.1/topics/settings/
