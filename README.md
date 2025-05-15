@@ -126,31 +126,31 @@
          - Error handling → Custom 404 page
 
          ## Sitemap
-![Sitemap ](docs/sitemap_readme.png)
+![Sitemap ](docs/sitemap-readme.webp)
 
          ----------
 
          ## Database schema
-![Databases schema](docs/database_schema.png)
+![Databases schema](docs/database_schema.webp)
 
          ----------
 
       3.7 Wireframes: 
          Wireframes were created during the planning phase to ensure a user-centered design.
 ## Wireframes
-![Wireframe1](docs/wireframe_1.png)
-![Wireframe2](docs/wireframe_2.png)
-![Wireframe3](docs/wireframe_3.png)
+![Wireframe1](docs/wireframe_1.webp)
+![Wireframe2](docs/wireframe_2.webp)
+![Wireframe3](docs/wireframe_3.webp)
 
       3.8 The Surface Plan
          Visual Elements: 
             Logo: Clean and minimalist logo designed to represent nature and honey.
-![logo](docs/logo.webp)
+![logo](docs/logo.webp | width=100)
 
 
          3.8.1 Color Palette:
          ## Palette colors
-![Palette](docs/palette.png)
+![Palette](docs/palette.webp)
 
          3.8.2 Typography: Simple, elegant, easy-to-read fonts, provided from Google Fonts. 
          
@@ -159,7 +159,7 @@
 
          - Noto Sans (Body text and UI):
             Used for general readability, user interface elements, product descriptions, and other body text. Ensures excellent legibility across devices.
-![Google Fonts](docs/fonts.png)
+![Google Fonts](docs/fonts.webp)
 
          3.8.3 Icons: Font Awesome.
 
@@ -197,7 +197,7 @@
 ![Search](docs/product-list-filters.webp)
 
          - Notifications (on-screen and email): Provided for order confirmations and important events. 
-![notifications](docs/)
+![notifications](docs/messages.webp)
 
 
    *4.2 Pages Overview:*
@@ -285,18 +285,18 @@
       *Facebook Page: Created to demonstrate page view and important information about the business. The "Shop now" call to action is included. 
       
 ## Facebook Page Mockups
-![Facebook Page Mockup Desktop](docs/facebook_mockup.png)
-![Facebook Page Mockup Mobile](docs/facebook_mockup_mobil.png)
+![Facebook Page Mockup Desktop](docs/facebook-mockup-desktop.webp)
+![Facebook Page Mockup Mobile](docs/facebook-mockup-mobil.webp)
 
 
       *Instagram Profile Mockup: Designed for mobile to showcase products, bio, and "Shop" functionality for easy product discovery.
 ## Instagram mockup
-![Instagram Mockup](docs/instagram_mockup.png)
+![Instagram Mockup](docs/insta-mockup.webp)
 
       *YouTube Channel Mockup: Displays how video marketing and educational content about honey products could be used to promote the brand.
 
 ## Youtube chanel mockup
-![Youtube Mockup](docs/youtube_mockup.png)
+![Youtube Mockup](docs/youtube-mockup.webp)
 
 
    *5.2 Search Engine Optimization (SEO)*
@@ -325,8 +325,8 @@
       https://pp5-real-honey-60f1f8b03b81.herokuapp.com/sitemap.xml
 
       *Custom 404 page 
-      - A user-friendly custom 404 page has been implemented for users visiting non-existent URLs, improving UX and avoiding SEO penalties.
-![404](docs/404.webp)
+      - A user-friendly custom 404 page has been implemented for users visiting non-existent URLs, improving UX and avoiding SEO penalties. I tested using /none at the end of the live site URL.
+![404](docs/404-page.webp)
 
 
       *Broken Links Fixed
@@ -336,9 +336,9 @@
       - All pages use clear and meaningful titles to improve indexing and help users understand the content.
 
       *Image Optimization
-
       - All product images are served through Cloudinary with automatic resizing and format optimization.
       - This improves page load speed and Largest Contentful Paint (LCP), which are important SEO ranking factors.
+      - All images for README were resized and converted to Webp. 
 
 
    *5.3 Newsletter Signup
@@ -362,13 +362,11 @@
          - JavaScript syntax warnings are not errors and are safe to ignore, as the project targets ES6+ and runs correctly in all modern browsers. Linter configuration was adjusted using /* jshint esversion: 11 */.
 ![JS-Stripe validation](docs/js-stripe-validator.webp)
 
-
-
-
-
       6.1.2 SEO validation
          - Google Lighthouse was used to validate that meta tags, robots.txt, sitemap.xml, and alt attributes were implemented properly.
          - The site was tested using Lighthouse to ensure compliance with accessibility standards.
+![Lighthouse](docs/lighthouse.webp)
+
 
    *6.2 Testing*
       6.2.1 Manual and automated testing
