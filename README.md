@@ -145,7 +145,9 @@
       3.8 The Surface Plan
          Visual Elements: 
             Logo: Clean and minimalist logo designed to represent nature and honey.
-![logo](docs/logo.webp | width=100)
+<!-- ![logo](docs/logo.webp | width=100) -->
+<img src="docs/logo.webp" alt="logo" width="150" style="margin: 10px 0;" />
+
 
 
          3.8.1 Color Palette:
