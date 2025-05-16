@@ -126,7 +126,11 @@
          - Error handling → Custom 404 page
 
          ## Sitemap
-![Sitemap ](docs/sitemap-readme.webp)
+<!-- ![Sitemap ](docs/sitemap-readme.webp) -->
+<p align="center">
+  <img src="docs/sitemap-readme.webp" alt="sitemap" width="200" />
+</p>
+
 
          ----------
 
@@ -146,9 +150,11 @@
          Visual Elements: 
             Logo: Clean and minimalist logo designed to represent nature and honey.
 <!-- ![logo](docs/logo.webp | width=100) -->
-<img src="docs/logo.webp" alt="logo" width="150" style="margin: 10px 0;" />
 
 
+<p align="center">
+  <img src="docs/logo.webp" alt="logo" width="150" />
+</p>
 
          3.8.1 Color Palette:
          ## Palette colors
@@ -193,7 +199,11 @@
 ![Footer](docs/footer.webp)
 
          - Wishlist management: Consistenly located in the navbar. The users are allowed to save the products for future reference. 
-![Wishlist](docs/wishlist.webp)
+<!-- ![Wishlist](docs/wishlist.webp) -->
+<p align="center">
+  <img src="docs/wishlist.webp" alt="wishlist" width="200" />
+</p>
+
 
          - Search functionality: Keyword search and filters help users find products easily. 
 ![Search](docs/product-list-filters.webp)
@@ -232,7 +242,10 @@
    *4.3 Admin can edit, erase or add products in the live version, not just in admin.
       The CRUD functionality was adapted to be able to Create, Read, Update and Delete products through the live website, not only via Django admin panel. 
 
-![edit product admin](docs/edit-product-admin.webp)
+<!-- ![edit product admin](docs/edit-product-admin.webp) -->
+<p align="center">
+  <img src="docs/edit-product-admin.webp" alt="admin-edit" width="200" />
+</p>
 
       Features: 
          - Add Products: Admin users can access an "Add Products" link in the navigation bar when logged in, allowing them to create new products. The Admin can also add images from desktop. 
@@ -241,7 +254,10 @@
 
          - Delete Product: Products can be safely deleted via a "Delete" button in product list and product detail, with confirmation prompts to prevent accidental removal.
 
-![edit product page admin](docs/edit-product-admin-page.webp)
+<!-- ![edit product page admin](docs/edit-product-admin-page.webp) -->
+<p align="center">
+  <img src="docs/edit-product-admin-page.webp" alt="admin-edit-page" width="200" />
+</p>
 
 
    *4.4 Future Implementations:*
@@ -834,7 +850,7 @@
    * Images
    - https://www.iloveimg.com/
    - https://squoosh.app/
-   - 
+   - Resize in Github/README https://gist.github.com/uupaa/f77d2bcf4dc7a294d109
 
 
    * Python/Django:
