@@ -298,25 +298,39 @@
    This project incorporates several marketing techniques to increase brand visibility, reach the target audience and drive customer engagement across social media, SEO, and newsletter campaigns. The social media links are integrated into the website footer. These mockups were created instead of real social media businesses because of new security measures from Meta. 
 
    *5.1 Social Media Presence:*
-      To simulate real-world social media marketing, mockups of social media pages were created and included in the project. These showcase how the product would be promoted across major platforms:
+      To simulate real-world social media marketing, mockups of social media pages were created and included in the project. For security, facebook doesn't alow fake businesses and accounts. The images were created using DALL-E 
+      These mockups showcase how the product would be promoted across major platforms:
 
       *Facebook Page: Created to demonstrate page view and important information about the business. The "Shop now" call to action is included. 
       
 ## Facebook Page Mockups
-![Facebook Page Mockup Desktop](docs/facebook-mockup-desktop.webp)
-![Facebook Page Mockup Mobile](docs/facebook-mockup-mobil.webp)
+<!-- ![Facebook Page Mockup Desktop](docs/facebook-mockup-desktop.webp) -->
+<p align="center">
+  <img src="docs/facebook-mockup-desktop.webp" alt="facebook-desktop" width="200" />
+</p>
+<!-- ![Facebook Page Mockup Mobile](docs/facebook-mockup-mobil.webp) -->
+<p align="center">
+  <img src="docs/facebook-mockup-mobil.webp" alt="facebook-mobil" width="200" />
+</p>
 
 
       *Instagram Profile Mockup: Designed for mobile to showcase products, bio, and "Shop" functionality for easy product discovery.
 ## Instagram mockup
-![Instagram Mockup](docs/insta-mockup.webp)
+<!-- ![Instagram Mockup](docs/insta-mockup.webp) -->
+<p align="center">
+  <img src="docs/insta-mockup.webp" alt="instagram mockup" width="200" />
+</p>
 
       *YouTube Channel Mockup: Displays how video marketing and educational content about honey products could be used to promote the brand.
 
 ## Youtube chanel mockup
-![Youtube Mockup](docs/youtube-mockup.webp)
+<!-- ![Youtube Mockup](docs/youtube-mockup.webp) -->
+<p align="center">
+  <img src="docs/youtube-mockup.webp" alt="youtube" width="200" />
+</p>
 
-
+   
+   
    *5.2 Search Engine Optimization (SEO)*
 
       *SEO strategies have been implemented across the website to improve visibility in search engines and ensure proper indexing. 
@@ -383,7 +397,11 @@
       6.1.2 SEO validation
          - Google Lighthouse was used to validate that meta tags, robots.txt, sitemap.xml, and alt attributes were implemented properly.
          - The site was tested using Lighthouse to ensure compliance with accessibility standards.
-![Lighthouse](docs/lighthouse.webp)
+<!-- ![Lighthouse](docs/lighthouse.webp) -->
+<p align="center">
+  <img src="docs/lighthouse.webp" alt="lighthouse" width="200" />
+</p>
+
 
 
    *6.2 Testing*
