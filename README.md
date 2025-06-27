@@ -846,6 +846,25 @@
          - command grep -r "http://" showed all the http:// still left in the project. 
             Most of the http:// were located in .venv so I just ignore those. 
 
+   12.4 COUPON FEATURE FIX AFTER PROJECT FEEDBACK: 
+
+       - Invalid Field Access:
+         The original logic referenced a non-existent field coupon.expiry_date, causing a 500 Internal Server Error. This was corrected to use the correct model field coupon.expires_at.
+            
+      - Unsafe Total Calculation:
+         The cart total was previously fetched from the session via request.session.get('cart_total'), which could be missing or outdated. The logic now recalculates the total dynamically from the current cart items for both authenticated and guest users. This ensures accuracy and stability.
+
+      - Long Decimal Discount Display:
+         Discount amounts appeared with excessive decimal places (e.g., 0.9000000000000001). This was resolved by formatting the discount with Django's template filter:
+            {{ coupon_discount|floatformat:2 }}
+            Resulting in a user-friendly display like 0.90.
+
+      - Coupon Persistence Issue:
+         Users could change cart items after applying a coupon, causing inconsistencies. A centralized function invalidate_coupon() now resets the coupon if the cart is updated (add, remove, or quantity change), and users are notified to reapply their code.
+
+      The coupon system is now more robust, accurate, and user-friendly — with clear messages, valid discount calculations, and improved frontend display.
+         
+
 
 **13. Resources for Project Development**
       This project used a variety of resources, including official documentation, Code Institute material, ChatGpt for troubleshooting and Stripe/AWS/Cloudinary setup guidance. There are some comunity tutorials and information from chat groups. 

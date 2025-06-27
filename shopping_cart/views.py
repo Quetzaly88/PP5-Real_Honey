@@ -3,10 +3,18 @@ from django.contrib import messages
 from .models import CartItem
 from products.models import Product, ProductSize
 from django.conf import settings
-from decimal import Decimal  # for decimal calculations
+from decimal import Decimal
 from .models import Coupon
 from django.utils.timezone import now
 
+
+# Function to invalidate coupon on cart changes
+def invalidate_coupon(request):
+    if request.session.get('coupon_applied', False):
+        request.session['coupon_applied'] = False
+        request.session['coupon_discount'] = 0
+        request.session['coupon_code'] = ''
+        messages.info(request, "Cart updated - Please reapply your discount code")
 
 # Function to get cart(logged-in and guest)
 def get_cart_items(request):
@@ -26,7 +34,6 @@ def add_to_cart(request, product_id):
     )
 
     if request.user.is_authenticated:
-        # logged in user saved to database.
         cart_item, created = CartItem.objects.get_or_create(
             user=request.user,
             product=product_size,
@@ -49,6 +56,8 @@ def add_to_cart(request, product_id):
             }
         request.session['cart'] = cart
 
+    invalidate_coupon(request)
+
     messages.success(
         request, f"{product_size.product.name} ({size}) added to your cart.")
     return redirect('product_list')
@@ -60,7 +69,7 @@ def cart_view(request):
         cart_items = CartItem.objects.filter(user=request.user)
         total_price = sum(
             Decimal(item.get_total_price()) for item in cart_items
-        )  # Convert to decimals
+        )
     else:
         cart_items = request.session.get('cart', {})
         total_price = sum(
@@ -68,7 +77,6 @@ def cart_view(request):
             for item in cart_items.values()
         )
 
-    # Delivery Fee logic
     free_delivery_threshold = Decimal(settings.FREE_DELIVERY_THRESHOLD)
     standard_delivery_percentage = Decimal(settings.STANDARD_DELIVERY_PERCENTAGE)
 
@@ -79,11 +87,10 @@ def cart_view(request):
         delivery_fee = (total_price * standard_delivery_percentage / Decimal('100')).quantize(Decimal('0.01'))
         free_delivery_delta = (free_delivery_threshold - total_price).quantize(Decimal('0.01'))
 
-    # Apply coupon discount
     coupon_discount = Decimal(request.session.get('coupon_discount', 0))
     grand_total = (total_price + delivery_fee - coupon_discount).quantize(Decimal('0.01'))
 
-    coupon_applied = request.session.get('coupon_applied', False)
+    # coupon_applied = request.session.get('coupon_applied', False)
 
     return render(request, 'shopping_cart/cart.html', {
         'cart_items': cart_items,
@@ -98,26 +105,25 @@ def cart_view(request):
 # Remove from cart
 def remove_from_cart(request, item_id):
     if request.user.is_authenticated:
-        # Remove item from the database for logged-in users
         cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
         cart_item.delete()
     else:
-        # Remove item from the session for guest users
         cart = request.session.get('cart', {})
         if str(item_id) in cart:
             del cart[str(item_id)]
         request.session['cart'] = cart
 
     messages.success(request, "Item removed from your cart.")
+    invalidate_coupon(request)
+
     return redirect('cart')
 
 
-# Update cart quantity/user story 4
+# Update cart quantity
 def update_cart_quantity(request, item_id):
     if request.method == "POST":
         new_quantity = request.POST.get('quantity', "1")
 
-        # Validate the quantity
         try:
             new_quantity = int(new_quantity)
             if new_quantity < 1:
@@ -127,19 +133,15 @@ def update_cart_quantity(request, item_id):
             return redirect('cart')
 
         if request.user.is_authenticated:
-            # for loged in users
             cart_item = get_object_or_404(
                 CartItem, id=item_id, user=request.user
             )
-            # validate against product stock
             if new_quantity > cart_item.product.stock:
                 messages.error(request, f"Only {cart_item.product.stock} items available.")
                 return redirect('cart')
-
             cart_item.quantity = new_quantity
             cart_item.save()
         else:
-            # for guest users
             cart = request.session.get('cart', {})
             if str(item_id) in cart:
                 product_size = get_object_or_404(
@@ -154,7 +156,7 @@ def update_cart_quantity(request, item_id):
                 messages.error(request, "Item not found in your cart.")
                 return redirect('cart')
 
-            request.session['cart'] = cart
+        invalidate_coupon(request)
 
         messages.success(request, "Cart updated.")
     return redirect('cart')
@@ -165,25 +167,44 @@ def validate_coupon(request):
     if request.method == "POST":
         coupon_code = request.POST.get('coupon_code', '').strip()
         try:
-            # Fetch coupon from the database and validate if it's active
-            coupon = Coupon.objects.get(code=coupon_code, is_active=True)
+            coupon = Coupon.objects.get(code__iexact=coupon_code, is_active=True)
 
-            # Check if the coupon has expired
-            if coupon.expiry_date and coupon.expiry_date < now():
-                messages.error(request, "Coupon has expired.")  # Add message
+            if coupon.expires_at and coupon.expires_at < now():
+                messages.error(request, "Coupon has expired.")
                 request.session['coupon_discount'] = 0
+                request.session['coupon_applied'] = False
                 return redirect('cart')
 
-            # Store the discount value in the session
-            discount_value = (
-                coupon.value if coupon.discount_type == 'fixed'
-                else request.session.get('cart_total', 0) * coupon.value / 100
-            )
-            request.session['coupon_discount'] = discount_value
-            request.session['coupon_applied'] = True  # persists coupon applied state
+            if request.user.is_authenticated:
+                cart_items = CartItem.objects.filter(user=request.user)
+                total_price = sum(
+                    Decimal(item.get_total_price()) for item in cart_items
+                )
+            else:
+                cart_items = request.session.get('cart', {})
+                try:
+                    total_price = sum(
+                        Decimal(item['price']) * item['quantity']
+                        for item in cart_items.values()
+                    )
+                except (KeyError, ValueError, TypeError, InvalidOperation):
+                    messages.error(request, "Cart data is invalid.")
+                    request.session['coupon_discount'] = 0
+                    request.session['coupon_applied'] = False
+                    return redirect('cart')
+
+            if coupon.discount_type == 'fixed':
+                discount_value = coupon.value
+            else:
+                discount_value = (total_price * coupon.value / Decimal('100')).quantize(Decimal('0.01'))
+
+            request.session['coupon_discount'] = float(discount_value)
+            request.session['coupon_applied'] = True
+            request.session['coupon_code'] = coupon.code
             messages.success(request, "Coupon applied.")
         except Coupon.DoesNotExist:
             request.session['coupon_discount'] = 0
-            request.session['coupon_applied'] = False  # reset coupon state
+            request.session['coupon_applied'] = False
+            request.session['coupon_code'] = ''
             messages.error(request, "Invalid coupon code.")
     return redirect('cart')

@@ -100,7 +100,7 @@
     {% endif %}
 
     {% if coupon_discount %}
-    <p><strong>Discount applied:</strong> {{ coupon_discount }}</p>
+    <p><strong>Discount applied:</strong> {{ coupon_discount|floatformat:2 }}</p>
     {% endif %}
 
     <!-- Delivery and Grand Total -->
