@@ -6,7 +6,7 @@ from django.conf import settings
 from decimal import Decimal
 from .models import Coupon
 from django.utils.timezone import now
-
+from django.contrib.auth.decorators import login_required
 
 # Function to invalidate coupon on cart changes
 def invalidate_coupon(request):
@@ -15,6 +15,7 @@ def invalidate_coupon(request):
         request.session['coupon_discount'] = 0
         request.session['coupon_code'] = ''
         messages.info(request, "Cart updated - Please reapply your discount code")
+
 
 # Function to get cart(logged-in and guest)
 def get_cart_items(request):
@@ -64,6 +65,7 @@ def add_to_cart(request, product_id):
 
 
 # View Cart
+@login_required
 def cart_view(request):
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
@@ -103,6 +105,7 @@ def cart_view(request):
 
 
 # Remove from cart
+@login_required
 def remove_from_cart(request, item_id):
     if request.user.is_authenticated:
         cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
@@ -120,6 +123,7 @@ def remove_from_cart(request, item_id):
 
 
 # Update cart quantity
+@login_required
 def update_cart_quantity(request, item_id):
     if request.method == "POST":
         new_quantity = request.POST.get('quantity', "1")
@@ -163,6 +167,7 @@ def update_cart_quantity(request, item_id):
 
 
 # Coupon validation
+@login_required
 def validate_coupon(request):
     if request.method == "POST":
         coupon_code = request.POST.get('coupon_code', '').strip()

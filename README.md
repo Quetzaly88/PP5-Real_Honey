@@ -848,6 +848,8 @@
 
    12.4 COUPON FEATURE FIX AFTER PROJECT FEEDBACK: 
 
+      After receiving project feedback regarding a server error during coupon validation, the coupon system was refactored to ensure reliability, accuracy, and user clarity. The improvements included correcting logic errors, securing dynamic calculations, and enhancing user feedback.
+
        - Invalid Field Access:
          The original logic referenced a non-existent field coupon.expiry_date, causing a 500 Internal Server Error. This was corrected to use the correct model field coupon.expires_at.
             
