@@ -82,6 +82,12 @@ def checkout_view(request):
         amount=int(final_price * 100),
         currency='usd',
         metadata={'integration_check': "accept_a_payment"},
+        payment_method_types=["card"],
+        payment_method_options={
+            "card": {
+                "setup_future_usage": None  # Disables saving with Link
+            }
+        }
     )
 
     # Store the PaymentIntent ID in the session (used for webhook validation)

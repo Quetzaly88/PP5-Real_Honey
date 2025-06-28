@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var stripe = Stripe(stripePublicKey);
+
     var elements = stripe.elements();
+    
     var style = {
         base: {
             color: "#000",
