@@ -887,9 +887,7 @@
          - Is important to restart the server and clean caché and cookiesbefore signing up again. 
 
          This worked fine, the only issue was the succes message that needs to be fixed. Now, I can reuse emails that I used and deleted before. 
-
          
-
 
 **13. Resources for Project Development**
       This project used a variety of resources, including official documentation, Code Institute material, ChatGpt for troubleshooting and Stripe/AWS/Cloudinary setup guidance. There are some comunity tutorials and information from chat groups. 
