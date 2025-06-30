@@ -865,6 +865,29 @@
          Users could change cart items after applying a coupon, causing inconsistencies. A centralized function invalidate_coupon() now resets the coupon if the cart is updated (add, remove, or quantity change), and users are notified to reapply their code.
 
       The coupon system is now more robust, accurate, and user-friendly — with clear messages, valid discount calculations, and improved frontend display.
+
+   12.5 Access Control Improvement:
+      To improve security and consistent user experience the shopping cart has also been restricted to logged-in users only. 
+      - Added @login_required to cart_view(), validate_coupon  (), remove_from_cart(), update_cart_quantity(). Now authenticated users are redirected to the login page if they attempt to view the cart, apply a coupon or alter the cart. 
+      - This change is important to keep consistency as the wishlist, prevents anonymous interaction with cart and coupon logic and ensures the discount codes are tied to verified users only. 
+
+   12.6 Reusing Deleted Emails in Development.
+      When testing user sign-up locally, reusing an email address that was previously registered (and then deleted via Django Admin) can lead to a 500 Internal Server Error. This is caused by leftover entries in the EmailAddress model used by django-allauth, which aren’t always removed when the user is deleted manually.
+      To fix this I used the following commands in the terminal:
+         -  python manage.py shell
+            
+            from django.contrib.auth.models import User
+
+            from allauth.account.models import EmailAddress
+
+         User.objects.filter(email="myemail@example.com").delete()
+
+         EmailAddress.objects.filter(email="myemail@example.com").delete()
+
+         - Is important to restart the server and clean caché and cookiesbefore signing up again. 
+
+         This worked fine, the only issue was the succes message that needs to be fixed. Now, I can reuse emails that I used and deleted before. 
+
          
 
 
