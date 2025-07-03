@@ -31,7 +31,10 @@
 
 12. Issues
 
-13. Resources for Project Development
+13. Resubmission Summary and Changes After Feedback
+
+14. Resources for Project Development
+
 
 
 **1. Project Overview**
@@ -774,7 +777,15 @@
 
    These features could further enhance user experience and business capabilities.
 
-   10.1 
+   10.1 ### Stripe “Autofill with Link” (Local Environment Only)
+
+      During development, Stripe’s “Pay with Link” button continued to appear in the local development environment (`http://127.0.0.1:8000`) even after being disabled in the Stripe Dashboard. This button does not appear in the deployed production version, and all payment functionality works correctly.
+
+      To ensure user experience and security, the “Link” payment method was fully deactivated in the live Stripe configuration by:
+         - Disabling the “Link” digital wallet in the Stripe Dashboard
+         - Turning off “Accelerate saving customer information to Link”
+
+      This issue is considered a harmless local artifact and does not affect the live version of the project. No user-facing changes were necessary. Code institute mentoring chanel ensured me that this won't affect the pass criteria. In the future, this button can be implemented when used for real payments. 
 
 
 **11. User Stories:**
@@ -930,9 +941,29 @@
          This resolved the issue in the Heroku deployed site but not in server http://127.0.0.1:8000/. 
          The "Pay with Link" button no longer appears on the deployed Heroku site.
          Payment functionality remains stable using traditional card input.
-         
 
-**13. Resources for Project Development**
+**13. Resubmission Summary and Changes After Feedback**
+      This project was revised and improved after initial assessment feedback. The following changes were implemented to ensure full compliance with the grading criteria and a high-quality final submission:
+
+         **Coupon Code Bug Fixed**
+      The coupon feature previously caused a 500 Internal Server Error due to an incorrect field reference (coupon.expiry_date). This was corrected by referencing the valid field coupon.expires_at.
+      Additionally, the logic for discount application, coupon validation, and user feedback was restructured to improve accuracy and user experience.
+
+         **Broken Links Resolved**
+      All internal links, including cart, wishlist, and admin-product features were reviewed and tested. No dead or broken links remain.
+
+         **.gitignore Cleaned and Git History Fixed**
+      Tracked virtual environment and system files were removed from version control. A new, clean .gitignore was implemented to exclude files like venv/, __pycache__/, .DS_Store, and others.
+
+         **Local Stripe Development Artifact Noted**
+      The “Pay with Link” button from Stripe still appears on the local development server, even after being disabled in Stripe’s production settings.
+      This is a harmless dev-only artifact and does not appear in the deployed version. A clarification was added to the README (see 12.7).
+
+         **README Updated**         
+      All fixes, deployment processes, and testing methods have been fully documented. A dedicated section for each post-assessment change has been included (see section 12).
+
+
+**14. Resources for Project Development**
       This project used a variety of resources, including official documentation, Code Institute material, ChatGpt for troubleshooting and Stripe/AWS/Cloudinary setup guidance. There are some comunity tutorials and information from chat groups. 
 
    - navbar: https://getbootstrap.com/docs/4.0/components/navbar/
@@ -968,6 +999,7 @@
    - https://docs.djangoproject.com/en/5.1/ref/settings/
 
    * Documentation for Stripe and Decouple: 
+   - https://docs.stripe.com/stripe-cli
    - https://docs.stripe.com/js/payment_intents/confirm_konbini_payment
    - https://dashboard.stripe.com/test/dashboard
    - https://pypi.org/project/python-decouple/
@@ -984,6 +1016,15 @@
    * Documentation for resolve issues found in LIGHTHOUSE:
       - https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/?utm_source=lighthouse&utm_medium=devtools
       - https://community.cloudinary.com/discussion/639/persistent-poor-lcp-largest-contentful-paint-score-in-lighthouse
+
+
+   * Stripe link button deaktivated:
+      - https://dashboard.stripe.com/test/settings/payment_methods/pmc_1Qx93rPIATAs2FVx5G6NgFyi
+      - https://docs.stripe.com/payments/link#disable-link
+
+   * Access Control fixes for cart and wishlist
+      @login_required decorator in Django:  
+      - https://docs.djangoproject.com/en/5.1/topics/auth/default/#the-login-required-decorator  
 
    * Deployment: https://dashboard.heroku.com/
 
