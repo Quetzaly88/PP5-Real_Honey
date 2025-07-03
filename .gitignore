@@ -1,10 +1,45 @@
-.venv
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
 env.py
-*.sqlite3
+
+# Python Cache
+__pycache__/
 *.pyc
-__pycache__
+*.pyo
+*.pyd
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# macOS
 .DS_Store
+
+# Editor settings
+.vscode/
+.idea/
+
+# Environment Variables
 .env
-db.sqlite3staticfiles/
-media/
+.env.py
+
+# Django Static and Media
 staticfiles/
+media/
+static/
+
+
+
+# .venv
+# env.py
+# *.sqlite3
+# *.pyc
+# __pycache__
+# .DS_Store
+# .env
+# db.sqlite3staticfiles/
+# media/
+# staticfiles/
