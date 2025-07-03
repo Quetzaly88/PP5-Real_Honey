@@ -397,11 +397,10 @@
       6.1.2 SEO validation
          - Google Lighthouse was used to validate that meta tags, robots.txt, sitemap.xml, and alt attributes were implemented properly.
          - The site was tested using Lighthouse to ensure compliance with accessibility standards.
-<!-- ![Lighthouse](docs/lighthouse.webp) -->
+
 <p align="center">
   <img src="docs/lighthouse.webp" alt="lighthouse" width="200" />
 </p>
-
 
 
    *6.2 Testing*
@@ -427,6 +426,33 @@
       - Resolved issue of best sellers and featured products not seen in home page. 
       - Reinstallation of Django that was causing problems for lack of compatibility....
 
+   *6.4 Coupon code Testing
+      The coupon logic refactoring (see 12.4), a manual testing was conducted to verify functionality and user experience. 
+      
+      Manual testing confirmed that the coupon system now works reliably across typical user scenarios. All bugs identified in the initial submission have been resolved, and the UX provides helpful feedback for all coupon-related actions.
+
+         Manual Testing: 
+         - Tested coupon code form on the cart page using both valid and invalid codes.
+
+         - Verified that form submission triggers clear user messages:
+
+            Success: "Coupon applied"
+            Failure: "Coupon has expired"
+            Empty input: "Invalid coupon code"
+
+         Cart Updates Post-Coupon:
+
+         - Simulated changes to cart (e.g., changing quantity, removing items) after applying a coupon.
+
+         - Confirmed that coupons are invalidated automatically and the user is notified to reapply.
+
+         - Verified dynamic total recalculation after discount or cart changes.
+
+      Authentication Handling:
+
+         - Verified that only logged-in users can access the cart and apply coupons.
+
+         - Non-authenticated users are redirected to login when trying to access cart or coupon functionality.
 
    *6.4 Python Code Validation*
       **[Flake8](https://flake8.pycqa.org/)** 
@@ -748,6 +774,8 @@
 
    These features could further enhance user experience and business capabilities.
 
+   10.1 
+
 
 **11. User Stories:**
    User stories were created and managed using GitHub Projects to guide the development process and ensure that all the steps are created in order. 
@@ -887,6 +915,21 @@
          - Is important to restart the server and clean caché and cookiesbefore signing up again. 
 
          This worked fine, the only issue was the succes message that needs to be fixed. Now, I can reuse emails that I used and deleted before. 
+
+   12.7 Broken link "Pay with Link":
+      After receiving the project feedback, "broken links" were mentioned. The broken link found was the Stripe's Link digital wallet feature. When "Pay with Link" was clicked the button led to an external Stripe-hosted page displaying: "Something went wrong. Close the window and try again using a different payment method." 
+
+      To prevent this from impacting users or triggering broken behavior:
+
+         - Logged in to the Stripe Dashboard for the live (production) environment.
+
+         - Deactivated the “Link” payment method from the list of active digital wallets.
+
+         - Disabled “Accelerate saving customer information to Link” to remove the prompt entirely.
+
+         This resolved the issue in the Heroku deployed site but not in server http://127.0.0.1:8000/. 
+         The "Pay with Link" button no longer appears on the deployed Heroku site.
+         Payment functionality remains stable using traditional card input.
          
 
 **13. Resources for Project Development**
